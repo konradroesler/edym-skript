@@ -89,7 +89,7 @@ Diese (naive) Zeitabhängigkeit ist empirisch falsch und im Widerspruch zur (spe
 
 $-->$ Maxwell's Theorie, kompatibel mit SR
 
-== PLan der Vorlesung
+== Plan der Vorlesung
 
 1. Wiederholung
   - Euklidische Geometrie im $RR^3$, Vektoranalysis (Differentialformen)
