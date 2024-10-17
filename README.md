@@ -10,5 +10,5 @@ z.B. Elektrodynamik, Torsten Fließbach, erhältlich als pdf über Springer Link
 
 ## Änderungen
 
-Verbesserungen sind explizit erwünscht. Wer sich mit github auskennt kann das repo forken und einen pull request erstellen oder ein issue auf ithub erstellen. Sonst bin ich über meine hu mail, whatsapp oder discord erreichbar.
+Verbesserungen sind explizit erwünscht. Wer sich mit github auskennt kann das repo forken und einen pull request erstellen oder ein issue auf github erstellen. Sonst bin ich über meine hu mail, whatsapp oder discord erreichbar.
 
