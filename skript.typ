@@ -100,3 +100,165 @@ $-->$ Maxwell's Theorie, kompatibel mit SR
   1. Elektrostatik
   2. Magnetostatik
   3. Elektro- und Magnetostatik in Materie
+
+#pagebreak()
+
+= Wiederholung: Vektoranalysis im $RR^3$
+
+Der euklidische $RR^3$: $arrow(x) = arrow(r) = (x^1, x^2, x^3) = (x^i), quad i = 1,2,3$
+
+#underline[Metrik:]
+$
+ip(arrow(x)_1 - arrow(x)_2, arrow(x)_1 - arrow(x)_2) = abs(arrow(x)_1 - arrow(x)_2)^2 = sum_(i = 1)^3 (x_1^i - x_2^i)(x_1^i - x_2^i)
+$
+
+Geometrie invariant unter Rotationen
+$
+x^i --> x'^i = sum_(j = 1)^3 R^i_j x^j underbrace(=, "Einstein Konvention") R^i_j x^j
+$
+$
+abs(arrow(x))^2 = delta_(i j) x^i x^j quad "wobei" delta_(i j) = cases(1 quad i = j, 0 quad i != j)
+$
+$
+abs(arrow(x)')^2 &= delta_(i j) x'^i x'^j = delta_(i j) R^i_k x^k R^j_l x^l \
+&= (delta_(i j) R^i_k R^j_l) x^k x^l = abs(arrow(x))^2 = delta_(k l) x^k x^l
+$
+$
+==> delta_(i j) R^i_k R^j_l = delta_(k l)
+$
+Matrix-Notation: $R = (R^i_j), bb(1) = (delta_(i j))$
+$
+delta_(k l) = R^i_k delta_(i j) R^j_l ==> bb(1) = R^T R \
+==> det(R) = plus.minus 1
+$
+Rotationsgruppe: $"SO"(3): det(R) = +1$
+
+---
+
+Im $RR^3$ hat man das #bold[Kreuz-Produkt]
+
+Epsilon-Tensor / Levi-Civita-Symbol
+
+$
+epsilon^(i j k), epsilon_(i j k): quad epsilon^(1 2 3) = - epsilon^(2 1 3) = epsilon^(2 3 1) = 1
+$
+total antisymmetrisch, da $epsilon^(1 1 2) = 0 = - epsilon^(1 1 2)$
+
+$==>$ invariant unter Rotation / $"SO"(3)$
+
+$
+epsilon^(i j k) --> R^i_m R^j_n R^K_l epsilon^(m n l) underbrace(=, det(R) = 1) epsilon^(i j k)
+$
+Im euklidischen $RR^3$ darf man nur folgende Objekte benutzen:
+$
+delta_(i j), delta^(i j), epsilon^(i j k), epsilon_(i j k)
+$
+#underline[Skalarprodukt:] $ip(arrow(x), arrow(y)) = delta_(i j) x^i y^j$ 
+
+#underline[Kreuzprodukt:] $arrow(u) times arrow(v) = - arrow(v) times arrow(u), (arrow(u) times arrow(v))^i := delta^(i l) epsilon_(l j k) u^j v^k$
+
+#underline[Skalare/Funktionen auf $RR^3$:] $F = F(arrow(x)) in RR$
+
+#underline[Vektorfeld auf RR^3:] $arrow(V) = arrow(V)(arrow(x))$
+
+#underline[Gradient:] $diff_i := diff/(diff x^i)$, Skalar $-->$ Vektor 
+$
+arrow(nabla) = "grad" F, quad ("grad" F)^i = delta^(i j) diff_j F = ((diff F)/(diff x^1), (diff F)/(diff x^2), (diff F)/(diff x^3))
+$
+
+#underline[Divergenz:] Vektor $-->$ Skalar
+$
+div(arrow(V)) &= arrow(nabla) dot arrow(V) = diff_i V^i \
+&= (diff V^1)/(diff x^1) + (diff V^2)/(diff x^2) + (diff V^3)/(diff x^3)
+$
+
+#let grad = $g r a d$
+#let rot = $r o t$
+#let div = $d i v$
+
+#underline[Rotation:] Vektor $-->$ Vektor
+$
+rot(arrow(V)) = arrow(nabla) times arrow(V) ==> (rot V)^i = epsilon^(i j k) diff_j V_k 
+$
+
+$
+"Skalare" -->^grad "Vektoren" -->^rot "Vektoren" -->^div "Skalare"
+$
+Identitäten (Kettenkomplex):
+$
+rot compose grad = 0 \
+div compose rot = 0
+$
+
+#bold[Differentialformen im $RR^3$:]
+
+- #underline[0-Formen:] Skalar
+
+- #underline[1-Formen:] "dual" zu Vektoren, $A_i (arrow(x))$
+$
+"[ Im Euklidischen: " V_i (arrow(x)) = delta_(i j) V^j (arrow(x)) "]"
+$
+
+- #underline[2-Formen:] Antisymmetrischer Tensor
+$
+B_(i j) (arrow(x)) = - B_(i j) (arrow(x))
+$
+
+- #underline[3-Formen:] $C_(i j k) (arrow(x)) = - C_(i k j) (arrow(x)) = ...$ (wie Levi-Civita)
+
+#underline[Effiziente indexfreie Notation:] Basis-Elemente $d x^i$
+
+- 1-Form: $A = A_i (x) d x^i$
+- 2-Form: $B = 1/2 B_(i j) (arrow(x)) d x^i and d x^j$
+- 3-Form: $C = 1/3! C_(i j k) d x^i and d x^j and d x^k$
+
+wobei $d x^i and d x^j = - d x^j and d x^i$
+
+#bold[Wedge Product:]
+$
+A and B = (A_i d x^i) and (1/2 B_(j k) d x^j and d x^k) = 1/2 A_i B_(j k) d x^i and d x^j and d x^k "(3-Form)"
+$
+
+$p$-Form $A$, $q$-Form $B$ 
+$
+==> A and B (p+q)-"Form" \
+A and B = (-1)^(p q) B and A "(gradiert Kommutativ)" \
+(A and B) and C = A and (B and C) "(assoziativ)"
+$
+
+#underline[deRham Differntial:]
+$
+d := diff_i d x^i and
+$
+Beispiel: 
+$
+d A &= d (A_j d x^j) \
+&= diff_i d x^i and (A_j d x^j) \
+&= diff_i A_j d x^i and d x^j \ 
+&= 1/2 (diff i A_j - diff_j A_i) underbrace(d x^i and d x^j, - d x^j and  d x^i)
+$
+
+$Omega^p:$ $p$-Formen, $d: Omega^p --> Omega^(p+1)$, $d^2 = 0$ (Übungsaufgabe)
+
+#underline[Hodge Operator:]
+$
+star: Omega^p <--> Omega^(3-p) \
+star: Omega^1 <--> Omega^(2) \
+star: Omega^3 <--> Omega^(0) \
+$
+$A$ ist 1-Form, $B$ ist 2-Form, $C$ ist 3-Form
+$
+star A &= 1/2 epsilon_(i j)^k A_k d x^i and d x^j \
+star B &= 1/2 epsilon_i^(j k) B_(j k) d x^i \
+star C &= 1/3! epsilon^(i j k) C_(i j k)
+$
+Wir erweitern das Diagramm von vorher:
+$
+&"Skalare" -->^grad &"Vektoren" -->^rot &"Vektoren" -->^div &"Skalare" \
+&arrow.b.t &arrow.b.t &arrow.b.t &arrow.b.t \
+&Omega^0 -->^d &Omega^1 -->^d &Omega^2 -->^d &Omega^3
+$
+Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
+$
+d^2 = 0 <==> rot compose grad = 0, div compose rot = 0
+$
