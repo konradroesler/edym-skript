@@ -254,9 +254,9 @@ star C &= 1/3! epsilon^(i j k) C_(i j k)
 $
 Wir erweitern das Diagramm von vorher:
 $
-&"Skalare" -->^grad &"Vektoren" -->^rot &"Vektoren" -->^div &"Skalare" \
-&arrow.b.t &arrow.b.t &arrow.b.t &arrow.b.t \
-&Omega^0 -->^d &Omega^1 -->^d &Omega^2 -->^d &Omega^3
+&"Skalare" -->^grad "Vektoren" -->^rot "Vektoren" -->^div "Skalare" \
+&arrow.b.t i d #h(1.6cm) arrow.b.t ♡ #h(1.9cm) arrow.b.t star, ♡ #h(1.5cm) arrow.b.t star\
+&Omega^0 #h(1cm) -->^d Omega^1 #h(1.35cm) -->^d Omega^2 #h(1.35cm) -->^d Omega^3
 $
 Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
 $

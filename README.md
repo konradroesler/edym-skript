@@ -6,7 +6,7 @@ Mitschriften aus der Elektrodynamik Vorlesung mit typst.
 
 Das Skript enthält ziemlich genau das, was an die Tafel geschrieben wird, was etwas sparsam ist. Für ausführliche Erklärungen verweise ich auf die im moodle Kurs verwiesene Literatur.
 
-z.B. Elektrodynaim, Torsten Fließbach, erhältlich als pdf über Springer Link und der hu
+z.B. Elektrodynamik, Torsten Fließbach, erhältlich als pdf über Springer Link und der hu
 
 ## Änderungen
 
