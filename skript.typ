@@ -166,15 +166,15 @@ $
 arrow(nabla) = "grad" F, quad ("grad" F)^i = delta^(i j) diff_j F = ((diff F)/(diff x^1), (diff F)/(diff x^2), (diff F)/(diff x^3))
 $
 
+#let grad = $g r a d$
+#let rot = $r o t$
+#let div = $d i v$
+
 #underline[Divergenz:] Vektor $-->$ Skalar
 $
 div(arrow(V)) &= arrow(nabla) dot arrow(V) = diff_i V^i \
 &= (diff V^1)/(diff x^1) + (diff V^2)/(diff x^2) + (diff V^3)/(diff x^3)
 $
-
-#let grad = $g r a d$
-#let rot = $r o t$
-#let div = $d i v$
 
 #underline[Rotation:] Vektor $-->$ Vektor
 $
@@ -208,8 +208,8 @@ $
 
 #underline[Effiziente indexfreie Notation:] Basis-Elemente $d x^i$
 
-- 1-Form: $A = A_i (x) d x^i$
-- 2-Form: $B = 1/2 B_(i j) (arrow(x)) d x^i and d x^j$
+- 1-Form: $A = A_i d x^i$
+- 2-Form: $B = 1/2 B_(i j) d x^i and d x^j$
 - 3-Form: $C = 1/3! C_(i j k) d x^i and d x^j and d x^k$
 
 wobei $d x^i and d x^j = - d x^j and d x^i$
@@ -235,7 +235,7 @@ $
 d A &= d (A_j d x^j) \
 &= diff_i d x^i and (A_j d x^j) \
 &= diff_i A_j d x^i and d x^j \ 
-&= 1/2 (diff i A_j - diff_j A_i) underbrace(d x^i and d x^j, - d x^j and  d x^i)
+&= 1/2 (diff_i A_j - diff_j A_i) underbrace(d x^i and d x^j, - d x^j and  d x^i)
 $
 
 $Omega^p:$ $p$-Formen, $d: Omega^p --> Omega^(p+1)$, $d^2 = 0$ (Übungsaufgabe)
