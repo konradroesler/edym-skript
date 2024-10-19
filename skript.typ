@@ -168,10 +168,6 @@ $
 arrow(grad)F = "grad" F, quad ("grad" F)^i = delta^(i j) diff_j F = (pdv(F,x^1), pdv(F,x^2), pdv(F,x^3))
 $
 
-/* #let grad = $"grad"$ // omg
-#let rot = $"rot"$
-#let div = $"div"$ */
-
 #underline[Divergenz:] Vektor $-->$ Skalar
 $
 "div" arrow(V) &= div arrow(V) = diff_i V^i \
