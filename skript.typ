@@ -1,3 +1,5 @@
+#import "@preview/physica:0.9.3": *
+
 #import "utils.typ": *
 #import "template.typ": uni-script-template
 #show: doc => uni-script-template(
@@ -72,7 +74,7 @@ $
 $
 $arrow(x)_i (t), quad i = 1, ..., N quad$ diskrete Zahl an freiheitsgrade $= 3N$
 
-$-->$ Elektrondynamik $arrow(E)(t, arrow(x)), arrow(B)(t, arrow(x))$
+$-->$ Elektrodynamik $arrow(E)(t, arrow(x)), arrow(B)(t, arrow(x))$
 
 Betrachte ein Kraftfeld, erzeugt durch $N$ Punktladungen $q_i, 1 = 1, ..., N$ wirkend auf eine Testladung $abs(q) << abs(q_i)$
 $
@@ -161,33 +163,33 @@ $
 
 #underline[Vektorfeld auf RR^3:] $arrow(V) = arrow(V)(arrow(x))$
 
-#underline[Gradient:] $diff_i := diff/(diff x^i)$, Skalar $-->$ Vektor 
+#underline[Gradient:] $diff_i := pdv(,x^i)$, Skalar $-->$ Vektor 
 $
-arrow(nabla) = "grad" F, quad ("grad" F)^i = delta^(i j) diff_j F = ((diff F)/(diff x^1), (diff F)/(diff x^2), (diff F)/(diff x^3))
+arrow(grad)F = "grad" F, quad ("grad" F)^i = delta^(i j) diff_j F = (pdv(F,x^1), pdv(F,x^2), pdv(F,x^3))
 $
 
-#let grad = $g r a d$
-#let rot = $r o t$
-#let div = $d i v$
+/* #let grad = $"grad"$ // omg
+#let rot = $"rot"$
+#let div = $"div"$ */
 
 #underline[Divergenz:] Vektor $-->$ Skalar
 $
-div(arrow(V)) &= arrow(nabla) dot arrow(V) = diff_i V^i \
-&= (diff V^1)/(diff x^1) + (diff V^2)/(diff x^2) + (diff V^3)/(diff x^3)
+"div" arrow(V) &= div arrow(V) = diff_i V^i \
+&= pdv(V^1,x^1) + pdv(V^2,x^2) + pdv(V^3,x^3)
 $
 
 #underline[Rotation:] Vektor $-->$ Vektor
 $
-rot(arrow(V)) = arrow(nabla) times arrow(V) ==> (rot V)^i = epsilon^(i j k) diff_j V_k 
+"rot" arrow(V) = curl arrow(V) ==> ("rot" V)^i = epsilon^(i j k) diff_j V_k 
 $
 
 $
-"Skalare" -->^grad "Vektoren" -->^rot "Vektoren" -->^div "Skalare"
+"Skalare" -->^"grad" "Vektoren" -->^"rot" "Vektoren" -->^"div" "Skalare"
 $
 Identitäten (Kettenkomplex):
 $
-rot compose grad = 0 \
-div compose rot = 0
+"rot" compose "grad" = 0 \
+"div" compose "rot" = 0
 $
 
 #bold[Differentialformen im $RR^3$:]
@@ -196,7 +198,7 @@ $
 
 - #underline[1-Formen:] "dual" zu Vektoren, $A_i (arrow(x))$
 $
-"[ Im Euklidischen: " V_i (arrow(x)) = delta_(i j) V^j (arrow(x)) "]"
+"[Im Euklidischen: " V_i (arrow(x)) = delta_(i j) V^j (arrow(x)) "]"
 $
 
 - #underline[2-Formen:] Antisymmetrischer Tensor
@@ -208,27 +210,27 @@ $
 
 #underline[Effiziente indexfreie Notation:] Basis-Elemente $d x^i$
 
-- 1-Form: $A = A_i d x^i$
-- 2-Form: $B = 1/2 B_(i j) d x^i and d x^j$
-- 3-Form: $C = 1/3! C_(i j k) d x^i and d x^j and d x^k$
+- 1-Form: $A = A_i dd(x^i)$
+- 2-Form: $B = 1/2 B_(i j) dd(x^i,x^j,p:and)$
+- 3-Form: $C = 1/3! C_(i j k) dd(x^i,x^j,x^k,p:and)$
 
-wobei $d x^i and d x^j = - d x^j and d x^i$
+wobei $dd(x^i,x^j,p:and) = - dd(x^j,x^i,p:and)$
 
 #bold[Wedge Product:]
 $
-A and B = (A_i d x^i) and (1/2 B_(j k) d x^j and d x^k) = 1/2 A_i B_(j k) d x^i and d x^j and d x^k "(3-Form)"
+A and B = (A_i dd(x^i)) and (1/2 B_(j k) dd(x^j,x^k,p:and)) = 1/2 A_i B_(j k) dd(x^i,x^j,x^k,p:and) "(3-Form)"
 $
 
 $p$-Form $A$, $q$-Form $B$ 
 $
-==> A and B (p+q)-"Form" \
+==> A and B /* space */ "ist" (p+q)-"Form" \
 A and B = (-1)^(p q) B and A "(gradiert Kommutativ)" \
 (A and B) and C = A and (B and C) "(assoziativ)"
 $
 
-#underline[deRham Differntial:]
+#underline[deRham Differential:]
 $
-d := diff_i d x^i and
+d := diff_i dd(x^i) and
 $
 Beispiel: 
 $
@@ -254,11 +256,11 @@ star C &= 1/3! epsilon^(i j k) C_(i j k)
 $
 Wir erweitern das Diagramm von vorher:
 $
-&"Skalare" -->^grad "Vektoren" -->^rot "Vektoren" -->^div "Skalare" \
+&"Skalare" -->^"grad" "Vektoren" -->^"rot" "Vektoren" -->^"div" "Skalare" \
 &arrow.b.t i d #h(1.6cm) arrow.b.t ♡ #h(1.9cm) arrow.b.t star, ♡ #h(1.5cm) arrow.b.t star\
 &Omega^0 #h(1cm) -->^d Omega^1 #h(1.35cm) -->^d Omega^2 #h(1.35cm) -->^d Omega^3
 $
 Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
 $
-d^2 = 0 <==> rot compose grad = 0, div compose rot = 0
+d^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
 $
