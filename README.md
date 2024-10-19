@@ -4,7 +4,7 @@ Mitschriften aus der Elektrodynamik Vorlesung mit typst.
 
 ## Disclaimer
 
-Das Skript enthält ziemlich genau das, was an die Tafel geschrieben wird, was etwas sparsam ist. Für ausführliche Erklärungen verweise ich auf die im moodle Kurs verwiesene Literatur.
+Das Skript enthält ziemlich genau das, was an die Tafel geschrieben wird, also nicht viel. Für ausführliche Erklärungen verweise ich auf die im moodle Kurs verwiesene Literatur.
 
 z.B. Elektrodynamik, Torsten Fließbach, erhältlich als pdf über Springer Link und der hu
 
