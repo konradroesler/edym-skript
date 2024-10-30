@@ -19,7 +19,7 @@ $arrow.long$ Trägheit + Gravitation
 
 Newtonsche Bew. gl.: $arrow(F) = m dot arrow(a)$, $arrow(F) = G dot (M dot m)/r^2 arrow(e)_r$ wobei $underbrace(arrow(r),"Ort") underbrace((t), "Zeit") ==> arrow(a) = (d^2 arrow(r))/(d t^2) = dot.double(arrow(r))$  
 
-#align(center, italic[(Abbildung eines Massepunktes in 2D)])
+comment(Zeichung 2D system mit massepunkt, e eingezeichnet)
 
 Lagrange-Funktion:
 
@@ -49,7 +49,7 @@ $
 arrow(F)_1 = k dot q_1 q_2 (arrow(r)_1 - arrow(r)_2)/abs(arrow(r)_1 - arrow(r)_2)^3 = - arrow(F)_2
 $
 
-#align(center, italic[(Abbildung Coloumbgesetz zwischen zwei Teilchen)])
+comment(Zeichung zweier Punktteilchen, Coloumbgesetz geometrisch)
 
 $q_1 q_2 > 0$ (Ladungen haben dasselbe Vorzeichen) $==>$ abstoßend
 
@@ -85,7 +85,7 @@ eine fixierte Ladung an $arrow(x)_1$
 $
 arrow(E)(arrow(x) #text(fill: red)[$, t$]) = 1/(4 pi epsilon_0) q_1 (arrow(x) - arrow(x)_1 #text(fill: red)[$(t)$])/abs(arrow(x) - arrow(x)_1 #text(fill: red)[$(t)$])^3
 $
-#align(center, italic[(Abbildung einer Ladung als Punktteilchen)])
+comment(Zeichung Punktteilchen, Ladung)
 
 Diese (naive) Zeitabhängigkeit ist empirisch falsch und im Widerspruch zur (speziellen) Relativitätstheorie (SR)
 
@@ -430,128 +430,5 @@ $
 ==> dd(B) = diff_i V^i dd(x)^3, V^i := 1/2 epsilon^(i j k) B_(k j) \
 ==> integral_V dd(B) = integral_V diff_i V^i dd(x)^3 = integral_M div(arrow(V)) dd(x)^3 =^"Gauss" integral.cont_(diff V) arrow(V) dot arrow(dd(Sigma)) = integral_(diff M) B
 $
-Konsistenz mit $"div" compose "rot" = 0, ..., dd^2 = 0$
+Konsistenz mit $upright("div") compose "rot" = 0, ..., dd^2 = 0$
 
-$M = diff M' ==> diff M = 0 quad [diff diff = 0]$
-
-$A = dd(C) ==> 0 = integral_M dd(A) = integral_(diff M) dd(C) ==> dd(A) = upright("d")^2 (A)$
-
-#bold[Koordinatenwechsel:]
-$
-integral_V F(arrow(x)) dd(x)^3 = 1/3! integral_V F(arrow(x)) epsilon_(i j k) dd(x^i, x^j, x^k, p:and)
-$
-$-->$ neue Koordinaten $va(w): va(x) = va(x)(va(w))$
-$
-x_1 = x_1(w_1, w_2, w_3), w_1 = w_1(x_1, x_2, x_3) \
-dots.v 
-$
-Es gilt 
-$
-dd(x^i) = pdv(x^i, w^j) dd(w^j)
-$
-$
-integral_V F(arrow(x)) dd(x)^3 = integral_V F(va(x)(va(w))) 1/3! epsilon_(i j k) pdv(x^i, w^l) pdv(x^j, w^m) pdv(x^k, w^n) underbrace(dd(w^l, w^m, w^n, p:and), = epsilon^(l m n) dd(w^1, w^2, w^3, p:and))
-$
-$= det(J)$
-
-#bold[Jacobi-Matrix:] 
-$
-tensor(J, -i, +j) = (pdv(x^j, w^i))
-$
-$
-==> dd(x)^3 = abs(det(J)) dd(x)^3
-$
-
-#pagebreak()
-
-= Spezielle Relativitätstheorie
-
-#bold[Raumzeit:] Raum und Zeit vereingit in einem vierdimensionalen Raum
-
-Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
-
-Literaturempfehlung: Robert Geroch, General Relativity from A to B
-
-#align(center, italic[Abbildung der Raumzeit in 3D])
-
-Struktur der Raumzeit?
-
-#bold[Aristotelische Raumzeit:] 
-
-Folgende fragen sind bedeutungsvoll
-1. Finden zwei Ereignisse am selben Ort statt?
-2. Finden zwei Ereignisse zur selben Zeit statt?
-
-#align(center, italic[Abbildung der Aristotelischen Raumzeit])
-
-Antworten:
-1. Ereignisse liegen in der selben senkrechten Ebene
-1. Ereignisse liegen in der selben 3D-Ebene
-
-Es gilt das Prinzip der "absoluten Ruhe".
-
-#bold[Galileische Raumzeit:]
-
-#align(center, italic[Abbildung der Galileischen Raumzeit])
-
-"Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
-
-Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
-
-Aber: Der räumliche Abstand #underline[zur selben Zeit] ist absolut.
-
-$==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
-
-#bold[Minkowski Raum:]
-
-$RR^4: x^mu = (c t, x, y, z), mu = 0, 1, 2, 3 equiv (x^0, x^i), i = 1, 2,3$. Dabei ist $c$ die Lichtgeschwindigkeit [$c=1$ in bestimmen Einheiten, z.B. räumliche Koordinaten in Lichtjahren und $t$ in Jahren]
-
-#bold[Minkowski-Metrik:] "pseudo-euklidische Metrik"
-$
-eta_(mu nu) := diagonalmatrix(1,-1,-1,-1,fill:0) = eta^(mu nu)
-$
-
-Raumzeit-Intervall/Abstand zwischen zwei Punkten mit Koordinatendifferenz $Delta x^mu$
-$
-Delta s^2 &:= eta_(mu nu) Delta x^mu Delta x^v \
-&= (Delta x^0)^2 - (Delta x^1)^2 - (Delta x^2)^2 - (Delta x^3)^2 \
-&= c^2 (Delta t)^2 - (Delta arrow(x))^2
-$
-Infinitesimal: $dd(s)^2 = eta_(mu nu) dd(x^mu, x^nu) = c^2 dd(t)^2 - (dd(va(x))^2$
-
-#bold[Vektoren im Minkowski-Raum $RR^(3, 1)$:]
-
-$V^mu$: 4er-Vektor/"kontravarianter" Vektor
-
-Minkowski-Norm: $V^2 = ip(V, V) = eta_(mu, nu) V^mu V^nu equiv V_mu V^mu$ wobei "index herunter gezogen" zum "kontravarianten" Vektor ("co-Vektor")
-$
-V_mu := eta_(mu nu) V^nu = (v^0, -v^1, -v^2, -v^3)
-$
-Hochziehen von Indizes: $V^mu = eta^(mu nu) V_nu$
-
-Notationsoptionen:
-$
-ip(V, W) = eta_(mu nu) V^mu W^nu = V_mu W^mu = V^mu W_mu
-$
-
-#align(center, italic[Abbildung des Lichtkegels in 3D])
-
-$x^mu x_mu = 0$ heißt #bold[lichtartig]
-
-$x^mu x_mu > 0$ heißt #bold[zeitartig]
-
-$x^mu x_mu < 0$ heißt #bold[raumartig] 
-
-Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
-
-== Lichtstrahlen und Uhren
-
-#bold[Postulat 1:] Weltlinien von Lichtstrahlen sind Kurven (= Gerade) auf der Oberfläche des Lichtkegels.
-
-
-#bold[Postulat 2:] Weltlinien von massiven Objekten/Beobachtern sind zeitartige Kurven
-
-#bold[Postulat 3:] Die Zeit, die ein Beobachter entlang seiner Weltlinie"misst", ist 
-$
-T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
-$
