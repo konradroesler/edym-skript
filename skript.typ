@@ -555,3 +555,100 @@ Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
 $
 T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
 $
+Physikalische Interpretation von zwei Ereignissen $p$ und $q$ mit raumartigen Intervall.
+
+#align(center, italic[Abbildung])
+
+#underline[Behauptung:] $Delta s^2 = - c^2 T_1 T_2 < 0$, $Delta s^2:$ Intervall/Abstand zwischen $p$ und $q$
+
+#italic[Beweis:] Wähle Ruhesystem des Beobachters.
+$
+Delta x = c/2 (T_1 + T_2), c Delta t = -c/2 (T_1 - T_2) \ 
+$
+$
+==> Delta s^2 &= c^2 (Delta t)^2 - (Delta x)^2 \
+&= c^2 /4 (T_1 - T_2)^2 - c^2 /4 (T_1 + T_2)^2 \
+&= -c^2 T_1 T_2
+$
+#align(center, italic[Abbildung])
+
+#bold[Zwillingsparadox:] Zeit von $A$: $T_A = T$. Zeit von $B$: $c T_B = 2 sqrt(c^2 (T/2)^2 - Delta x^2)$
+$
+==> T_B^2 = 4 (T^2 /4 - (Delta x^2) / c^2) = T_A^2 - 4 (Delta x^2)/c^2 \
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+$
+==> T_B < T_A
+$
+])
+Die Eigenzeit entlang von Geraden ist maximal.
+
+#bold[Lorentz-Transformation/Symmetrie von Minkowski]
+== Lorentz-Transformation/Symmetrie von Minkowski
+
+$x^mu --> x'^mu = tensor(Lambda, +mu, -nu) dot x^nu$
+
+#bold[4-Vektoren:] $V^mu --> V'^mu = tensor(Lambda, +mu, -nu) dot V^nu$ ("kontravarianter Vektor")
+
+#bold[co-Vektor:] $W_mu --> W'_mu = tensor((Lambda^(-1)), +nu, -mu) W_nu$
+$
+V^mu W_mu -->  V'^mu W'_mu &= tensor(Lambda, +mu, -nu) V^nu tensor((Lambda^(-1)),+rho,-mu) W_rho \
+&= tensor((Lambda^(-1)), +rho, -mu) tensor(Lambda, +mu, -nu) V^nu W_rho \
+&= underbrace(tensor((Lambda^(-1) dot Lambda), +rho, -nu), tensor(delta, +rho, -nu)) dot V^nu W_delta \
+&= V^nu W_nu
+$
+
+Analog für höhere Tensoren
+$
+T^(mu nu) &--> T'^(mu nu) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma) T^(rho sigma) \
+tensor(L, +mu, -nu) &--> tensor(L', +mu, -nu) = tensor(Lambda, +mu, -rho) tensor((Lambda^(-1)), +sigma, -nu) tensor(L, +rho, -sigma) "etc."
+$
+
+#bold[Lorentz-Gruppe:] Symmetrie von Minkowski
+$
+eta'_(mu nu) := tensor((Lambda^(-1)), +rho, -mu) tensor((Lambda^(-1)), +sigma, -nu) eta_(rho sigma) =^! eta_(mu nu) &<==> eta_(rho sigma) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma) eta_(mu nu) \
+&<==> eta = Lambda^T eta Lambda
+$
+$
+==> det(eta) = det(Lambda^T) det(eta) det(Lambda) \
+<==> 1 = det(Lambda)^2 <==> det(Lambda) = plus.minus 1
+$
+$
+S O(1, 3) := { 1 in G L(4) | eta = Lambda^T eta Lambda, det(Lambda) = plus.minus 1 }
+$
+
+#bold[Beispiele:] $x^2 = x^3 = 0 quad x^mu --> x'^mu = (c t', x', 0, 0)$
+
+Bestimme alle Transformationen, so dass $(c t')^2 - (x')^2 = (c t)^2 - x^2$
+
+$-->$ Übungsaufgabe
+
+Welche Transformationen sind möglich?
+
+#align(center, italic[Abbildung])
+
+#bold[Physikalische Freiheitsgrade in SR]
+
+1. Punktteilchen (elektrische Ladungen, ...)
+2. Felder (elektrisches/magnetisches Feld)
+
+#align(center, italic[Abbildung])
+
+$
+Delta s_i = sqrt(eta_(mu nu) Delta x_i^mu Delta x_i^nu) \
+s(p, q) = sum_i Delta s_i = sum_i sqrt(eta_(mu nu) Delta x_i^mu Delta x_i^nu) \
+$
+$
+s(p, q) = integral_C dd(s) := integral_a^b sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
+$
+Zeitartig: $dot(x)^2 = eta_(mu nu) dot(x)^mu dot(x)^nu > 0$
+
+#bold[Eigenzeit:] $T = 1/c integral dd(s) = 1/c integral dd(lambda) sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu,lambda))$
+
+Bewegungsgleichung für freies Teilchen?
+
+$-->$ Wirkung
+$
+S[x(lambda)] = -m c integral dd(s) = - m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu,lambda)) dd(lambda)
+$
+klassische Mechanik: $S = integral dd(t) 1/2 m dot(q)^2 plus.minus ...$ und $[S] = "Zeit" dot "Energie"$
