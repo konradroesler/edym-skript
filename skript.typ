@@ -652,3 +652,146 @@ $
 S[x(lambda)] = -m c integral dd(s) = - m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu,lambda)) dd(lambda)
 $
 klassische Mechanik: $S = integral dd(t) 1/2 m dot(q)^2 plus.minus ...$ und $[S] = "Zeit" dot "Energie"$
+
+== Teilchen in SR
+
+#align(center, italic[Abbildung])
+
+Parametrisierung: $x^nu (lambda), lambda in [a, b]$ mit $x(a) = p$ und $x(b) = q$.
+
+Tangentialvektor: $dot(x)^nu (lambda) := dv(x^nu, lambda)$, zeitartig: $dot(x)^2 := eta_(mu nu) dot(x)^mu dot(x)^nu > 0$
+
+#bold[Raumzeit-Distanz/Intervall der Kurve $C$:]
+$
+integral_C dd(s) := integral_a^b sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = integral_a^b sqrt(dot(x)^2) dd(lambda)
+$
+$==>$ #bold[Eigenzeit] $tau = s/c$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  Delta tau := 1/c integral sqrt(dot(x)^2) dd(lambda)
+  $
+])
+Zeit, gemessen von einer Uhr mit Weltlinie $C$.
+
+#line(length: 1cm, stroke: 0.5pt)
+
+#bold[Wirkung (Hamiltonisches Prinzip)] für ein freies Teilchen:
+$
+S = -m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c^2 integral dd(tau)
+$
+#box(stroke:0.5pt, inset:0.3cm)[
+  $delta S =^! 0$
+] $ quad S$: Funktional
+
+#bold[Variation:]
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  delta S := dv(,epsilon) S[x + epsilon delta x] #line(length: 1cm, angle: 90deg)_(epsilon = 0)
+  $
+])
+
+Rechnung: Variation des Funktionals
+
+1) $delta$ und $dv(,lambda)$ kommutieren
+$
+delta (dv(x^mu, lambda)) = dv(,epsilon) dv(x^mu+epsilon delta x^mu,lambda) #line(length: 1cm, angle: 90deg)_(epsilon = 0) = dv(delta x^mu, lambda) #line(length: 1cm, angle: 90deg)_(epsilon=0) = dv(,lambda) (delta x^mu)
+$
+2) 
+$
+delta (eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) =^("1)") eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda) + eta_(mu nu) dv(x^mu, lambda) dv((delta x^nu), lambda) = 2 eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda)
+$
+3)
+$
+delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^"Kettenregel" 1/(2 sqrt(dot(x)^2)) delta (dot(x)^2) = star quad "wobei" eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) equiv dot(x)^2 \
+star = 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
+==> delta S = - m c integral delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
+$
+Partielle Integration davon + Annahme: $delta x_mu #line(length: 0.5cm, stroke: 1pt, angle: 90deg)_(space a) = delta x_mu #line(length: 0.5cm, stroke: 1pt, angle: 90deg)_(space b) = 0$
+$
+delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^! "beliebige" delta x^mu
+$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0
+  $
+])
+
+#bold[Euler-Lagrange-Gleichung:]
+$
+#box[
+  $
+  dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0 <==>
+  $
+  #v(0.5cm)
+] 
+#box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  dv(u^mu, lambda) = 0, space u^mu := c/sqrt(dot(x)^2) dv(x^mu, lambda)
+  $
+]
+$
+$u^mu$: 4er-Geschwindigkeit
+$
+u^2 = u^mu u_mu = c^2/dot(x)^2 underbrace(dot(x)^mu dot(x)_mu, dot(x)^2) = c^2
+$
+Wähle zwei Parametrisierungen:
+
+#bold[1) Eigenzeit:]
+$
+tau(lambda) := 1/c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
+$
+#align(center, italic[Abbildung])
+$
+==> dv(tau, lambda) = 1/c sqrt(dot(x)^2) ==> u^mu = c/sqrt(dot(x)^2) dv(x^mu, lambda) = c/sqrt(dot(x)^2) dv(x^mu, tau) dv(tau, lambda)
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> u^mu = dv(x^mu, tau)
+  $
+])
+$==>$ Bewegungsgleichung: $0 = dv(u^mu, tau) = dv(x^mu, tau, 2)$
+
+#align(center, italic[Abbildung])
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> x^mu (tau) = u_0^mu dot tau + x_0^mu quad u_0^mu, x_0^mu = "const." \
+  ==> "Gerade"
+  $
+])
+$
+u^mu u_mu = u_0^mu u_(0 mu) = c^2 > 0 ==> "zeitartig"
+$
+
+#bold[Koordinatenzeit:] $x^0 = c t$, $lambda = t ==> x^mu (t) = (c t, x^i (t))$
+$
+==> dot(x)^mu = dv(x^mu, t) = (c, dv(x^i, t)) equiv (c, v^i) ==> dot(x)^2 = c^2 - abs(va(v))^2 \
+==> 1/sqrt(dot(x)^2) = 1/sqrt(1 - v^2/c^2) dot 1/c = 1/c dot gamma \ 
+u^mu = c/sqrt(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
+$
+
+#line(length: 1cm, stroke: 1pt)
+
+$
+S = - m c integral dd(s) = - m c integral dd(t) sqrt(dot(x)^2) = - m c^2 integral dd(t) sqrt(1- va(v)^2/c^2)
+$
+Lagrange-Funktion: 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> L = -m c^2 sqrt(1 - va(v)^2/c^2)
+  $
+])
+
+Energie/#bold[Hamiltonische Funktion:] $p_i := pdv(L, dot(x)^i) = gamma dot m dot(x)_i$
+
+$
+==> H := p_i dot(x)^2 - L = ... = gamma dot m c^2 ==> E = gamma dot m c^2
+$
+$==>$ Ruheenergie
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  E = m c^2
+  $
+])
