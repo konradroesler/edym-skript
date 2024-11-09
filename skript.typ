@@ -795,3 +795,138 @@ $==>$ Ruheenergie
   E = m c^2
   $
 ])
+
+#bold[Ladungsdichte $rho$ und Strom $va(j)$]
+
+Stationärer Fall: $x^mu (lambda) =^(lambda = t) x^mu (t) = (c t, va(x)_0)$
+
+Geladenes Teilchen mit Ladung $e$ am Ort $va(x)_0$.
+$
+rho(va(x)) 0= e dot delta^3 (va(x) - va(x)_0), quad va(j)(va(x)) = 0
+$
+
+#bold[Wiederholung: Dirac "$delta$-Funktion"]
+
+#align(center, italic[Abbildung])
+
+$
+integral_(-oo)^oo dd(x) delta(x) = 1 wide integral_(-oo)^oo dd(x) delta(x - a) f(x) = f(a)
+$
+
+Keine Funktion $delta(x)$ hat exakt diese Eigenschaften, aber wir können sie beliebig genau annähern.
+$
+Delta_epsilon (x) := 1/pi epsilon/(x^2 + epsilon), space epsilon > 0 wide \" delta(x) = lim_(epsilon -> 0) Delta_epsilon (x) \"
+$
+
+#bold[Eigenschaften der $delta$-Funktion:]
+
+#boxedlist[
+  $f(x) delta(x) = f(0) delta(x)$
+][
+  Für glatte Funktion $f(x)$ mit Nullstellen $x_n$, so dass $f'(x_n) != 0$
+  $
+  &==>^"ÜA" delta(f(x)) = sum_n 1/abs(f'(x_n)) delta(x - x_n) \ 
+  &==> "Spezialfall:" delta(a dot x) = 1/abs(a) delta(x) quad "für" a in RR 
+  $
+]
+
+Dirac $delta$-Funktion in höheren Dimensionen:
+$
+delta^3 (va(x) - va(y)) = delta(x^1 - y^1) delta(x^2 - y^2) delta(x^3 - y^3) "etc."
+$
+z.B.:
+$
+integral_V dd(va(y), [3,]) f(va(y)) delta^3 (va(x) - va(y)) = f(va(x)) \
+==> integral dd(va(x), [3,]) rho(va(x)) = e integral dd(va(x), [3,]) delta^3 (va(x) - va(x)_0) = e ==> Q = e "Gesamtladung"
+$
+
+#bold[Kontinuitätsgleichung:] Für zeitabhängige Ladungsdichte $rho(va(x), t)$ hat man eine Relation zum Strom $va(j)$ 
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  pdv(rho, t) + div va(j) = 0
+  $
+])
+
+#bold[Interpretation:] Für zeitabhängige $rho(va(x), t)$ ist die Gesamtladung in $V$ zeitabhängig.
+
+#align(center, italic[Abbildung])
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  Q_v (t) := integral_V dd(va(x), [3,]) rho(va(x), t)
+  $
+])
+$
+dv(Q_v (t), t) = integral_V dd(va(x), [3,]) pdv(rho(va(x), t), t) = - integral dd(va(x), [3,]) div va(j) =^"Gauß" - integral_(diff V) va(j) dot va(dd(Sigma)) \ = "Gesamtstrom durch die Oberfläche"
+$
+Für #bold[relativistische] Teilchen: $rho$ und $va(j)$ kombinieren sich zu relativistisch kovarianten 4-Vektoren.
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  j^mu := (c rho, va(j))
+  $
+])
+$j^0 = c rho, j^i = (va(j))^i$
+
+Eine Erhaltungsrelation:
+$
+diff_mu j^mu = diff_0 j^0 + sum_(i=1)^3 diff_i j^i = pdv(,x^0) (c rho) + div va(j) = pdv(, t) rho + div va(j) = 0
+$
+
+#bold[4er-Strom für geladenes Punktteilchen?]
+
+Weltlinie des Teilchens mit Ladung $e$: $x^mu (lambda)$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  j^mu (x) = c e integral dd(lambda) dv(x^mu, lambda) delta^4 (x- x(lambda))
+  $
+])
+Beachte: $x corres$ Punkt im $RR^(3, 1)$ aber $x(lambda) corres$ 4 Funktionen der Parametrisierung 
+
+Wähle Parametrisierung nach Koordinatenzeit: $x^mu (lambda) = x^mu (t') = (c t', va(x)(t'))$
+
+$
+j^0 (c t, va(x)) &= c e integral dd(t') underbrace(dv(x^0 (t'), t'), ) underbrace(delta(c t - c t'), 1/c delta(t-t')) delta^3 (va(x) - va(x)(t')) \
+&= c e integral dd(t') delta(t - t') delta^3 (va(x) - va(x)(t')) \ 
+&= c e delta^3 (va(x) - va(x)(t)) \
+&= c dot rho(va(x), t)
+$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> rho(va(x), t) = e delta^3 (va(x) - va(x)(t)) 
+  $
+])
+
+Kosistent mit dem stationären Fall
+
+#bold[3er-Strom:] 
+$
+j^i (c t, va(x)) = c e integral dd(t') underbrace(dv(x^i (t'), t'), = v^i (t')) underbrace(delta(c(t-t')), =1/c delta(t -t')) integral^3 (va(x) - va(x)(t')) \
+= e integral dd(t') v^i (t') delta(t - t') delta^3 (va(x) - va(x)(t')) = e v^i (t) delta^3 (va(x) - va(x)(t))
+$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  &j^0 = c rho = c r delta^3 (va(x) - va(x)(t)) \
+  &va(j) = e va(v)(t) delta^3 (va(x) - va(x)(t))
+  $
+])
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  j^mu (x) := c e integral dd(lambda) dv(x^mu, lambda) delta^4 (x - x(lambda))
+  $
+])
+
+#bold[Behauptung:] $diff_mu j^mu = pdv(j^mu, x^mu) = 0$
+
+Beweis: Test-Funktion $phi(x)$ (Skalar im $RR^3$)
+#align(center, italic[Abbildung])
+$
+integral dd(x, [4,]) phi(x) diff_mu j^mu (x) =^"Def." c e integral dd(lambda) dv(x^mu (lambda), lambda) integral dd(x, [4,]) diff_mu delta^4 (x - x(lambda)) \
+=^"part. Int." - c e integral dd(lambda) dv(x^mu, lambda) underbrace(integral dd(x, [4,]) diff_mu phi(x) delta^4 (x - x(lambda)), diff_mu phi(x) #line(stroke: 0.5pt, length: 0.5cm, angle: 90deg)_(space x^mu = x^mu (lambda))) \
+= - c e integral dd(lambda) underbrace(dv(x^mu, lambda) pdv(phi(x), x^mu) #line(length: 1cm, angle: 90deg)_(space x = x(lambda)), = dv(,lambda) phi(x(lambda))) = - c e integral dd(lambda) dv(,lambda) phi(x(lambda)) = 0
+$
+Für beliebige Testfunktionen
