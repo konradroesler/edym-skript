@@ -1,7 +1,10 @@
 #import "@preview/physica:0.9.3": *
+#import "@preview/commute:0.2.0": node, arr, commutative-diagram
+#import "@preview/cetz:0.3.1": *
 
 #import "utils.typ": *
 #import "template.typ": uni-script-template
+
 #show: doc => uni-script-template(
   title: [Vorlesungsskript],
   author: [Konrad Rösler],
@@ -251,11 +254,23 @@ star B &= 1/2 epsilon_i^(j k) B_(j k) d x^i \
 star C &= 1/3! epsilon^(i j k) C_(i j k)
 $
 Wir erweitern das Diagramm von vorher:
-$
-&"Skalare" -->^"grad" "Vektoren" -->^"rot" "Vektoren" -->^"div" "Skalare" \
-&arrow.b.t i d #h(1.6cm) arrow.b.t ♡ #h(1.9cm) arrow.b.t star, ♡ #h(1.5cm) arrow.b.t star\
-&Omega^0 #h(1cm) -->^d Omega^1 #h(1.35cm) -->^d Omega^2 #h(1.35cm) -->^d Omega^3
-$
+#let omegas = ()
+#(for i in range(4) {omegas.push(node((1,i),$Omega^#i$))})
+#(for i in range(3) {omegas.push(arr((1,i),(1,i+1),"d"))})
+#align(center)[#commutative-diagram(
+  node((0, 0), "Skalare"),
+  node((0, 1), "Vektoren"),
+  node((0, 2), "Vektoren"),
+  node((0, 3), "Skalare"),
+  arr((0,0), (0,1), "grad"),
+  arr((0,1), (0,2), "rot"),
+  arr((0,2), (0,3), "div"),
+  arr((0,0), (1,0), $id$, "bij"),
+  arr((0,1), (1,1), $delta_(i j)$, "bij"),
+  arr((0,2), (1,2), $star compose ♡$, "bij"),
+  arr((0,3), (1,3), $star$, "bij"),
+  ..omegas,
+)]
 Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
 $
 d^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
@@ -295,24 +310,37 @@ Hodge-dual zu Skalar: $F(arrow(x)) = 1/3! epsilon^(i j k) C_(i j k) (arrow(x))$
 
 #line(length: 1cm)
 
-Sei $F: RR^3 -> RR$ ein Skalarfeld, dann ist $curl F = grad F$ senkrecht auf der Fläche $F = 0$. 
+Sei $F: RR^3 -> RR$ ein Skalarfeld, dann ist $grad F$ senkrecht auf der Fläche $F^(-1)({0})$. 
 
-#bold[Beispiel:] $F(arrow(x)) = abs(arrow(x))^2 - R^2, R = "const"$ 
-$
-F = 0 ==> "Sphäre" S^2 wide (grad F)^i = delta_(i j) delta_j F
-$
-$
-diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
-&= delta_(k l) (diff_j x^k) x^l + delta_(k l) x^k (diff_j x^l) \
-&= 2 delta_(k l) (diff_j x^k) x^l \
-&= 2 delta_(j l) x^l
-$
-$
-==> (grad F)^i = 2 dot x^i \
-curl F = grad F = 2 dot arrow(x) 
-$
+#grid(
+  columns: (2fr,1fr), gutter: 20pt,
+  [
+    #bold[Beispiel:] $F(arrow(x)) := abs(arrow(x))^2 - R^2, R = "const"$ 
+    $
+    F^(-1)({0})=:S^2 space ("Sphäre") wide (grad F)^i = delta^(i j) delta_j F
+    $
+    $
+    diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
+    &= delta_(k l) (diff_j x^k) x^l + delta_(k l) x^k (diff_j x^l) \
+    &= 2 delta_(k l) (diff_j x^k) x^l \
+    &= 2 delta_(j l) x^l
+    $
+    $
+    ==> (grad F)^i = delta^(i j)2delta_(j l)x^l = 2 dot x^i \
+    grad F = 2 dot arrow(x) 
+    $
+  ],
+  canvas({
+    import draw: *
 
-#align(center, italic[(Abbildung der Sphäre im $RR^2$)])
+    circle((),radius:1,name:"sphere")
+    line(("sphere"),(1.8,-0.5),mark:(end:">",fill:black))
+    content((),$grad F$,anchor:"west",padding:0.1)
+    set-style(stroke:(paint:gray,dash:"dashed"))
+    circle((0,0),radius:1.5)
+    circle((),radius:0.5)
+  })
+)
 
 #bold[allgemeiner Beweis:]
 
@@ -351,11 +379,21 @@ integral_C A = integral_C d phi.alt = integral_(s_0)^(s_1) diff_i phi.alt(arrow(
 integral_(phi.alt) dd(phi.alt) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0))
 $
 $==>$ hängt nur von Endpunkten ab!
-#align(center, italic[(Abbildung geschlossene Kurve)])
+
 $==>$ geschlossene Kurve:
-$
-integral.cont_C dd(phi.alt) = 0
-$
+#grid(
+  columns: (1fr,1fr), align:center,
+  canvas({
+    import draw: *
+    circle((),radius:0.06,fill:black)
+    content((),$arrow(x)(s_1)=arrow(x)(s_2)$,anchor:"north-east",padding:0.1)
+    let (a, b, c) = ((0, 0), (-1, 4.5), (4, -1.5))
+    bezier(a, a, b, c)
+  }),
+  $
+  integral.cont_C dd(phi.alt) = 0
+  $
+)
 Für konservatives Kraftfeld $arrow(A) = grad phi.alt$
 $
 ==> integral_C grad phi.alt dot dd(arrow(x)) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0))
@@ -555,9 +593,32 @@ Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
 $
 T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
 $
-Physikalische Interpretation von zwei Ereignissen $p$ und $q$ mit raumartigen Intervall.
+Physikalische Interpretation von zwei Ereignissen $p$ und $q$ mit raumartigen Intervall?  
 
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  set-style(fill:black,radius:0.04,padding:0.15)
+  let (r,p,s,q)=((0,0),(0.25,1),(0.75,3),(2.4,1.1))
+  line((-0.25,-1),(0.85,3.4))
+  circle(r)
+  content((),$r$, anchor:"north-west")
+  circle(p)
+  content((),$p$, anchor:"west")
+  circle(s)
+  content((),$s$, anchor:"south-west")
+  circle(q)
+  content((),$q$, anchor:"west")
+  line(r,q, stroke: (dash: "dashed"))
+  line(s,q, stroke: (dash: "dashed"))
+
+  decorations.brace(r,p)
+  decorations.brace(p,s)
+  content((-0.7,0.7),$T_1$)
+  content((-0.3,2.2),$T_2$)
+
+  line((2.6,1.3),(3.1,2.1),mark:(start:">"))
+  content((),[Spiegel],anchor:"west",padding:0.1)
+})]
 
 #underline[Behauptung:] $Delta s^2 = - c^2 T_1 T_2 < 0$, $Delta s^2:$ Intervall/Abstand zwischen $p$ und $q$
 
@@ -570,7 +631,38 @@ $
 &= c^2 /4 (T_1 - T_2)^2 - c^2 /4 (T_1 + T_2)^2 \
 &= -c^2 T_1 T_2
 $
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  set-style(fill:black,radius:0.04,padding:0.15)
+  let (r,p,s,q)=((0,0),(0,1),(0,3),(1.5,1.5))
+  line((0,-1),(0,4),mark:(end:">"))
+  content((),$x^0$,anchor:"west")
+  line((-1.3,0),(4,0),mark:(end:">"))
+  content((),$x^1$,anchor:"west")
+  circle(r)
+  content((),$r$, anchor:"north-east")
+  circle(p)
+  content((),$p$, anchor:"west")
+  circle(s)
+  content((),$s$, anchor:"south-west")
+  circle(q)
+  content((),$q$, anchor:"south")
+  circle((0,1.5))
+  line((-1.5,1.5),q,stroke:(dash:"dashed"))
+  line((-1.5,p.at(1)),(0,p.at(1)),stroke:(dash:"dashed"))
+  line(r,q, stroke: (dash: "dashed"))
+  line(s,q, stroke: (dash: "dashed"))
+
+  decorations.brace(r,p)
+  decorations.brace(p,s)
+  decorations.brace((-1.5,p.at(1)),(-1.5,1.5))
+  decorations.brace((q.at(1),0),r,)
+  decorations.brace(q,(q.at(1),0),)
+  content((-0.9,0.5),$c T_1$)
+  content((-0.9,2),$c T_2$)
+  content((-2.6,1.3),$c Delta T$)
+  content((q.at(0)/2,-0.7),$Delta x$)
+})]
 
 #bold[Zwillingsparadox:] Zeit von $A$: $T_A = T$. Zeit von $B$: $c T_B = 2 sqrt(c^2 (T/2)^2 - Delta x^2)$
 $
