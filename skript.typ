@@ -925,8 +925,180 @@ $
 Beweis: Test-Funktion $phi(x)$ (Skalar im $RR^3$)
 #align(center, italic[Abbildung])
 $
-integral dd(x, [4,]) phi(x) diff_mu j^mu (x) =^"Def." c e integral dd(lambda) dv(x^mu (lambda), lambda) integral dd(x, [4,]) diff_mu delta^4 (x - x(lambda)) \
-=^"part. Int." - c e integral dd(lambda) dv(x^mu, lambda) underbrace(integral dd(x, [4,]) diff_mu phi(x) delta^4 (x - x(lambda)), diff_mu phi(x) #line(stroke: 0.5pt, length: 0.5cm, angle: 90deg)_(space x^mu = x^mu (lambda))) \
-= - c e integral dd(lambda) underbrace(dv(x^mu, lambda) pdv(phi(x), x^mu) #line(length: 1cm, angle: 90deg)_(space x = x(lambda)), = dv(,lambda) phi(x(lambda))) = - c e integral dd(lambda) dv(,lambda) phi(x(lambda)) = 0
+integral dd(x, [4,]) phi(x) diff_mu j^mu (x) &=^"Def." c e integral dd(lambda) dv(x^mu (lambda), lambda) integral dd(x, [4,]) diff_mu delta^4 (x - x(lambda)) \
+&=^"part. Int." - c e integral dd(lambda) dv(x^mu, lambda) underbrace(integral dd(x, [4,]) diff_mu phi(x) delta^4 (x - x(lambda)), diff_mu phi(x) #line(stroke: 0.5pt, length: 0.5cm, angle: 90deg)_(space x^mu = x^mu (lambda))) \
+&= - c e integral dd(lambda) underbrace(dv(x^mu, lambda) pdv(phi(x), x^mu) #line(length: 1cm, angle: 90deg)_(space x = x(lambda)), = dv(,lambda) phi(x(lambda))) \
+&= - c e integral dd(lambda) dv(,lambda) phi(x(lambda)) = 0
 $
 Für beliebige Testfunktionen
+
+#line(length: 1cm)
+
+#bold[Resultate bisher:]
+
+#boxedlist[
+  #bold[Ladungsdichte] einer Punktladung $e$ mit Bahnkurve $va(x)(t)$
+  $
+  rho(t, va(x)) = e delta^3 (va(x) - va(x)(t))
+  $
+][
+  #bold[Stromdichte:] 
+  $
+  va(j)(t, va(x)) = e va(v)(t) delta^3 (va(x) - va(x)(t)), quad va(v)(t) = dv(va(x),t)
+  $
+  Relativistisch kovariante Form $j^mu (x) = (c rho(x), va(j)(x))$
+]
+
+Limes vieler Punktladungen:
+
+glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
+
+#align(center, italic[Abbildung])
+
+$-->$ instantane Wechselwirkung (Kraft) nicht kompatibel mit SR!
+
+$-->$ Feldtheorie, dynamische Felder $va(E)(t, va(x)), va(B)(t, va(x))$
+
+== Relativistische Feldtheorie
+
+Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3$ (aber der Raumzeit $RR^(3, 1)$) eine Zahl, Vektor, Matrix etc. zuweisen.
+
+#bold[Beispiel:] Skalarfeld: $phi(t, va(x))$, Vektorfeld: $va(A)(t, va(x))$
+
+#bold[Unterschied zu Punktteilchen:] $va(x)(t) in RR^3$
+
+$-->$ Bewegungsgleichungen, gewöhnliche Differentialgleichungen:
+$
+m dv(va(x), t, 2) = va(F(va(x)(t)))
+$
+In Feldtheorie: partielle Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
+
+#bold[Beispiel:] Kontinuitätsgleichung für $rho(t, va(x))$, $va(j)(t, va(x))$
+$
+pdv(rho, t) + div va(j) = 0
+$
+
+#bold[Felder auf Minkowski-Raum $RR^(3, 1)$:]
+$
+x^mu = (c t, va(x)), quad mu = 0,1,2,3, quad eta_(mu nu) = diagonalmatrix(1,-1,-1,-1)
+$
+#bold[Skalarfeld:] $phi = phi(x) = phi(x^mu) = phi(x^0, x^1, x^2, x^3)$
+
+Lorentz-Transformation: $x^mu -> x'^mu = tensor(Lambda, +mu, -nu) x^nu quad [x' = Lambda dot x]$
+$
+phi --> phi' wide "so dass" wide phi'(x') = phi(x) \
+<==> phi'(x') = phi'(Lambda x) = phi(x) quad "für alle" x in RR^3
+$
+$y := Lambda dot x, x = Lambda^(-1) y$
+$
+==> phi'(y) = phi(lambda^(-1) y) quad "für alle" y in RR^(3,1)
+$
+Umbennen: $y -> x$:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi'(x) = phi(Lambda^(-1) x)
+  $
+])
+
+#bold[Vektorfelder:] $A^mu = A^mu (x)$, $A^mu -> A'^mu$, wobei
+$
+A'^mu (x') = tensor(Lambda, +mu, -nu) A^nu (x) <==>
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  A'^mu (x) = tensor(Lambda, +mu, -nu) A^nu (Lambda^(-1) x)
+  $
+])
+
+#bold[Höhere Tensoren:] $F^(mu nu) (x) = - F^(nu mu) (x)$
+$
+F'^(mu nu) (x) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma) F^(rho sigma) (Lambda^(-1) x)
+$
+
+#bold[Partielle Ableitungen/Differentialgleichungen:]
+$
+diff_mu := pdv(,x^mu)
+$
+Unter Lorentz-Transformationen: $x^mu -> x'^mu = tensor(Lambda, +mu, -nu) x^nu$
+$
+diff_mu &= pdv(,x^mu) = pdv(x'^nu, x^mu) pdv(,x'^nu) \ 
+&= tensor(Lambda, +nu, -mu) pdv(,x'^nu) = tensor(Lambda, +nu, -mu) diff'_v
+$
+$
+==> diff'_nu = tensor((Lambda^(-1)), +mu, -nu) diff_mu <==>
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  diff'_mu = tensor((Lambda^(-1)), +nu, -mu) diff_nu
+  $
+])
+
+#bold[Beispiel:] 
+$
+square := diff^mu diff_mu = eta^(mu nu) diff_mu diff_nu = eta^(mu nu) pdv(,x^mu,x^nu,[1,1]) = pdv(,(x^0), [2,]) - pdv(,(x^1), [2,]) - pdv(,(x^2), [2,]) - pdv(,(x^0), [3,]) = 1/c^2 pdv(,t,[2,]) - triangle
+$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  Laplace-Operator:
+  $
+  triangle := div grad
+  $
+])
+
+#bold[Wellengleichungen:]
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  Laplace-Operator:
+  $
+  (1/c^2 pdv(,t,[2,]) - triangle) phi(t, va(x)) = 0
+  $
+])
+
+== Maxwell-Gleichungen
+
+#bold[Empirischer Input:]
+
+#boxedenum[
+  Es existieren elektrische Felder $va(E)(t, va(x))$ und magnetische Felder $va(B)(t, va(x))$ 
+][
+  $va(B) <-->$ bewegte Ladungen ($va(j)$) für stationäre Punktladungen am Ort $va(x)_0$:
+  $
+  va(E)(va(x)) = e/(4 pi epsilon_0) (va(x) - va(x)_0)/abs(va(x) - va(x)_0)^3
+  $
+
+  #bold[Übungsaufgabe:] $div va(E) = 0$ für $va(x) != va(x)_0$, $rho$: Ladungsdichte
+  $
+  div va(E) = 1/epsilon_0 rho
+  $
+][
+  Es existieren #bold[keine] magentischen Ladungen
+  $
+  0 = integral_(diff V) va(B) dot va(dd(Sigma)) = integral_V dd(x, [3,]) div va(B) = 0 quad forall V \
+  $
+  #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    ==> div va(B) = 0
+    $
+  ])
+]
+
+Welches Feld im Minkowski-Raum beinhaltet $va(E)$ und $va(B)$?
+
+Antisymmetrisch: $F_(mu nu) = - F_(nu mu)$
+$
+mat(0,F_(0 1),F_(0 2),F_(0 3);-F_(0 1),0,F_(1 2),F_(1 3);-F_(0 2),-F_(1 2),0,F_(2 3);-F_(0 3),-F_(1 3),-F_(2 3),0)
+$
+
+$j^mu = (c rho, va(j)), va(E) op(tilde) c rho = j^0$
+
+#bold[Feldstärke-Tensor:]
+$
+F_(mu nu) = mat(0,E^1,E^2,E^3;-E^1,0,-B_3,B_2;-E^2,B_3,0,-B_1;-E^3,-B_2,B_1,0)
+$
+
+Effizientere Notation:
+$
+F_(0 i) = E_i, quad i = 1,2,3 \
+F_(i j) = - epsilon_(i j k) B^k
+$
+
