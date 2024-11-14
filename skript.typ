@@ -1,6 +1,6 @@
 #import "@preview/physica:0.9.3": *
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
-#import "@preview/cetz:0.3.1": *
+#import "@preview/cetz:0.3.0": *
 
 #import "utils.typ": *
 #import "template.typ": uni-script-template
@@ -1127,13 +1127,13 @@ $
 
 #bold[Beispiel:] 
 $
-square := diff^mu diff_mu = eta^(mu nu) diff_mu diff_nu = eta^(mu nu) pdv(,x^mu,x^nu,[1,1]) = pdv(,(x^0), [2,]) - pdv(,(x^1), [2,]) - pdv(,(x^2), [2,]) - pdv(,(x^0), [3,]) = 1/c^2 pdv(,t,[2,]) - triangle
+square := diff^mu diff_mu = eta^(mu nu) diff_mu diff_nu = eta^(mu nu) pdv(,x^mu,x^nu,[1,1]) = pdv(,(x^0), [2,]) - pdv(,(x^1), [2,]) - pdv(,(x^2), [2,]) - pdv(,(x^0), [3,]) = 1/c^2 pdv(,t,[2,]) - laplacian 
 $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   Laplace-Operator:
   $
-  triangle := div grad
+  laplacian := div grad
   $
 ])
 
@@ -1142,7 +1142,7 @@ $
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   Laplace-Operator:
   $
-  (1/c^2 pdv(,t,[2,]) - triangle) phi(t, va(x)) = 0
+  (1/c^2 pdv(,t,[2,]) - laplacian) phi(t, va(x)) = 0
   $
 ])
 
