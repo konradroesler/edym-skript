@@ -779,7 +779,7 @@ $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   $
-  delta S := dv(,epsilon) S[x + epsilon delta x] #line(length: 1cm, angle: 90deg)_(epsilon = 0)
+  delta S := eval(dv(,epsilon) S[x + epsilon delta x])_(epsilon = 0)
   $
 ])
 
@@ -787,7 +787,7 @@ Rechnung: Variation des Funktionals
 
 1) $delta$ und $dv(,lambda)$ kommutieren
 $
-delta (dv(x^mu, lambda)) = dv(,epsilon) dv(x^mu+epsilon delta x^mu,lambda) #line(length: 1cm, angle: 90deg)_(epsilon = 0) = dv(delta x^mu, lambda) #line(length: 1cm, angle: 90deg)_(epsilon=0) = dv(,lambda) (delta x^mu)
+delta (dv(x^mu, lambda)) = eval(dv(,epsilon) dv(x^mu+epsilon delta x^mu,lambda))_(epsilon = 0) = eval(dv(delta x^mu, lambda))_(epsilon=0) = dv(,lambda) (delta x^mu)
 $
 2) 
 $
@@ -799,7 +799,7 @@ delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^"Kettenregel" 1/(2 s
 star = 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
 ==> delta S = - m c integral delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
 $
-Partielle Integration davon + Annahme: $delta x_mu #line(length: 0.5cm, stroke: 1pt, angle: 90deg)_(space a) = delta x_mu #line(length: 0.5cm, stroke: 1pt, angle: 90deg)_(space b) = 0$
+Partielle Integration davon + Annahme: $eval(delta x_mu)_a = eval(delta x_mu)_b = 0$
 $
 delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^! "beliebige" delta x^mu
 $
@@ -979,7 +979,7 @@ Beachte: $x corres$ Punkt im $RR^(3, 1)$ aber $x(lambda) corres$ 4 Funktionen de
 Wähle Parametrisierung nach Koordinatenzeit: $x^mu (lambda) = x^mu (t') = (c t', va(x)(t'))$
 
 $
-j^0 (c t, va(x)) &= c e integral dd(t') underbrace(dv(x^0 (t'), t'), ) underbrace(delta(c t - c t'), 1/c delta(t-t')) delta^3 (va(x) - va(x)(t')) \
+j^0 (c t, va(x)) &= c e integral dd(t') dv(x^0 (t'), t') underbrace(delta(c t - c t'), 1/c delta(t-t')) delta^3 (va(x) - va(x)(t')) \
 &= c e integral dd(t') delta(t - t') delta^3 (va(x) - va(x)(t')) \ 
 &= c e delta^3 (va(x) - va(x)(t)) \
 &= c dot rho(va(x), t)
@@ -1018,8 +1018,8 @@ Beweis: Test-Funktion $phi(x)$ (Skalar im $RR^3$)
 #align(center, italic[Abbildung])
 $
 integral dd(x, [4,]) phi(x) diff_mu j^mu (x) &=^"Def." c e integral dd(lambda) dv(x^mu (lambda), lambda) integral dd(x, [4,]) diff_mu delta^4 (x - x(lambda)) \
-&=^"part. Int." - c e integral dd(lambda) dv(x^mu, lambda) underbrace(integral dd(x, [4,]) diff_mu phi(x) delta^4 (x - x(lambda)), diff_mu phi(x) #line(stroke: 0.5pt, length: 0.5cm, angle: 90deg)_(space x^mu = x^mu (lambda))) \
-&= - c e integral dd(lambda) underbrace(dv(x^mu, lambda) pdv(phi(x), x^mu) #line(length: 1cm, angle: 90deg)_(space x = x(lambda)), = dv(,lambda) phi(x(lambda))) \
+&=^"part. Int." eval(- c e integral dd(lambda) dv(x^mu, lambda) integral dd(x, [4,]) diff_mu phi(x) delta^4 (x - x(lambda)))_(x^mu = x^mu (lambda)) \
+&= eval(- c e integral dd(lambda) dv(x^mu, lambda) pdv(phi(x), x^mu))_(x = x(lambda)) \
 &= - c e integral dd(lambda) dv(,lambda) phi(x(lambda)) = 0
 $
 Für beliebige Testfunktionen
