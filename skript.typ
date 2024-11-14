@@ -1193,4 +1193,166 @@ $
 F_(0 i) = E_i, quad i = 1,2,3 \
 F_(i j) = - epsilon_(i j k) B^k
 $
+#line(length: 1cm)
+$
+&F^(mu nu) := eta^(mu rho) eta^(nu sigma) F_(rho sigma) \
+==> &F^(0 i) = eta^(0 0) eta^(i j) F_(0 j) = - delta^(i j) E_j = - E^i \
+&F^(i j) = eta^(i k) eta^(j l) F_(k l) = - epsilon^(i j k) B_k
+$
+$
+==> F^(mu nu) = mat(0,-E^1,-E^2,-E^3;E^1,0,-B_3,B_2;E^2,B_3,0,-B_1;E^3,-B_2,B_1,0)
+$
 
+#bold[Maxwell-Gleichungen:] 
+
+Empirische Annahmen: (Gauss: $epsilon_0 -> 1/(4 pi)$)
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  div va(E) &= 4 pi rho \
+  div va(B) &= 0
+  $
+])
+Motivation dessen:
+$
+integral_(diff V) va(E) dot dd(va(Sigma)) = 4 pi Q wide wide 0 = integral_(diff V) va(B) dot dd(va(Sigma)) = integral_V dd(x,[3,]) div va(B)
+$
+#line(length: 1cm)
+$
+div va(E) = diff_i E^i = - diff_i F^(0 i) = diff_i F^(i 0) = 4 pi rho = (4 pi)/c j^0 \
+==> diff_i F^(i o) = (4 pi)/c j^0
+$
+#bold[Postulat (inhomogene Maxwell Gleichungen):]
+#align(center, box(stroke: 1pt, inset: 0.5cm)[
+  $
+  diff_mu F^(mu nu) = (4 pi)/c j^nu
+  $
+])
+
+$
+div va(B) = diff_i B^i = 0 wide F_(i j) = - epsilon_(i j k) B^k \
+==> epsilon^(i j l) F_(i j) = i epsilon^(i j l) epsilon_(i j k) B^k = -2 B^l \
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> B^i = -1/2 epsilon^(i j k) F_(j k) = 0
+  $
+])
+$
+div va(B) = diff_i B^i = -1/2 epsilon^(i j k) diff_i F_(j k) = 0
+$
+
+#bold[4D Levi-Civita-Tensor:] $epsilon^(mu nu rho sigma)$: total antisymmetrisch, $epsilon^(0123) = +1$, Lorentz-invariant unter $S O(1, 3)$
+$
+==> epsilon^(0 i j k) diff_i F_(j k) = 0
+$
+
+#bold[Postulat (homogene Maxwell Gleichungen):]
+#align(center, box(stroke: 1pt, inset: 0.5cm)[
+  $
+  epsilon^(mu nu rho sigma) diff_nu F_(rho sigma) = 0
+  $
+])
+$
+<==>
+$
+#align(center, box(stroke: 1pt, inset: 0.5cm)[
+  $
+  diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F(mu nu) = 0
+  $
+])
+Es bleibt die Konsequenzen dieser Theorie auszurechnen und auf Konsistenz zu prüfen.
+
+Betrachte die inhomogenen Maxwellgleichungen.
+
+$nu = 0$:
+$
+diff_mu F^(mu 0) &= underbrace(diff_0 F^(0 0), = 0) + diff_i F^(i 0) = diff_i E^i = div va(E) \
+&= (4 pi)/c j^0 = (4 pi)/c c rho = 4 pi rho \
+&==> div va(E) = 4 pi rho
+$
+$nu = j$:
+$
+diff_mu F^(mu j) &= diff_0 F^(0 j) + diff_i F^(i j) \
+&= diff_0 (- E^j) + diff_i (- epsilon^(i j k) B_k) \
+&= - pdv(E^j, x^0) + epsilon^(j i k) diff_i B_k \ 
+&=^(x^0 = c t) - 1/c pdv(E^j, t) + (curl va(B))^j \
+&=^! (4 pi)/c j^j 
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> - 1/c pdv(va(E), t) + curl va(B) = (4 pi)/c va(j)
+  $
+])
+
+#underline[Divergenz:]
+$
+- 1/c pdv(,t) underbrace((div va(E)), = 4 pi rho) + underbrace(div(curl va(B)), = 0) = (4 pi)/c va(j) \
+==> - pdv(, t) rho = div va(j) ==> pdv(rho,t) + div va(j) = 0 \
+"Kontinuitätsgleichung"
+$
+
+Betrachte die homogene Maxwellgleichungen:
+
+$mu = 0$: 
+$
+wide epsilon^(0 i j k) diff_i F_(j k) = 0 quad <==> quad diff_i B^i = div va(B) = 0
+$
+
+$mu = i$:
+$
+epsilon^(i 0 j k) diff_0 F_(j k) + epsilon^(i j 0 k) diff_j F_(0 k) + epsilon^(i j k 0) diff_j F_(k 0) = 0 \
+<==>
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  1/c pdv(va(B), t) + curl va(E) = 0
+  $
+])
+
+#pagebreak()
+
+#align(center, text(style: "oblique", size: 16pt)[Maxwell-Gleichungen])
+
+#align(center, stack(dir: ltr, 
+  box(width: 5cm, height: 3.5cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[inhomogen:]
+    $
+    div va(E) &= 4 pi rho \
+    curl va(B) &= 1/c pdv(va(E),t) + (4 pi)/c va(j)
+    $
+  ], 
+  box(width: 5cm, height: 3.5cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[homogen:]
+    $
+      div va(B) &= 0 \
+      curl va(E) &= - 1/c pdv(va(B), t)
+    $
+]))
+
+Im Vakuum ($rho = 0 = va(j)$), #bold[elektrisch-magnetische Dualität]: invariant unter
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(E) --> va(B), quad va(B) --> -va(E)
+  $
+])
+
+#bold[Kommentar:] Andere Konventionen sind oft üblich
+$
+F^(mu nu) = mat(0,-1/c E_x,-1/c E_y,-1/c E_z;1/c E_x,0,-B_z,B_y;1/c E_y,B_z,0,-B_x;1/c E_z,-B_y,B_x,0)
+$
+SI Einheiten: $epsilon_0 dot mu_0 = 1/c^2$, $epsilon_0$: Permittitivität (des leeren Raumes), $mu_0$: Permeabilität (des leeren Raumes)
+
+nach obigem $quad va(E) -> 1/c va(E)$, $quad epsilon -> 1/(4 pi c)$
+$
+div va(E) = rho/epsilon_0, wide div va(B) = 0 \
+curl va(B) = 1/c^2 pdv(va(E), t) + (4 pi c)/c^2 va(j) quad --> quad epsilon_0 mu_0 pdv(va(E),t) + 1/(epsilon_0 c^2) va(j) \
+$
+Maxwell-Gleichungen in SI Einheiten:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  curl va(B) &= mu_0 (va(j) + epsilon_0 pdv(va(E),t)) \
+  curl va(E) &= - pdv(va(B),t)
+  $
+])
