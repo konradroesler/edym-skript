@@ -1,6 +1,7 @@
 #import "@preview/physica:0.9.3": *
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
-#import "@preview/cetz:0.3.0": *
+#import "@preview/cetz:0.3.1": *
+#import "@preview/cetz-plot:0.1.0": plot, chart
 
 #import "utils.typ": *
 #import "template.typ": uni-script-template
@@ -308,52 +309,60 @@ Skalare und Vektoren im $RR^3$ $<-->$ Differentialformen im $RR^3$
 
 Hodge-dual zu Skalar: $F(arrow(x)) = 1/3! epsilon^(i j k) C_(i j k) (arrow(x))$
 
-#line(length: 1cm)
+#line(length: 100%)
 
-Sei $F: RR^3 -> RR$ ein Skalarfeld, dann ist $grad F$ senkrecht auf der Fläche $F^(-1)({0})$. 
-
-#grid(
-  columns: (2fr,1fr), gutter: 20pt,
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
   [
-    #bold[Beispiel:] $F(arrow(x)) := abs(arrow(x))^2 - R^2, R = "const"$ 
-    $
-    F^(-1)({0})=:S^2 space ("Sphäre") wide (grad F)^i = delta^(i j) delta_j F
-    $
-    $
-    diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
-    &= delta_(k l) (diff_j x^k) x^l + delta_(k l) x^k (diff_j x^l) \
-    &= 2 delta_(k l) (diff_j x^k) x^l \
-    &= 2 delta_(j l) x^l
-    $
-    $
-    ==> (grad F)^i = delta^(i j)2delta_(j l)x^l = 2 dot x^i \
-    grad F = 2 dot arrow(x) 
-    $
-  ],
-  canvas({
-    import draw: *
+    Sei $F: RR^3 -> RR$ ein Skalarfeld, dann ist $grad F$ senkrecht auf der Fläche $F^(-1)({0})$. 
+    #grid(
+      columns: (2fr,1fr), gutter: 20pt,
+      [
+        *Beispiel:* $F(arrow(x)) := abs(arrow(x))^2 - R^2, R = "const"$ 
+        $
+        F^(-1)({0})=:S^2 space ("Sphäre") wide (grad F)^i = delta^(i j) delta_j F
+        $
+        $
+        diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
+        &= delta_(k l) (diff_j x^k) x^l + delta_(k l) x^k (diff_j x^l) \
+        &= 2 delta_(k l) (diff_j x^k) x^l \
+        &= 2 delta_(j l) x^l
+        $
+        $
+        ==> (grad F)^i = delta^(i j)2delta_(j l)x^l = 2 dot x^i \
+        grad F = 2 dot arrow(x) 
+        $
+      ],
+      [
+        #v(2cm)
+        #canvas({
+        import draw: *
+    
+        circle((),radius:1,name:"sphere")
+        line(("sphere"),(1.8,-0.5),mark:(end:">",fill:black))
+        content((),$grad F$,anchor:"west",padding:0.1)
+        set-style(stroke:(paint:gray,dash:"dashed"))
+        circle((0,0),radius:1.5)
+        circle((),radius:0.5)
+      })
+      ]
+    )
+    #bold[Beweis:]
 
-    circle((),radius:1,name:"sphere")
-    line(("sphere"),(1.8,-0.5),mark:(end:">",fill:black))
-    content((),$grad F$,anchor:"west",padding:0.1)
-    set-style(stroke:(paint:gray,dash:"dashed"))
-    circle((0,0),radius:1.5)
-    circle((),radius:0.5)
-  })
+    Parametrisierung der Fläche $F = 0$, Parameter $sigma^alpha, alpha = 1,2 <==> F(arrow(x)(sigma)) = 0$
+    $
+    pdv(arrow(x),sigma^1) "Tangentialvektor entlang" sigma^1 \
+    pdv(arrow(x),sigma^2) "Tangentialvektor entlang" sigma^2
+    $
+    $
+    ip(pdv(arrow(x), sigma^alpha), grad F) = delta_(i j) pdv(x^i, sigma^alpha) (grad F)^j = delta^(j k) diff_k F \ 
+    = delta_i^(space k) pdv(x^i, sigma^alpha) diff_k F = pdv(x^i, sigma^alpha) diff_i F =^"Kettenregel" pdv(,sigma^alpha) (F(arrow(x)(sigma))) = 0 \
+    ==> grad F "senkrecht auf Tangentialvektoren"
+    $
+  ]
 )
-
-#bold[allgemeiner Beweis:]
-
-Parametrisierung der Fläche $F = 0$, Parameter $sigma^alpha, alpha = 1,2 <==> F(arrow(x)(sigma)) = 0$
-$
-pdv(arrow(x),sigma^1) "Tangentialvektor entlang" sigma^1 \
-pdv(arrow(x),sigma^2) "Tangentialvektor entlang" sigma^2
-$
-$
-ip(pdv(arrow(x), sigma^alpha), grad F) = delta_(i j) pdv(x^i, sigma^alpha) (grad F)^j = delta^(j k) diff_k F \ 
-= delta_i^(space k) pdv(x^i, sigma^alpha) diff_k F = pdv(x^i, sigma^alpha) diff_i F =^"Kettenregel" pdv(,sigma^alpha) (F(arrow(x)(sigma))) = 0 \
-==> grad F "senkrecht auf Tangentialvektoren"
-$
 
 #text(size: 13pt)[#bold[Integralsätze:]]
 
@@ -504,19 +513,31 @@ $
 
 = Spezielle Relativitätstheorie
 
-#bold[Raumzeit:] Raum und Zeit vereingit in einem vierdimensionalen Raum
+#bold[Raumzeit:] Raum und Zeit vereinigt in einem vierdimensionalen Raum
 
 Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
 
 Literaturempfehlung: Robert Geroch, General Relativity from A to B
 
-#align(center, italic[Abbildung der Raumzeit in 3D])
+#align(center)[#canvas({
+  import draw: *
+  set-transform(none)
+  rotate(x:40deg,y:-10deg,z:-90deg)
+  set-style(fill:black)
+  line((-1,0),(3,0),mark:(end:">"))
+  content((),$t$,anchor:"south-west",padding:0.1)
+  line((0,-1),(0,4),mark:(end:">"))
+  content((),$x_1$,anchor:"north",padding:0.1)
+  line((0,0,-1),(0,0,4),mark:(end:">"))
+  content((),$x_2$,anchor:"north")
+  content((2.5,4),[Raumzeit als $RR^4$])
+})]
 
 Struktur der Raumzeit?
 
 #bold[Aristotelische Raumzeit:] 
 
-Folgende fragen sind bedeutungsvoll
+Folgende Fragen sind bedeutungsvoll
 1. Finden zwei Ereignisse am selben Ort statt?
 2. Finden zwei Ereignisse zur selben Zeit statt?
 
@@ -530,13 +551,34 @@ Es gilt das Prinzip der "absoluten Ruhe".
 
 #bold[Galileische Raumzeit:]
 
-#align(center, italic[Abbildung der Galileischen Raumzeit])
+#align(center)[#canvas({
+  import draw: *
+  set-transform(none)
+  rotate(x:50deg,y:-10deg,z:-90deg)
+  set-style(fill:black)
+  line((0,0),(3,0),mark:(end:">"))
+  content((),$t$,anchor:"south-west",padding:0.1)
+  line((0,0),(0,4),mark:(end:">"))
+  content((),$x_1$,anchor:"north")
+  line((0,0),(0,0,4),mark:(end:">"))
+  content((),$x_2$,anchor:"north")
+
+  let quader(a,b,c,d,e,f,g,h) = {
+    line(a,b);line(b,c);line(c,d);line(d,a);
+    line(a,e);line(b,f);line(c,g);line(d,h);
+    line(e,f);line(f,g);line(g,h);line(h,e);
+  }
+  for i in range(5) {
+    quader((i*0.4,0,-i/3+0.5),(i*0.4,2,-i/3+0.5),(i*0.4,2,-i/3+0.5+2),(i*0.4,0,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5+2))
+  }
+  content((2.5,9),[Galileitransformation \ ist Scheerung in $x_1$-$x_2$-$x_3$ Ebene])
+})]
 
 "Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
 
 Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
 
-Aber: Der räumliche Abstand #underline[zur selben Zeit] ist absolut.
+Aber: Der räumliche Abstand #underline[zur selben Zeit] (in der $x_1$-$x_2$-$x_3$-Ebene) ist absolut.
 
 $==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
 
@@ -572,7 +614,30 @@ $
 ip(V, W) = eta_(mu nu) V^mu W^nu = V_mu W^mu = V^mu W_mu
 $
 
-#align(center, italic[Abbildung des Lichtkegels in 3D])
+#align(center)[#canvas({
+  import draw: *
+  let a = 3
+  let cone_length = a/1.8
+  set-style(fill:black,mark:(symbol:">"))
+  set-transform(none)
+  rotate(x:60deg,y:40deg,z:0deg)
+  line((-a,0,0),(a,0,0))
+  content((),$x^1$,anchor:"west",padding:0.1)
+  line((0,-a,0),(0,a,0))
+  content((),$x^2$,anchor:"north",padding:0.1)
+  line((0,0,-a),(0,0,a))
+  content((),$x^0$,anchor:"south",padding:0.1)
+  let zylinder = {
+    line((0,0),(-cone_length,0,cone_length),mark:none)
+    line((0,0),(cone_length,0,cone_length),mark:none)
+    line((0,0),(0,cone_length,cone_length),mark:none)
+    line((0,0),(0,-cone_length,cone_length),mark:none)
+    circle((0,0,cone_length),radius:cone_length,fill:none)
+  }
+  zylinder
+  rotate(y:180deg)
+  zylinder
+})]
 
 $x^mu x_mu = 0$ heißt #bold[lichtartig]
 
@@ -593,87 +658,145 @@ Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
 $
 T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
 $
-Physikalische Interpretation von zwei Ereignissen $p$ und $q$ mit raumartigen Intervall?  
 
-#align(center)[#canvas({
-  import draw: *
-  set-style(fill:black,radius:0.04,padding:0.15)
-  let (r,p,s,q)=((0,0),(0.25,1),(0.75,3),(2.4,1.1))
-  line((-0.25,-1),(0.85,3.4))
-  circle(r)
-  content((),$r$, anchor:"north-west")
-  circle(p)
-  content((),$p$, anchor:"west")
-  circle(s)
-  content((),$s$, anchor:"south-west")
-  circle(q)
-  content((),$q$, anchor:"west")
-  line(r,q, stroke: (dash: "dashed"))
-  line(s,q, stroke: (dash: "dashed"))
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+    Physikalische Interpretation von zwei Ereignissen $p$ und $q$ mit raumartigen Intervall? 
 
-  decorations.brace(r,p)
-  decorations.brace(p,s)
-  content((-0.7,0.7),$T_1$)
-  content((-0.3,2.2),$T_2$)
+    #align(center)[#canvas({
+      import draw: *
+      set-style(fill:black,radius:0.04,padding:0.15)
+      let (r,p,s,q)=((0,0),(0.25,1),(0.75,3),(2.4,1.1))
+      line((-0.25,-1),(0.85,3.4))
+      circle(r)
+      content((),$r$, anchor:"north-west")
+      circle(p)
+      content((),$p$, anchor:"west")
+      circle(s)
+      content((),$s$, anchor:"south-west")
+      circle(q)
+      content((),$q$, anchor:"west")
+      line(r,q, stroke: (dash: "dashed"))
+      line(s,q, stroke: (dash: "dashed"))
+    
+      decorations.brace(r,p)
+      decorations.brace(p,s)
+      content((-0.7,0.7),$T_1$)
+      content((-0.3,2.2),$T_2$)
+    
+      line((2.6,1.3),(3.1,2.1),mark:(start:">"))
+      content((),[Spiegel],anchor:"west",padding:0.1)
+    })]
+    
+    #underline[Behauptung:] $Delta s^2 = - c^2 T_1 T_2 < 0$, $Delta s^2:$ Intervall/Abstand zwischen $p$ und $q$
+    
+    #italic[Beweis:] Wähle Ruhesystem des Beobachters.
+    #grid(
+      columns: (1fr,1fr), align: center,
+      canvas({
+      import draw: *
+      set-style(fill:black,radius:0.04,padding:0.15)
+      let (r,p,s,q)=((0,0),(0,1),(0,3),(1.5,1.5))
+      line((0,-1),(0,4),mark:(end:">"))
+      content((),$x^0$,anchor:"west")
+      line((-1.3,0),(4,0),mark:(end:">"))
+      content((),$x^1$,anchor:"west")
+      circle(r)
+      content((),$r$, anchor:"north-east")
+      circle(p)
+      content((),$p$, anchor:"west")
+      circle(s)
+      content((),$s$, anchor:"south-west")
+      circle(q)
+      content((),$q$, anchor:"south",padding:0.25)
+      circle((0,1.5))
+      line((-1.5,1.5),q,stroke:(dash:"dashed"))
+      line((-1.5,p.at(1)),(0,p.at(1)),stroke:(dash:"dashed"))
+      line(r,q, stroke: (dash: "dashed"))
+      line(s,q, stroke: (dash: "dashed"))
+    
+      decorations.brace(r,p)
+      decorations.brace(p,s)
+      decorations.brace((-1.5,p.at(1)),(-1.5,1.5))
+      decorations.brace((q.at(1),0),r,)
+      decorations.brace(q,(q.at(1),0),)
+      content((-0.9,0.5),$c T_1$)
+      content((-0.9,2),$c T_2$)
+      content((-2.6,1.3),$c Delta T$)
+      content((q.at(0)/2,-0.7),$Delta x$)
+      content((q.at(0)*2.1,q.at(1)/2),$c/2(T_1+T_2)$)
+    }),
+      [
+        #v(1cm)
+        $
+        Delta x = c/2 (T_1 + T_2), quad c Delta t = -c/2 (T_1 - T_2) \ 
+        $
+        $
+        ==> Delta s^2 &= c^2 (Delta t)^2 - (Delta x)^2 \
+        &= c^2 /4 (T_1 - T_2)^2 - c^2 /4 (T_1 + T_2)^2 \
+        &= -c^2 T_1 T_2
+        $
+      ]
+    )
+  ]
+)
 
-  line((2.6,1.3),(3.1,2.1),mark:(start:">"))
-  content((),[Spiegel],anchor:"west",padding:0.1)
-})]
-
-#underline[Behauptung:] $Delta s^2 = - c^2 T_1 T_2 < 0$, $Delta s^2:$ Intervall/Abstand zwischen $p$ und $q$
-
-#italic[Beweis:] Wähle Ruhesystem des Beobachters.
-$
-Delta x = c/2 (T_1 + T_2), c Delta t = -c/2 (T_1 - T_2) \ 
-$
-$
-==> Delta s^2 &= c^2 (Delta t)^2 - (Delta x)^2 \
-&= c^2 /4 (T_1 - T_2)^2 - c^2 /4 (T_1 + T_2)^2 \
-&= -c^2 T_1 T_2
-$
-#align(center)[#canvas({
-  import draw: *
-  set-style(fill:black,radius:0.04,padding:0.15)
-  let (r,p,s,q)=((0,0),(0,1),(0,3),(1.5,1.5))
-  line((0,-1),(0,4),mark:(end:">"))
-  content((),$x^0$,anchor:"west")
-  line((-1.3,0),(4,0),mark:(end:">"))
-  content((),$x^1$,anchor:"west")
-  circle(r)
-  content((),$r$, anchor:"north-east")
-  circle(p)
-  content((),$p$, anchor:"west")
-  circle(s)
-  content((),$s$, anchor:"south-west")
-  circle(q)
-  content((),$q$, anchor:"south")
-  circle((0,1.5))
-  line((-1.5,1.5),q,stroke:(dash:"dashed"))
-  line((-1.5,p.at(1)),(0,p.at(1)),stroke:(dash:"dashed"))
-  line(r,q, stroke: (dash: "dashed"))
-  line(s,q, stroke: (dash: "dashed"))
-
-  decorations.brace(r,p)
-  decorations.brace(p,s)
-  decorations.brace((-1.5,p.at(1)),(-1.5,1.5))
-  decorations.brace((q.at(1),0),r,)
-  decorations.brace(q,(q.at(1),0),)
-  content((-0.9,0.5),$c T_1$)
-  content((-0.9,2),$c T_2$)
-  content((-2.6,1.3),$c Delta T$)
-  content((q.at(0)/2,-0.7),$Delta x$)
-})]
-
-#bold[Zwillingsparadox:] Zeit von $A$: $T_A = T$. Zeit von $B$: $c T_B = 2 sqrt(c^2 (T/2)^2 - Delta x^2)$
-$
-==> T_B^2 = 4 (T^2 /4 - (Delta x^2) / c^2) = T_A^2 - 4 (Delta x^2)/c^2 \
-$
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-$
-==> T_B < T_A
-$
-])
-Die Eigenzeit entlang von Geraden ist maximal.
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+    
+    #bold[#underline[Zwillings-Paradoxon:]]
+    #align(center)[#canvas({
+      import draw: *
+      let Koordinatensystem = {line((0,-0.5),(0,3),mark:(end:">"));content((),$x^0$,anchor:"east");line((-1,0),(3,0),mark:(end:">"));content((),$x^1$,anchor:"west")}
+      set-style(fill:black,padding:0.1)
+      Koordinatensystem
+      line((0.5,3),(0.5,-0.5),stroke:(dash:"dashed"))
+      content((),$A$,anchor:"north")
+      line((1,3),(1,2.5))
+      bezier((),(1.5,1.5),(1.5,2),fill:none)
+      bezier((),(1,0.5),(1.5,1),fill:none)
+      line((1,0.5),(1,-0.5))
+      content((),$B$,anchor:"north")
+      
+      set-origin((7,0))
+      Koordinatensystem
+      line((0,0),(1,1.2))
+      line((),(0,2.4))
+      line((1,0),(1,1.2),stroke:(dash:"dashed"))
+      content((0.5,-0.25),$Delta x$)
+      decorations.brace((0,0),(0,1.2))
+      decorations.brace((0,1.2),(0,2.4))
+      content((-0.75,0.6),$T/2$)
+      content((-0.75,1.8),$T/2$)
+      content((1.55,0.8),$B$)
+      line((1.35,0.8),(0.65,0.6),mark:(end:">"))
+      bezier((1.5,1),(0.7,1.7),(1.55,2),mark:(end:">",fill:black),fill:none)
+      content((0.65,2.8),$A$)
+      line((0.5,2.55),(0.1,1.9),mark:(end:">"))
+    })]
+    
+    Zeit von $A$: $T_A = T$. 
+    
+    Zeit von $B$: $c T_B = 2 sqrt(c^2 (T/2)^2 - Delta x^2)$
+    $
+    ==> T_B^2 = 4 (T^2 /4 - (Delta x^2) / c^2) = T_A^2 - 4 (Delta x^2)/c^2 \
+    $
+    #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    ==> T_B < T_A
+    $
+    ])
+    $=>$ Die Eigenzeit entlang von Geraden ist maximal.
+  ]
+)
 
 #bold[Lorentz-Transformation/Symmetrie von Minkowski]
 == Lorentz-Transformation/Symmetrie von Minkowski
@@ -864,7 +987,7 @@ $
 u^mu = c/sqrt(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
 $
 
-#line(length: 1cm, stroke: 1pt)
+#line(length: 100%)
 
 $
 S = - m c integral dd(s) = - m c integral dd(t) sqrt(dot(x)^2) = - m c^2 integral dd(t) sqrt(1- va(v)^2/c^2)
@@ -899,7 +1022,18 @@ $
 
 #bold[Wiederholung: Dirac "$delta$-Funktion"]
 
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  let epsilon=calc.pow(10,-2)
+  plot.plot(
+    axis-style: none, // ich weiß nicht, wie ich die Farbe ändere lol
+    plot.add(
+      domain:(-1,1),
+      x=>1/calc.pi*epsilon/(epsilon*epsilon+x*x)
+    )
+  )
+  content((1.1,1),$delta(x)$)
+})]
 
 $
 integral_(-oo)^oo dd(x) delta(x) = 1 wide integral_(-oo)^oo dd(x) delta(x - a) f(x) = f(a)
@@ -907,7 +1041,7 @@ $
 
 Keine Funktion $delta(x)$ hat exakt diese Eigenschaften, aber wir können sie beliebig genau annähern.
 $
-Delta_epsilon (x) := 1/pi epsilon/(x^2 + epsilon), space epsilon > 0 wide \" delta(x) = lim_(epsilon -> 0) Delta_epsilon (x) \"
+Delta_epsilon (x) := 1/pi epsilon/(x^2 + epsilon^2), space epsilon > 0 wide \" delta(x) = lim_(epsilon -> 0) Delta_epsilon (x) \"
 $
 
 #bold[Eigenschaften der $delta$-Funktion:]
@@ -1024,7 +1158,7 @@ integral dd(x, [4,]) phi(x) diff_mu j^mu (x) &=^"Def." c e integral dd(lambda) d
 $
 Für beliebige Testfunktionen
 
-#line(length: 1cm)
+#line(length: 100%)
 
 #bold[Resultate bisher:]
 
@@ -1061,7 +1195,7 @@ Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3
 
 $-->$ Bewegungsgleichungen, gewöhnliche Differentialgleichungen:
 $
-m dv(va(x), t, 2) = va(F(va(x)(t)))
+m dv(va(x), t, 2) = va(F)(va(x)(t))
 $
 In Feldtheorie: partielle Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
 
@@ -1127,13 +1261,13 @@ $
 
 #bold[Beispiel:] 
 $
-square := diff^mu diff_mu = eta^(mu nu) diff_mu diff_nu = eta^(mu nu) pdv(,x^mu,x^nu,[1,1]) = pdv(,(x^0), [2,]) - pdv(,(x^1), [2,]) - pdv(,(x^2), [2,]) - pdv(,(x^0), [3,]) = 1/c^2 pdv(,t,[2,]) - laplacian 
+square := diff^mu diff_mu = eta^(mu nu) diff_mu diff_nu = eta^(mu nu) pdv(,x^mu,x^nu,[1,1]) = pdv(,(x^0), [2,]) - pdv(,(x^1), [2,]) - pdv(,(x^2), [2,]) - pdv(,(x^0), [3,]) = 1/c^2 pdv(,t,[2,]) - laplace
 $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   Laplace-Operator:
   $
-  laplacian := div grad
+  laplace := div grad
   $
 ])
 
@@ -1142,7 +1276,7 @@ $
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   Laplace-Operator:
   $
-  (1/c^2 pdv(,t,[2,]) - laplacian) phi(t, va(x)) = 0
+  (1/c^2 pdv(,t,[2,]) - laplace) phi(t, va(x)) = 0
   $
 ])
 
@@ -1207,17 +1341,43 @@ $
 
 Empirische Annahmen: (Gauss: $epsilon_0 -> 1/(4 pi)$)
 
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  div va(E) &= 4 pi rho \
-  div va(B) &= 0
-  $
-])
+#grid(columns: (1fr,1fr), align: center, 
+  [ 
+    #v(0.35cm)
+    #box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    div va(E) &= 4 pi rho \
+    div va(B) &= 0
+    $
+  ]],
+  canvas({
+    import draw: *
+    circle((),radius:0.7,name:"circle",stroke:(dash:"dashed"))
+    line(("circle"),(1.3,-0.5),mark:(end:">",fill:black))
+    content((),$arrow(E)$,anchor:"south",padding:0.27)
+    line(("circle"),(-1.3,-0.5),mark:(end:">",fill:black))
+    line(("circle"),(-1.3,0.5),mark:(end:">",fill:black))
+    line(("circle"),(0,1.3),mark:(end:">",fill:black))
+    line(("circle"),(0.4,-1.3),mark:(end:">",fill:black))
+    circle((0,0),radius:0.05,fill:black,stroke:none)
+    content((),$q$,anchor:"west",padding:0.1)
+    set-origin((4.5,0))
+    circle((0,0),radius:0.7,name:"circle",stroke:(dash:"dashed"))
+    let (a,b,c)=((-0.7,-1.1),(-0.7,1),(0.3,-0.3))
+    bezier(a,b,c)
+    bezier(a,b,c,mark:(end:">",fill:black, pos:25%))
+    bezier(a,b,c,mark:(end:">",fill:black, pos:75%))
+    bezier((a.at(0)+0.7,a.at(1)-0.1),(b.at(0)+0.6,b.at(1)),(c.at(0)+0.5,c.at(1)))
+    content((),$arrow(B)$,anchor:"south-west",padding:0.1)
+    bezier((a.at(0)+0.7,a.at(1)-0.1),(b.at(0)+0.6,b.at(1)),(c.at(0)+0.5,c.at(1)),mark:(end:">",fill:black, pos:25%))
+    bezier((a.at(0)+0.7,a.at(1)-0.1),(b.at(0)+0.6,b.at(1)),(c.at(0)+0.5,c.at(1)),mark:(end:">",fill:black, pos:80%))
+  })
+)
 Motivation dessen:
 $
 integral_(diff V) va(E) dot dd(va(Sigma)) = 4 pi Q wide wide 0 = integral_(diff V) va(B) dot dd(va(Sigma)) = integral_V dd(x,[3,]) div va(B)
 $
-#line(length: 1cm)
+#line(length: 100%)
 $
 div va(E) = diff_i E^i = - diff_i F^(0 i) = diff_i F^(i 0) = 4 pi rho = (4 pi)/c j^0 \
 ==> diff_i F^(i o) = (4 pi)/c j^0

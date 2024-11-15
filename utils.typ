@@ -15,7 +15,7 @@
   text(size: 50pt, fill: red)[AHHH]
   }
 
-#let definition(number, name, content) = {
+#let definition(number, name, content, type:"Definition") = {
   box(
     width: 100%, 
     height: auto,
@@ -24,7 +24,7 @@
     radius: 10pt,
     inset: 0.5cm,
     [
-      #bold[Definition #number: #name] \
+      #bold[#type #number: #name] \
       #v(5pt)
       #set text(size: 11pt)
       #box(inset: (top: -3mm), [#content $#sspace$])
