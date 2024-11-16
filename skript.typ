@@ -444,18 +444,34 @@ Sei $M$ eine Kurve/Fläche/Volumen und $diff(M)$ der Rand:
 #box(width: 100%, inset: 0.3cm, stroke: 0.5pt, radius: 5pt, [
   #bold[Stokes Theorem]
 
-  Sei $A$ eine $(p)$-Form und $M$ $(p+1)$-dimensional. Dann gilt 
+  Sei $A$ eine $p$-Form und $M$ $(p+1)$-dimensional. Dann gilt 
   $
   integral_(diff M) A = integral_M dd(A)
   $
 ])
 
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
 $M$: Kurve (1-dimensional), $A = phi.alt$ (0-Form)
+
+Stokes in 1d ist der Hauptsatz der Differential und INtegralrechnung:
 $
 integral_M dd(phi.alt) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0)) = integral_(diff M) phi.alt \
 "für" diff M = {arrow(x)(s_1), arrow(x)(s_0)}
 $
+  ]
+)
 
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
 $M$: Fläche, 1-Form, $A = A_i dd(x^i)$, Parametrisierung: $sigma^alpha = (u, v) in D 
 $
 $
@@ -464,20 +480,55 @@ $
 $
 integral_M dd(A) &= integral_D (diff_i A_j - diff_j A_i) pdv(x^i,u) pdv(x^j,v) dd(u,v) \
 &= integral_D (pdv(,u) A_j (arrow(x)(u, v)) pdv(x^j,v) - pdv(,v) A_j (arrow(x)(u, v)) pdv(x^i,u)) dd(u, v) \
-&= integral_D (pdv(,u) (A_j (arrow(x)(u, v)) pdv(x^j,v)) - pdv(,v) (A_j (arrow(x)(u, v)) pdv(x^i,u))) dd(u, v) \
+&=limits(integral_D pdv(,u)(A_j (arrow(x)(u,v)) pdv(x^j,v)) dd(u,v))_arrow.b-integral_D pdv(,v)(...)dd(u,v)=integral_(diff M) A space checkmark \
 $
 $
-integral_D pdv(,u) (A_j (arrow(x)(u, v)) pdv(x^j,v) dd(u, v) = integral_(v_0)^(v_1) A_j (arrow(x)(u, v) pdv(x^j,v) dd(v) - integral_(v_0)^(v_1) A_j (arrow(x)(u, v)) pdv(x^j,v) dd(v)
+integral_(v_0)^(v_1) A_j (arrow(x)(u_1, v) pdv(x^j,v) dd(v) - integral_(v_0)^(v_1) A_j (arrow(x)(u_0, v)) pdv(x^j,v) dd(v)
 $
-#align(center, italic[(Abbildung parametrisierter Fläche in 2D-Koordinaten)])
+#align(center)[#canvas({
+  import draw: *
+  bezier((0.7*1.5,1.5*1),(1.2*1.5,1.5*0.7),(0.7*1.5,1.5*0.7))
+  bezier((1.2*1.5,1.5*0.7),(1.7*1.5,1.5*1.5),(1.9*1.5,1.5*0.7))
+  bezier((1.7*1.5,1.5*1.5),(1*1.5,1.5*1.6),(1.6*1.5,1.5*2))
+  bezier((1*1.5,1.5*1.6),(0.7*1.5,1.5*1),(0.65*1.5,1.5*1.35))
+  content((1.8,1.8),$M$)
 
-$M$: Volumen, $B$ 2-Form, $B = B_(i j) dd(x^i, x^j, d:and)$
+  set-origin((-5,0.8))
+  
+  line((-0.5,0),(3,0),mark:(end:">",fill:black))
+  content((),$u$,anchor:"west",padding:0.15)
+  line((0,-0.5),(0,2.5),mark:(end:">",fill:black))
+  content((),$v$,anchor:"west",padding:0.15)
+  rect((0.5,0.5),(2,1.5),stroke:(dash:"dashed"))
+  content((0.5,-0.35),$u_0$)
+  line((0.5,-0.1),(0.5,0.1))
+  content((2,-0.3),$u_1$)
+  line((2,-0.1),(2,0.1))
+  content((-0.35,0.5),$v_0$)
+  line((-0.1,0.5),(0.1,0.5))
+  content((-0.35,1.5),$v_1$)
+  line((-0.1,1.5),(0.1,1.5))
+
+  line((4,1),(5,1),mark:(start:"|",end:">",fill:black))
+  content((rel:(-0.6,0.3)),$x$)
+})]
+#v(1cm)
+ ]
+)
+#pagebreak()
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+$M$: Volumen, $B$ 2-Form, $B = 1/2 B_(i j) dd(x^i, x^j, p:and)$
 $
-==> "3-Form" space dd(B) = diff_i B_(j k) dd(x^i, x^j, x^k, d:and) = 1/2 epsilon^(i j k) diff_i B_(j k) dd(x)^3 \
-==> dd(B) = diff_i V^i dd(x)^3, V^i := 1/2 epsilon^(i j k) B_(k j) \
-==> integral_V dd(B) = integral_V diff_i V^i dd(x)^3 = integral_M div(arrow(V)) dd(x)^3 =^"Gauss" integral.cont_(diff V) arrow(V) dot arrow(dd(Sigma)) = integral_(diff M) B
-$
-Konsistenz mit $"div" compose "rot" = 0, ..., dd^2 = 0$
+==> "3-Form" space dd(B) = 1/2 diff_i B_(j k) dd(x^i, x^j, x^k, p:and) = 1/2 epsilon^(i j k) diff_i B_(j k) dd(x)^3 \
+==> dd(B) = diff_i V^i dd(x)^3 quad "mit" quad V^i := 1/2 epsilon^(i j k) B_(j k) \
+==> integral_V dd(B) = integral_V diff_i V^i dd(x)^3 = integral_M div arrow(V) dd(x)^3 =^"Gauss" integral.cont_(diff V) arrow(V) dot dd(arrow(Sigma)) = integral_(diff M) B
+$])
+Konsistenz mit $"div" compose "rot" = 0, ..., "d"^2 = 0$
 
 $M = diff M' ==> diff M = 0 quad [diff diff = 0]$
 
@@ -597,7 +648,7 @@ Delta s^2 &:= eta_(mu nu) Delta x^mu Delta x^v \
 &= (Delta x^0)^2 - (Delta x^1)^2 - (Delta x^2)^2 - (Delta x^3)^2 \
 &= c^2 (Delta t)^2 - (Delta arrow(x))^2
 $
-Infinitesimal: $dd(s)^2 = eta_(mu nu) dd(x^mu, x^nu) = c^2 dd(t)^2 - (dd(va(x))^2$
+Infinitesimal: $dd(s)^2 = eta_(mu nu) dd(x^mu, x^nu) = c^2 dd(t)^2 - (dd(va(x)))^2$
 
 #bold[Vektoren im Minkowski-Raum $RR^(3, 1)$:]
 
@@ -614,9 +665,19 @@ $
 ip(V, W) = eta_(mu nu) V^mu W^nu = V_mu W^mu = V^mu W_mu
 $
 
-#align(center)[#canvas({
+#grid(
+  columns: (1fr,1fr),align: center,
+  [
+    #v(1cm)
+    $x^mu x_mu = 0$ heißt #bold[lichtartig]
+    
+    $x^mu x_mu > 0$ heißt #bold[zeitartig]
+    
+    $x^mu x_mu < 0$ heißt #bold[raumartig] 
+  ],
+  canvas({
   import draw: *
-  let a = 3
+  let a = 2
   let cone_length = a/1.8
   set-style(fill:black,mark:(symbol:">"))
   set-transform(none)
@@ -637,24 +698,19 @@ $
   zylinder
   rotate(y:180deg)
   zylinder
-})]
-
-$x^mu x_mu = 0$ heißt #bold[lichtartig]
-
-$x^mu x_mu > 0$ heißt #bold[zeitartig]
-
-$x^mu x_mu < 0$ heißt #bold[raumartig] 
+})
+)
 
 Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
 
 == Lichtstrahlen und Uhren
 
-#bold[Postulat 1:] Weltlinien von Lichtstrahlen sind Kurven (= Gerade) auf der Oberfläche des Lichtkegels.
+#bold[Postulat 1:] Weltlinien von Lichtstrahlen sind Kurven (= Geraden) auf der Oberfläche des Lichtkegels.
 
 
 #bold[Postulat 2:] Weltlinien von massiven Objekten/Beobachtern sind zeitartige Kurven
 
-#bold[Postulat 3:] Die Zeit, die ein Beobachter entlang seiner Weltlinie"misst", ist 
+#bold[Postulat 3:] Die Zeit, die ein Beobachter entlang seiner Weltlinie "misst", ist 
 $
 T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
 $
@@ -805,7 +861,7 @@ $x^mu --> x'^mu = tensor(Lambda, +mu, -nu) dot x^nu$
 
 #bold[4-Vektoren:] $V^mu --> V'^mu = tensor(Lambda, +mu, -nu) dot V^nu$ ("kontravarianter Vektor")
 
-#bold[co-Vektor:] $W_mu --> W'_mu = tensor((Lambda^(-1)), +nu, -mu) W_nu$
+#bold[co-Vektor:] $W_mu --> W'_mu = tensor((Lambda^(-1)), +nu, -mu) W_nu$ ("kovarianter Vektor")
 $
 V^mu W_mu -->  V'^mu W'_mu &= tensor(Lambda, +mu, -nu) V^nu tensor((Lambda^(-1)),+rho,-mu) W_rho \
 &= tensor((Lambda^(-1)), +rho, -mu) tensor(Lambda, +mu, -nu) V^nu W_rho \
@@ -888,7 +944,7 @@ $==>$ #bold[Eigenzeit] $tau = s/c$
 ])
 Zeit, gemessen von einer Uhr mit Weltlinie $C$.
 
-#line(length: 1cm, stroke: 0.5pt)
+#line(length: 100%)
 
 #bold[Wirkung (Hamiltonisches Prinzip)] für ein freies Teilchen:
 $
@@ -980,14 +1036,40 @@ $
 u^mu u_mu = u_0^mu u_(0 mu) = c^2 > 0 ==> "zeitartig"
 $
 
-#bold[Koordinatenzeit:] $x^0 = c t$, $lambda = t ==> x^mu (t) = (c t, x^i (t))$
-$
-==> dot(x)^mu = dv(x^mu, t) = (c, dv(x^i, t)) equiv (c, v^i) ==> dot(x)^2 = c^2 - abs(va(v))^2 \
-==> 1/sqrt(dot(x)^2) = 1/sqrt(1 - v^2/c^2) dot 1/c = 1/c dot gamma \ 
-u^mu = c/sqrt(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
-$
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+#bold[Koordinatenzeit:] Wähle als Parametrisierung der Kurve $lambda=t$
 
-#line(length: 100%)
+$ x^0 = c t,& quad "Setze" lambda = t ==> x^mu (t) = (c t, x^i (t)) $
+
+#grid(
+  columns: (1fr,1fr), align: center,
+  [ 
+    $
+    #h(1cm)&==> dot(x)^mu =  (c, dv(x^i, t)) equiv (c, v^i) \ 
+    &==> dot(x)^2 = c^2 - abs(va(v))^2 \
+    &==> 1/sqrt(dot(x)^2) = underbrace(1/sqrt(1 - v^2/c^2),:=gamma) dot 1/c = 1/c dot gamma \ 
+    &"Damit:" u^mu = c/sqrt(dot(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
+    $
+  ],
+  canvas({
+    import draw: *
+    line((-1,0,0),(3,0,0),mark:(end:">",fill:black))
+    content((),$x^1$,anchor:"west",padding:0.15)
+    line((0,-1,0),(0,3,0),mark:(end:">",fill:black))
+    content((),$x^0=c t$,anchor:"south",padding:0.15)
+    line((0,0),(2.5,2.5))
+    line((0,0),(-1,1))
+    set-style(stroke:(dash:"dashed"))
+    bezier((0,0),(0.5,1),(0.1,0.5))
+    bezier((0.5,1),(0.8,1.9),(0.95,1.4))
+    bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+  })
+)
 
 $
 S = - m c integral dd(s) = - m c integral dd(t) sqrt(dot(x)^2) = - m c^2 integral dd(t) sqrt(1- va(v)^2/c^2)
@@ -1002,7 +1084,7 @@ Lagrange-Funktion:
 Energie/#bold[Hamiltonische Funktion:] $p_i := pdv(L, dot(x)^i) = gamma dot m dot(x)_i$
 
 $
-==> H := p_i dot(x)^2 - L = ... = gamma dot m c^2 ==> E = gamma dot m c^2
+==> E=H := p_i dot(x)^2 - L = ... = gamma dot m c^2 approx underbrace(m c^2,"Ruheenergie")+p^2/(2 m)+cal(O)(p^4)
 $
 $==>$ Ruheenergie
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
@@ -1017,9 +1099,9 @@ Stationärer Fall: $x^mu (lambda) =^(lambda = t) x^mu (t) = (c t, va(x)_0)$
 
 Geladenes Teilchen mit Ladung $e$ am Ort $va(x)_0$.
 $
-rho(va(x)) 0= e dot delta^3 (va(x) - va(x)_0), quad va(j)(va(x)) = 0
+rho(va(x)_0)= e dot delta^3 (va(x) - va(x)_0), quad va(j)(va(x)) = 0
 $
-
+])
 #bold[Wiederholung: Dirac "$delta$-Funktion"]
 
 #align(center)[#canvas({
@@ -1125,7 +1207,7 @@ $
   $
 ])
 
-Kosistent mit dem stationären Fall
+Konsistent mit dem stationären Fall
 
 #bold[3er-Strom:] 
 $
@@ -1187,7 +1269,7 @@ $-->$ Feldtheorie, dynamische Felder $va(E)(t, va(x)), va(B)(t, va(x))$
 
 == Relativistische Feldtheorie
 
-Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3$ (aber der Raumzeit $RR^(3, 1)$) eine Zahl, Vektor, Matrix etc. zuweisen.
+Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3$ (oder der Raumzeit $RR^(3, 1)$) eine Zahl, Vektor, Matrix etc. zuweisen.
 
 #bold[Beispiel:] Skalarfeld: $phi(t, va(x))$, Vektorfeld: $va(A)(t, va(x))$
 
@@ -1217,7 +1299,7 @@ phi --> phi' wide "so dass" wide phi'(x') = phi(x) \
 $
 $y := Lambda dot x, x = Lambda^(-1) y$
 $
-==> phi'(y) = phi(lambda^(-1) y) quad "für alle" y in RR^(3,1)
+==> phi'(y) = phi(Lambda^(-1) y) quad "für alle" y in RR^(3,1)
 $
 Umbennen: $y -> x$:
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
@@ -1297,9 +1379,9 @@ $
   div va(E) = 1/epsilon_0 rho
   $
 ][
-  Es existieren #bold[keine] magentischen Ladungen
+  Es existieren #bold[keine] magnetischen Ladungen
   $
-  0 = integral_(diff V) va(B) dot va(dd(Sigma)) = integral_V dd(x, [3,]) div va(B) = 0 quad forall V \
+  0 = integral_(diff V) va(B) dot dd(va(Sigma)) = integral_V dd(x, [3,]) div va(B) = 0 quad forall V \
   $
   #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
     $
@@ -1317,6 +1399,8 @@ $
 
 $j^mu = (c rho, va(j)), va(E) op(tilde) c rho = j^0$
 
+Da die erste Komponente vom Viererstrom $j^0=c rho$, schreiben wir $vb(E)$ in die $F_(0j)$ Komponenten. $vb(B)$ schreiben wir in die $F_(i j)$ Komponenten, da es mit $j^i=arrow(j)$ assoziiert wird.
+
 #bold[Feldstärke-Tensor:]
 $
 F_(mu nu) = mat(0,E^1,E^2,E^3;-E^1,0,-B_3,B_2;-E^2,B_3,0,-B_1;-E^3,-B_2,B_1,0)
@@ -1327,7 +1411,7 @@ $
 F_(0 i) = E_i, quad i = 1,2,3 \
 F_(i j) = - epsilon_(i j k) B^k
 $
-#line(length: 1cm)
+#line(length: 100%)
 $
 &F^(mu nu) := eta^(mu rho) eta^(nu sigma) F_(rho sigma) \
 ==> &F^(0 i) = eta^(0 0) eta^(i j) F_(0 j) = - delta^(i j) E_j = - E^i \
@@ -1418,7 +1502,7 @@ $
 $
 #align(center, box(stroke: 1pt, inset: 0.5cm)[
   $
-  diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F(mu nu) = 0
+  diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F_(mu nu) = 0
   $
 ])
 Es bleibt die Konsequenzen dieser Theorie auszurechnen und auf Konsistenz zu prüfen.
@@ -1505,14 +1589,20 @@ $
 SI Einheiten: $epsilon_0 dot mu_0 = 1/c^2$, $epsilon_0$: Permittitivität (des leeren Raumes), $mu_0$: Permeabilität (des leeren Raumes)
 
 nach obigem $quad va(E) -> 1/c va(E)$, $quad epsilon -> 1/(4 pi c)$
-$
-div va(E) = rho/epsilon_0, wide div va(B) = 0 \
-curl va(B) = 1/c^2 pdv(va(E), t) + (4 pi c)/c^2 va(j) quad --> quad epsilon_0 mu_0 pdv(va(E),t) + 1/(epsilon_0 c^2) va(j) \
-$
+
 Maxwell-Gleichungen in SI Einheiten:
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  curl va(B) &= mu_0 (va(j) + epsilon_0 pdv(va(E),t)) \
-  curl va(E) &= - pdv(va(B),t)
-  $
-])
+#align(center, stack(dir: ltr, 
+  box(width: 5.5cm, height: 3.9cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[inhomogen:]
+    $
+    div va(E) &= rho/epsilon_0 \
+    curl va(B) &= mu_0 va(j) + 1/c^2 pdv(va(E),t)
+    $
+  ], 
+  box(width: 5cm, height: 3.9cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[homogen:]
+    $
+      div va(B) &= 0 \ \
+      curl va(E) &= - pdv(va(B),t)
+    $
+]))
