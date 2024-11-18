@@ -981,7 +981,7 @@ $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   $
-  delta S := eval(dv(,epsilon) S[x + epsilon delta x])_(epsilon = 0)
+  delta S := eval(dv(,epsilon) S[x(t) + epsilon dot delta x(t)])_(epsilon = 0)
   $
 ])
 
@@ -989,21 +989,21 @@ Rechnung: Variation des Funktionals
 
 1) $delta$ und $dv(,lambda)$ kommutieren
 $
-delta (dv(x^mu, lambda)) = eval(dv(,epsilon) dv(x^mu+epsilon delta x^mu,lambda))_(epsilon = 0) = eval(dv(delta x^mu, lambda))_(epsilon=0) = dv(,lambda) (delta x^mu)
+delta (dv(x^mu, lambda)) = eval(dv(,epsilon) dv((x^mu+epsilon delta x^mu),lambda))_(epsilon = 0) = eval(dv((delta x^mu), lambda))_(epsilon=0) = dv(,lambda) (delta x^mu)
 $
 2) 
 $
-delta (eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) =^("1)") eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda) + eta_(mu nu) dv(x^mu, lambda) dv((delta x^nu), lambda) = 2 eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda)
+delta (eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^("1)") eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda) + eta_(mu nu) dv(x^mu, lambda) dv((delta x^nu), lambda) = 2 eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda)
 $
 3)
 $
-delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^"Kettenregel" 1/(2 sqrt(dot(x)^2)) delta (dot(x)^2) = star quad "wobei" eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) equiv dot(x)^2 \
-star = 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
-==> delta S = - m c integral delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
+delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) &=^"Kettenregel" 1/(2 sqrt(dot(x)^2)) delta (dot(x)^2) #h(2cm) "wobei" dot(x)^2 equiv eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) \
+&=^("2)") 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
+==> delta S = - m c integral delta& sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
 $
 Partielle Integration davon + Annahme: $eval(delta x_mu)_a = eval(delta x_mu)_b = 0$
 $
-delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^! "beliebige" delta x^mu
+delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^!0 quad forall delta x^mu
 $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
