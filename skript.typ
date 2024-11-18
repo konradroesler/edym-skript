@@ -1348,6 +1348,7 @@ Limes vieler Punktladungen:
 
 Glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
 
+#v(0.2cm)
 #align(center)[#canvas({
   import draw: *
   bezier((0,0),(0.5,1),(0.5,0.5))
@@ -1364,7 +1365,7 @@ Glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
   line((1,-0.2),(rel:(0.6,0.1)))
   line((1.3,0.2),(rel:(0.4,0.4)))
 
-  set-origin((8.5,1.5))
+  set-origin((6.5,1.5))
   rotate(z:-70deg)
   set-style(mark:(end:none))
   bezier((0,0),(0.5,1),(0.5,0.5))
@@ -1382,12 +1383,12 @@ Glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
 
   rotate(z:70deg)
   set-style(mark:(end:none))
-  line((-7.2,-1.3),(0.4,-1))
+  line((-5.2,-1.3),(0.4,-1))
   circle((),radius:0.05,fill:black)
   line((),(rel:(0.6,-0.1)),mark:(end:">"))
-  circle((-7.2,-1.3),radius:0.05,fill:black)
-  content((-3.5,-0.8),$r$)
-  content((-3.5,-2.5),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
+  circle((-5.2,-1.3),radius:0.05,fill:black)
+  content((-2.5,-0.8),$r$)
+  content((-2.5,0.25),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
 })]
 
 $-->$ instantane Wechselwirkung (Kraft) nicht kompatibel mit SR!
@@ -1400,13 +1401,25 @@ Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3
 
 #bold[Beispiel:] Skalarfeld: $phi(t, va(x))$, Vektorfeld: $va(A)(t, va(x))$
 
-#bold[Unterschied zu Punktteilchen:] $va(x)(t) in RR^3$
+#bold[Unterschied zu Punktteilchen:]
 
-$-->$ Bewegungsgleichungen, gewöhnliche Differentialgleichungen:
+$-->$ Bewegungsgleichungen sind #underline[gewöhnliche] Differentialgleichungen:
+#grid(
+  columns: (1fr,1fr), align: center,
+  [
+    #v(0.7cm)
 $
 m dv(va(x), t, 2) = va(F)(va(x)(t))
 $
-In Feldtheorie: partielle Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
+ ],
+ canvas({
+   import draw: *
+   content((1,3.1),$x(t)in RR^3$)
+   bezier((0.5,1),(0.8,1.9),(0.95,1.4),mark:(end:">"))
+   bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+ })
+)
+In Feldtheorie: $-->$ #underline[partielle] Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
 
 #bold[Beispiel:] Kontinuitätsgleichung für $rho(t, va(x))$, $va(j)(t, va(x))$
 $
