@@ -978,16 +978,23 @@ $
 
 #grid(
   columns: (1.5fr,0.66fr),align:center,
-  box(stroke: 0.5pt, inset: 0.5cm)[
+  [
+    #v(0.8cm)
+  #box(stroke: 0.5pt, inset: 0.5cm)[
     $
     delta S := eval(dv(,epsilon) S[x(t) + epsilon dot delta x(t)])_(epsilon = 0)=^!0
     $
-  ],
+  ]],
   canvas({
     import draw: *
+    set-style(radius:0.05,padding:0.15)
+    circle((),fill:black)
+    content((),$x(a)$,anchor:"north")
     bezier((0,0),(0.5,1),(0,0.5))
     bezier((0.5,1),(0.8,1.9),(0.95,1.4))
     bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+    circle((),fill:black)
+    content((),$x(b)$,anchor:"south-west",padding:0.1)
     set-style(stroke:(dash:"dashed"))
     bezier((0,0),(0.5,1),(-0.3,0.8))
     bezier((0.5,1),(0.8,1.9),(1.15,1.15))
