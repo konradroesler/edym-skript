@@ -1346,7 +1346,7 @@ Für beliebige Testfunktionen
 
 Limes vieler Punktladungen:
 
-glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
+Glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
 
 #align(center)[#canvas({
   import draw: *
@@ -1357,13 +1357,14 @@ glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
   bezier((),(0.2,-0.46),(0.5,-0.43))
   bezier((),(0,0),(-0.25,-0.4))
 
-  set-style(mark:(end:">"))
+  set-style(mark:(end:"stealth",fill:black))
   line((0.35,-0.1),(rel:(0.5,0.4)))
   line((0.7,0.8),(rel:(0.3,0.5)))
   line((1.15,0.7),(rel:(0.4,0.4)))
-  line((1.3,-0.2),(rel:(0.4,0.5)))
+  line((1,-0.2),(rel:(0.6,0.1)))
+  line((1.3,0.2),(rel:(0.4,0.4)))
 
-  set-origin((7.5,1.5))
+  set-origin((8.5,1.5))
   rotate(z:-70deg)
   set-style(mark:(end:none))
   bezier((0,0),(0.5,1),(0.5,0.5))
@@ -1373,19 +1374,20 @@ glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
   bezier((),(0.2,-0.46),(0.5,-0.43))
   bezier((),(0,0),(-0.25,-0.4))
   
-  set-style(mark:(end:">"))
-  line((0.35,-0.1),(rel:(0.5,0.4)))
+  set-style(mark:(end:"stealth"))
+  line((0.45,-0.1),(rel:(0.3,0.6)))
   line((0.7,0.8),(rel:(0.3,0.5)))
   line((1.15,0.7),(rel:(0.4,0.4)))
-  line((1.3,-0.2),(rel:(0.4,0.5)))
+  line((1.3,-0.2),(rel:(0.5,0.3)))
 
   rotate(z:70deg)
   set-style(mark:(end:none))
-  line((-6.3,-1),(0.7,-1))
-  circle((-6.3,-1),radius:0.05,fill:black)
-  circle((0.7,-1),radius:0.05,fill:black)
-  content((-3,-0.65),$r$)
-  content((-3,-1.9),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
+  line((-7.2,-1.3),(0.4,-1))
+  circle((),radius:0.05,fill:black)
+  line((),(rel:(0.6,-0.1)),mark:(end:">"))
+  circle((-7.2,-1.3),radius:0.05,fill:black)
+  content((-3.5,-0.8),$r$)
+  content((-3.5,-2.5),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
 })]
 
 $-->$ instantane Wechselwirkung (Kraft) nicht kompatibel mit SR!
