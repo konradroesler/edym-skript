@@ -975,9 +975,8 @@ S = -m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
 $
 
 #bold[Variation:]
-
 #grid(
-  columns: (1.5fr,0.66fr),align:center,
+  columns: (2fr,1fr),align:center,
   [
     #v(0.8cm)
   #box(stroke: 0.5pt, inset: 0.5cm)[
@@ -1031,19 +1030,24 @@ $
 ])
 
 #bold[Euler-Lagrange-Gleichung:]
-$
-#box[
-  $
-  dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0 <==>
-  $
-  #v(0.5cm)
-] 
-#box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  dv(u^mu, lambda) = 0, space u^mu := c/sqrt(dot(x)^2) dv(x^mu, lambda)
-  $
-]
-$
+#grid(
+  columns: (6fr,1fr,6fr), align: center,
+  box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0
+    $
+  ],
+  [
+    #v(0.7cm)
+    $<==>$
+  ],
+  box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    dv(u^mu, lambda) = 0, space u^mu := c/sqrt(dot(x)^2) dv(x^mu, lambda)
+    $
+  ]
+)
+
 $u^mu$: 4er-Geschwindigkeit
 $
 u^2 = u^mu u_mu = c^2/dot(x)^2 underbrace(dot(x)^mu dot(x)_mu, dot(x)^2) = c^2
