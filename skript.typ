@@ -458,7 +458,7 @@ Sei $M$ eine Kurve/Fläche/Volumen und $diff(M)$ der Rand:
   [
 $M$: Kurve (1-dimensional), $A = phi.alt$ (0-Form)
 
-Stokes in 1d ist der Hauptsatz der Differential und INtegralrechnung:
+Hauptsatz der Differential und Integralrechnung:
 $
 integral_M dd(phi.alt) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0)) = integral_(diff M) phi.alt \
 "für" diff M = {arrow(x)(s_1), arrow(x)(s_0)}
@@ -532,7 +532,7 @@ Konsistenz mit $"div" compose "rot" = 0, ..., "d"^2 = 0$
 
 $M = diff M' ==> diff M = 0 quad [diff diff = 0]$
 
-$A = dd(C) ==> 0 = integral_M dd(A) = integral_(diff M) dd(C) ==> dd(A) = upright("d")^2 (A)$
+$A = dd(C) ==> integral_M dd(A) = integral_(diff M) dd(C)=integral_(diff (diff M)) C=0 ==> dd(A) = upright("d")^2 C=0 quad [upright("d")upright("d")=0]$
 
 #bold[Koordinatenwechsel:]
 $
@@ -854,7 +854,6 @@ $
   ]
 )
 
-#bold[Lorentz-Transformation/Symmetrie von Minkowski]
 == Lorentz-Transformation/Symmetrie von Minkowski
 
 $x^mu --> x'^mu = tensor(Lambda, +mu, -nu) dot x^nu$
@@ -875,7 +874,9 @@ T^(mu nu) &--> T'^(mu nu) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma
 tensor(L, +mu, -nu) &--> tensor(L', +mu, -nu) = tensor(Lambda, +mu, -rho) tensor((Lambda^(-1)), +sigma, -nu) tensor(L, +rho, -sigma) "etc."
 $
 
-#bold[Lorentz-Gruppe:] Symmetrie von Minkowski
+#bold[Lorentz-Gruppe:] 
+
+Symmetrie von Minkowski = Invarianz von $eta_(mu nu)$
 $
 eta'_(mu nu) := tensor((Lambda^(-1)), +rho, -mu) tensor((Lambda^(-1)), +sigma, -nu) eta_(rho sigma) =^! eta_(mu nu) &<==> eta_(rho sigma) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma) eta_(mu nu) \
 &<==> eta = Lambda^T eta Lambda
