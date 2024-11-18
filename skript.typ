@@ -1072,13 +1072,13 @@ $],
 canvas({
   import draw: *
   set-style(radius:0.04,padding:0.1)
-  bezier((-0.5,-1.2),(0,-0.6),(-0.15,-1))
+  bezier((-0.5,-1.2),(0,-0.6),(-0.15,-1),stroke:(dash:"dashed"))
   circle((),fill:black)
   content((),$x^mu (lambda_0)$,anchor:"north-west")
   bezier((0,-0.6),(0.1,0.6),(0.25,0),stroke:(thickness:1.6pt))
   circle((),fill:black)
   content((),$x^mu (lambda)$,anchor:"south-west")
-  bezier((0.1,0.6),(0.1,1.5),(-0.15,1))
+  bezier((0.1,0.6),(0.1,1.5),(-0.15,1),stroke:(dash:"dashed"))
 })
 )
 Bewegungsgleichungen generell:
@@ -1174,7 +1174,7 @@ $
 ==> E=H := p_i dot(x)^2 - L = ... = gamma dot m c^2 approx underbrace(m c^2,"Ruheenergie")+p^2/(2 m)+cal(O)(p^4)
 $
 $==>$ Ruheenergie
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+#align(center, box(stroke: 0.5pt, inset: 0.25cm)[
   $
   E = m c^2
   $
@@ -1348,7 +1348,45 @@ Limes vieler Punktladungen:
 
 glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
 
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  bezier((0,0),(0.5,1),(0.5,0.5))
+  bezier((),(1,1.5),(0.45,1.5))
+  bezier((),(1.9,0),(2,1.5))
+  bezier((),(0.8,-0.5),(1.8,-0.6))
+  bezier((),(0.2,-0.46),(0.5,-0.43))
+  bezier((),(0,0),(-0.25,-0.4))
+
+  set-style(mark:(end:">"))
+  line((0.35,-0.1),(rel:(0.5,0.4)))
+  line((0.7,0.8),(rel:(0.3,0.5)))
+  line((1.15,0.7),(rel:(0.4,0.4)))
+  line((1.3,-0.2),(rel:(0.4,0.5)))
+
+  set-origin((7.5,1.5))
+  rotate(z:-70deg)
+  set-style(mark:(end:none))
+  bezier((0,0),(0.5,1),(0.5,0.5))
+  bezier((),(1,1.5),(0.45,1.5))
+  bezier((),(1.9,0),(2,1.5))
+  bezier((),(0.8,-0.5),(1.8,-0.6))
+  bezier((),(0.2,-0.46),(0.5,-0.43))
+  bezier((),(0,0),(-0.25,-0.4))
+  
+  set-style(mark:(end:">"))
+  line((0.35,-0.1),(rel:(0.5,0.4)))
+  line((0.7,0.8),(rel:(0.3,0.5)))
+  line((1.15,0.7),(rel:(0.4,0.4)))
+  line((1.3,-0.2),(rel:(0.4,0.5)))
+
+  rotate(z:70deg)
+  set-style(mark:(end:none))
+  line((-6.3,-1),(0.7,-1))
+  circle((-6.3,-1),radius:0.05,fill:black)
+  circle((0.7,-1),radius:0.05,fill:black)
+  content((-3,-0.65),$r$)
+  content((-3,-1.9),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
+})]
 
 $-->$ instantane Wechselwirkung (Kraft) nicht kompatibel mit SR!
 
