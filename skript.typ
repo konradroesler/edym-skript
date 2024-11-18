@@ -973,17 +973,28 @@ Zeit, gemessen von einer Uhr mit Weltlinie $C$.
 $
 S = -m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c^2 integral dd(tau)
 $
-#box(stroke:0.5pt, inset:0.3cm)[
-  $delta S =^! 0$
-] $ quad S$: Funktional
 
 #bold[Variation:]
 
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  delta S := eval(dv(,epsilon) S[x(t) + epsilon dot delta x(t)])_(epsilon = 0)
-  $
-])
+#grid(
+  columns: (1.5fr,0.66fr),align:center,
+  box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    delta S := eval(dv(,epsilon) S[x(t) + epsilon dot delta x(t)])_(epsilon = 0)=^!0
+    $
+  ],
+  canvas({
+    import draw: *
+    bezier((0,0),(0.5,1),(0,0.5))
+    bezier((0.5,1),(0.8,1.9),(0.95,1.4))
+    bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+    set-style(stroke:(dash:"dashed"))
+    bezier((0,0),(0.5,1),(-0.3,0.8))
+    bezier((0.5,1),(0.8,1.9),(1.15,1.15))
+    bezier((0.8,1.9),(1.05,2.7),(0.3,2.5))
+    content((3,1),$S[x(lambda)]in RR$)
+  })
+)
 
 Rechnung: Variation des Funktionals
 
@@ -1065,7 +1076,7 @@ $
   radius: 4pt,
   width: 100%,
   [
-#bold[Koordinatenzeit:] Wähle als Parametrisierung der Kurve $lambda=t$
+#bold[2) Koordinatenzeit:] Wähle als Parametrisierung der Kurve $lambda=t$
 
 $ x^0 = c t,& quad "Setze" lambda = t ==> x^mu (t) = (c t, x^i (t)) $
 
