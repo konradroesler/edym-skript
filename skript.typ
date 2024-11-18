@@ -1054,32 +1054,74 @@ u^2 = u^mu u_mu = c^2/dot(x)^2 underbrace(dot(x)^mu dot(x)_mu, dot(x)^2) = c^2
 $
 Wähle zwei Parametrisierungen:
 
-#bold[1) Eigenzeit:]
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+#bold[1) Eigenzeit:] Wähle als Parametrisierung der Kurve die Eigenzeit
+
+#grid(
+  columns: (2fr,1fr), align: center,
+  [
+    #v(0.7cm)
 $
-tau(lambda) := 1/c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
-$
-#align(center, italic[Abbildung])
-$
-==> dv(tau, lambda) = 1/c sqrt(dot(x)^2) ==> u^mu = c/sqrt(dot(x)^2) dv(x^mu, lambda) = c/sqrt(dot(x)^2) dv(x^mu, tau) dv(tau, lambda)
-$
+tau(lambda) := 1/c integral_(lambda_0)^lambda sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
+$],
+canvas({
+  import draw: *
+  set-style(radius:0.04,padding:0.1)
+  bezier((-0.5,-1.2),(0,-0.6),(-0.15,-1))
+  circle((),fill:black)
+  content((),$x^mu (lambda_0)$,anchor:"north-west")
+  bezier((0,-0.6),(0.1,0.6),(0.25,0),stroke:(thickness:1.6pt))
+  circle((),fill:black)
+  content((),$x^mu (lambda)$,anchor:"south-west")
+  bezier((0.1,0.6),(0.1,1.5),(-0.15,1))
+})
+)
+Bewegungsgleichungen generell:
+$ dv(u^mu,tau)=0 $
+Betrachte $u^mu$:
+#grid(
+  columns: (2fr,1fr), align: center,
+  $ => u^mu=c/sqrt(dot(x)^2) dv(x^mu,lambda)limits(=)_limits(arrow.t)_"Kettenregel"c/sqrt(dot(x)^2) dv(x^mu,tau) underbrace(dv(tau,lambda),1/c sqrt(dot(x)^2))=dv(x^mu,tau) $,
+  box(stroke: 0.5pt, inset: 0.2cm)[
+    $
+    ==> u^mu = dv(x^mu, tau)
+    $
+  ]
+)
+$==>$ Bewegungsgleichung wird zu:
+#grid(
+  columns: (1fr,1fr), align: center,
+  [
+    #v(0.7cm)
+    $ 0 = dv(u^mu, tau) = dv(x^mu, tau, 2) $
+  ],
+  canvas({
+    import draw: *
+    line((-0.5,0),(2,0),mark:(end:">",fill:black))
+    line((0,-0.5),(0,2),mark:(end:">",fill:black))
+    circle((0.5,0.4),radius:0.05,fill:black)
+    content((),$x_0^mu$,anchor:"west",padding:0.2)
+    line((),(0.9,1.6),mark:(end:">"))
+    content((),$u_0^mu$,anchor:"north-west",padding:0.1)
+    line((),(1.09,2.15),stroke:(dash:"dashed"))
+  })
+)
+Die Bewegung eines freien Teilchens wird also durch eine Gerade beschrieben:
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   $
-  ==> u^mu = dv(x^mu, tau)
-  $
-])
-$==>$ Bewegungsgleichung: $0 = dv(u^mu, tau) = dv(x^mu, tau, 2)$
-
-#align(center, italic[Abbildung])
-
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  ==> x^mu (tau) = u_0^mu dot tau + x_0^mu quad u_0^mu, x_0^mu = "const." \
-  ==> "Gerade"
+  ==> x^mu (tau) = u_0^mu dot tau + x_0^mu quad u_0^mu, x_0^mu = "const."
   $
 ])
 $
 u^mu u_mu = u_0^mu u_(0 mu) = c^2 > 0 ==> "zeitartig"
 $
+]
+)
 
 #block(
   fill: luma(230),
