@@ -895,9 +895,31 @@ Bestimme alle Transformationen, so dass $(c t')^2 - (x')^2 = (c t)^2 - x^2$
 
 $-->$ Übungsaufgabe
 
-Welche Transformationen sind möglich?
-
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  set-style(radius:0.05,fill:black,padding:0.15,stroke:(dash:"dashed"))
+  circle(())
+  content((),$p$,anchor:"east")
+  line((),(2,0))
+  line((2,0),(2,1.5))
+  content((),$q$,anchor:"west")
+  circle(())
+  content((1,0),$Delta x^1$,anchor:"north")
+  content((2,0.75),$Delta x^0$,anchor:"west")
+  set-origin((6,0))
+  circle((0,0))
+  content((),$p$,anchor:"east")
+  line((),(2,0))
+  circle(())
+  content((),$q$,anchor:"west")
+  content((1.75,1.5),[Welche Transformationen sind möglich?])
+  set-origin((7,0))
+  circle((0,-0.25))
+  content((),$p$,anchor:"east")
+  line((),(0,1.25))
+  circle(())
+  content((),$q$,anchor:"east")
+})]
 
 #bold[Physikalische Freiheitsgrade in SR]
 
