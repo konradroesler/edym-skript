@@ -230,17 +230,18 @@ $
 
 #underline[deRham Differential:]
 $
-d := diff_i dd(x^i) and
+upright("d") :&Omega^k->Omega^(k+1) \
+&A |-> dd(A):= diff_i dd(x^i) and A
 $
 Beispiel: 
 $
-d A &= d (A_j d x^j) \
-&= diff_i d x^i and (A_j d x^j) \
-&= diff_i A_j d x^i and d x^j \ 
-&= 1/2 (diff_i A_j - diff_j A_i) underbrace(d x^i and d x^j, - d x^j and  d x^i)
+dd(A) &= dd(A_j d x^j) \
+&= diff_i d x^i and (A_j dd(x^j)) \
+&= diff_i A_j dd(x^i) and dd(x^j) \ 
+&= 1/2 (diff_i A_j - diff_j A_i) underbrace(dd(x^i,x^j,p:and), -dd(x^j,x^i,p:and))
 $
 
-$Omega^p:$ $p$-Formen, $d: Omega^p --> Omega^(p+1)$, $d^2 = 0$ (Übungsaufgabe)
+$Omega^p:$ $p$-Formen, $upright("d"): Omega^p --> Omega^(p+1)$, $upright(d)^2 = 0$ (Übungsaufgabe)
 
 #underline[Hodge Operator:]
 $
@@ -250,8 +251,8 @@ star: Omega^3 <--> Omega^(0) \
 $
 $A$ ist 1-Form, $B$ ist 2-Form, $C$ ist 3-Form
 $
-star A &= 1/2 epsilon_(i j)^k A_k d x^i and d x^j \
-star B &= 1/2 epsilon_i^(j k) B_(j k) d x^i \
+star A &= 1/2 epsilon_(i j)^k A_k dd(x^i,x^j,p:and) \
+star B &= 1/2 epsilon_i^(j k) B_(j k) dd(x^i) \
 star C &= 1/3! epsilon^(i j k) C_(i j k)
 $
 Wir erweitern das Diagramm von vorher:
@@ -274,12 +275,12 @@ Wir erweitern das Diagramm von vorher:
 )]
 Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
 $
-d^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
+upright(d)^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
 $
 
 #text(size: 14pt)[#bold[Wiederholung]]
 
-Beim letzten Mal: $arrow(x) = (x^i) in RR^3, i,j = 1,2,3$
+Beim letzten Mal: $arrow(x) = (x^i) in RR^3, space i,j = 1,2,3$
 
 Invarianten der euklidischen Geometrie
 $
@@ -322,7 +323,7 @@ Hodge-dual zu Skalar: $F(arrow(x)) = 1/3! epsilon^(i j k) C_(i j k) (arrow(x))$
       [
         *Beispiel:* $F(arrow(x)) := abs(arrow(x))^2 - R^2, R = "const"$ 
         $
-        F^(-1)({0})=:S^2 space ("Sphäre") wide (grad F)^i = delta^(i j) delta_j F
+        F^(-1)({0})=:S^2_R space ("2-Sphäre") wide (grad F)^i = delta^(i j) delta_j F
         $
         $
         diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
@@ -390,19 +391,18 @@ $
 $==>$ hängt nur von Endpunkten ab!
 
 $==>$ geschlossene Kurve:
-#grid(
-  columns: (1fr,1fr), align:center,
-  canvas({
+#align(center)[
+  #canvas({
     import draw: *
     circle((),radius:0.06,fill:black)
     content((),$arrow(x)(s_1)=arrow(x)(s_2)$,anchor:"north-east",padding:0.1)
     let (a, b, c) = ((0, 0), (-1, 4.5), (4, -1.5))
     bezier(a, a, b, c)
+    content((4,00.5),$
+    integral.cont_C dd(phi.alt) = 0
+    $)
   }),
-  $
-  integral.cont_C dd(phi.alt) = 0
-  $
-)
+]
 Für konservatives Kraftfeld $arrow(A) = grad phi.alt$
 $
 ==> integral_C grad phi.alt dot dd(arrow(x)) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0))
@@ -417,10 +417,10 @@ Parametrisierung $Sigma$: $arrow(sigma) = arrow(x)(u, v), sigma^alpha = (u, v) i
 $
 B = 1/2 B_(i j) dd(x^i, x^j, p:and), wide dd(x^i) = pdv(x^i, sigma^alpha) dd(sigma^alpha) = pdv(x^i,u) dd(u) + pdv(x^i, v) dd(v) \ 
 integral_Sigma B = 1/2 dot integral_Sigma B_(i j) dd(x^i, x^j, p:and) = 1/2 integral_D B_(i j) (arrow(x)(sigma)) pdv(x^i, sigma^alpha) pdv(x^j, sigma^beta) dd(sigma^alpha, sigma^beta, p:and) \ 
-==> integral_Sigma B := 1/2 integral_D B_(i j) (arrow(x)(u, v)) (pdv(x^i,u) pdv(x^j,v) - pdv(x^i, v) pdv(x^j, u) dd(u,v) \
-integral_Sigma B = integral_D B_(i j) (arrow(x)(u, v)) pdv(x^i,u) pdv(x^j,v) dd(u,v) = integral_Sigma arrow(V) dot arrow(dd(Sigma))
+==> integral_Sigma B := 1/2 integral_D B_(i j) (arrow(x)(u, v)) (pdv(x^i,u) pdv(x^j,v) - pdv(x^i, v) pdv(x^j, u)) dd(u,v) \
+integral_Sigma B = integral_D B_(i j) (arrow(x)(u, v)) pdv(x^i,u) pdv(x^j,v) dd(u,v) = integral_Sigma arrow(V) dot dd(arrow(Sigma))
 $
-wobei $arrow(dd(Sigma)) := (pdv(arrow(x),v) times pdv(arrow(x),u)) dd(u, v)$
+wobei $dd(arrow(Sigma)) := (pdv(arrow(x),v) times pdv(arrow(x),u)) dd(u, v)$
 
 #underline[Volumenintegral:] 
 $
@@ -1034,7 +1034,7 @@ $
   columns: (6fr,1fr,6fr), align: center,
   box(stroke: 0.5pt, inset: 0.5cm)[
     $
-    dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0
+    dv(,lambda) (c/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0
     $
   ],
   [
