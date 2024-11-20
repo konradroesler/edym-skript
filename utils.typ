@@ -1,3 +1,4 @@
+#let remark(content) = text(gray)[#content]
 
 #let sspace = [
   #h(100cm)

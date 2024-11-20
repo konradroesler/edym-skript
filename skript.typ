@@ -1,6 +1,6 @@
 #import "@preview/physica:0.9.3": *
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
-#import "@preview/cetz:0.3.1": *
+#import "@preview/cetz:0.3.0": *
 #import "@preview/cetz-plot:0.1.0": plot, chart
 
 #import "utils.typ": *
@@ -10,6 +10,19 @@
   title: [Vorlesungsskript],
   author: [Konrad Rösler],
   module-name: [Elektrodynamik],
+  cover: canvas({
+    import draw: *
+    let length = 4*calc.pi
+    let dx = 0.6
+    set-style(mark:(end:">",width:2pt))
+    line((),(x:length))
+    let x = 0
+    while x < length {
+      line((x:x),(x,calc.sin(x)+0.001),stroke:blue)
+      line((x:x),(x,0,calc.sin(x)+0.001),stroke:red)
+      x+=dx
+    }
+  }),
   doc
 )
 
@@ -230,17 +243,18 @@ $
 
 #underline[deRham Differential:]
 $
-d := diff_i dd(x^i) and
+upright("d") :&Omega^k->Omega^(k+1) \
+&A |-> dd(A):= diff_i dd(x^i) and A
 $
 Beispiel: 
 $
-d A &= d (A_j d x^j) \
-&= diff_i d x^i and (A_j d x^j) \
-&= diff_i A_j d x^i and d x^j \ 
-&= 1/2 (diff_i A_j - diff_j A_i) underbrace(d x^i and d x^j, - d x^j and  d x^i)
+dd(A) &= dd(A_j d x^j) \
+&= diff_i d x^i and (A_j dd(x^j)) \
+&= diff_i A_j dd(x^i) and dd(x^j) \ 
+&= 1/2 (diff_i A_j - diff_j A_i) underbrace(dd(x^i,x^j,p:and), -dd(x^j,x^i,p:and))
 $
 
-$Omega^p:$ $p$-Formen, $d: Omega^p --> Omega^(p+1)$, $d^2 = 0$ (Übungsaufgabe)
+$Omega^p:$ $p$-Formen, $upright("d"): Omega^p --> Omega^(p+1)$, $upright(d)^2 = 0$ (Übungsaufgabe)
 
 #underline[Hodge Operator:]
 $
@@ -250,8 +264,8 @@ star: Omega^3 <--> Omega^(0) \
 $
 $A$ ist 1-Form, $B$ ist 2-Form, $C$ ist 3-Form
 $
-star A &= 1/2 epsilon_(i j)^k A_k d x^i and d x^j \
-star B &= 1/2 epsilon_i^(j k) B_(j k) d x^i \
+star A &= 1/2 epsilon_(i j)^k A_k dd(x^i,x^j,p:and) \
+star B &= 1/2 epsilon_i^(j k) B_(j k) dd(x^i) \
 star C &= 1/3! epsilon^(i j k) C_(i j k)
 $
 Wir erweitern das Diagramm von vorher:
@@ -274,12 +288,12 @@ Wir erweitern das Diagramm von vorher:
 )]
 Dieses Diagramm kommutiert. (Alle Pfade, die zwei Punkte verbinden, sind  äquivalent.)
 $
-d^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
+upright(d)^2 = 0 <==> "rot" compose "grad" = 0, "div" compose "rot" = 0
 $
 
 #text(size: 14pt)[#bold[Wiederholung]]
 
-Beim letzten Mal: $arrow(x) = (x^i) in RR^3, i,j = 1,2,3$
+Beim letzten Mal: $arrow(x) = (x^i) in RR^3, space i,j = 1,2,3$
 
 Invarianten der euklidischen Geometrie
 $
@@ -322,7 +336,7 @@ Hodge-dual zu Skalar: $F(arrow(x)) = 1/3! epsilon^(i j k) C_(i j k) (arrow(x))$
       [
         *Beispiel:* $F(arrow(x)) := abs(arrow(x))^2 - R^2, R = "const"$ 
         $
-        F^(-1)({0})=:S^2 space ("Sphäre") wide (grad F)^i = delta^(i j) delta_j F
+        F^(-1)({0})=:S^2_R space ("2-Sphäre") wide (grad F)^i = delta^(i j) delta_j F
         $
         $
         diff_j F(arrow(x)) &= diff_j (abs(arrow(x))^2) = diff_j (delta_(k l) x^k x^l) \
@@ -390,19 +404,18 @@ $
 $==>$ hängt nur von Endpunkten ab!
 
 $==>$ geschlossene Kurve:
-#grid(
-  columns: (1fr,1fr), align:center,
-  canvas({
+#align(center)[
+  #canvas({
     import draw: *
     circle((),radius:0.06,fill:black)
     content((),$arrow(x)(s_1)=arrow(x)(s_2)$,anchor:"north-east",padding:0.1)
     let (a, b, c) = ((0, 0), (-1, 4.5), (4, -1.5))
     bezier(a, a, b, c)
+    content((4,00.5),$
+    integral.cont_C dd(phi.alt) = 0
+    $)
   }),
-  $
-  integral.cont_C dd(phi.alt) = 0
-  $
-)
+]
 Für konservatives Kraftfeld $arrow(A) = grad phi.alt$
 $
 ==> integral_C grad phi.alt dot dd(arrow(x)) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0))
@@ -417,10 +430,10 @@ Parametrisierung $Sigma$: $arrow(sigma) = arrow(x)(u, v), sigma^alpha = (u, v) i
 $
 B = 1/2 B_(i j) dd(x^i, x^j, p:and), wide dd(x^i) = pdv(x^i, sigma^alpha) dd(sigma^alpha) = pdv(x^i,u) dd(u) + pdv(x^i, v) dd(v) \ 
 integral_Sigma B = 1/2 dot integral_Sigma B_(i j) dd(x^i, x^j, p:and) = 1/2 integral_D B_(i j) (arrow(x)(sigma)) pdv(x^i, sigma^alpha) pdv(x^j, sigma^beta) dd(sigma^alpha, sigma^beta, p:and) \ 
-==> integral_Sigma B := 1/2 integral_D B_(i j) (arrow(x)(u, v)) (pdv(x^i,u) pdv(x^j,v) - pdv(x^i, v) pdv(x^j, u) dd(u,v) \
-integral_Sigma B = integral_D B_(i j) (arrow(x)(u, v)) pdv(x^i,u) pdv(x^j,v) dd(u,v) = integral_Sigma arrow(V) dot arrow(dd(Sigma))
+==> integral_Sigma B := 1/2 integral_D B_(i j) (arrow(x)(u, v)) (pdv(x^i,u) pdv(x^j,v) - pdv(x^i, v) pdv(x^j, u)) dd(u,v) \
+integral_Sigma B = integral_D B_(i j) (arrow(x)(u, v)) pdv(x^i,u) pdv(x^j,v) dd(u,v) = integral_Sigma arrow(V) dot dd(arrow(Sigma))
 $
-wobei $arrow(dd(Sigma)) := (pdv(arrow(x),v) times pdv(arrow(x),u)) dd(u, v)$
+wobei $dd(arrow(Sigma)) := (pdv(arrow(x),v) times pdv(arrow(x),u)) dd(u, v)$
 
 #underline[Volumenintegral:] 
 $
@@ -444,18 +457,34 @@ Sei $M$ eine Kurve/Fläche/Volumen und $diff(M)$ der Rand:
 #box(width: 100%, inset: 0.3cm, stroke: 0.5pt, radius: 5pt, [
   #bold[Stokes Theorem]
 
-  Sei $A$ eine $(p)$-Form und $M$ $(p+1)$-dimensional. Dann gilt 
+  Sei $A$ eine $p$-Form und $M$ $(p+1)$-dimensional. Dann gilt 
   $
   integral_(diff M) A = integral_M dd(A)
   $
 ])
 
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
 $M$: Kurve (1-dimensional), $A = phi.alt$ (0-Form)
+
+Hauptsatz der Differential und Integralrechnung:
 $
 integral_M dd(phi.alt) = phi.alt(arrow(x)(s_1)) - phi.alt(arrow(x)(s_0)) = integral_(diff M) phi.alt \
 "für" diff M = {arrow(x)(s_1), arrow(x)(s_0)}
 $
+  ]
+)
 
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
 $M$: Fläche, 1-Form, $A = A_i dd(x^i)$, Parametrisierung: $sigma^alpha = (u, v) in D 
 $
 $
@@ -464,24 +493,59 @@ $
 $
 integral_M dd(A) &= integral_D (diff_i A_j - diff_j A_i) pdv(x^i,u) pdv(x^j,v) dd(u,v) \
 &= integral_D (pdv(,u) A_j (arrow(x)(u, v)) pdv(x^j,v) - pdv(,v) A_j (arrow(x)(u, v)) pdv(x^i,u)) dd(u, v) \
-&= integral_D (pdv(,u) (A_j (arrow(x)(u, v)) pdv(x^j,v)) - pdv(,v) (A_j (arrow(x)(u, v)) pdv(x^i,u))) dd(u, v) \
+&=limits(integral_D pdv(,u)(A_j (arrow(x)(u,v)) pdv(x^j,v)) dd(u,v))_arrow.b-integral_D pdv(,v)(...)dd(u,v)=integral_(diff M) A space checkmark \
 $
 $
-integral_D pdv(,u) (A_j (arrow(x)(u, v)) pdv(x^j,v) dd(u, v) = integral_(v_0)^(v_1) A_j (arrow(x)(u, v) pdv(x^j,v) dd(v) - integral_(v_0)^(v_1) A_j (arrow(x)(u, v)) pdv(x^j,v) dd(v)
+integral_(v_0)^(v_1) A_j (arrow(x)(u_1, v) pdv(x^j,v) dd(v) - integral_(v_0)^(v_1) A_j (arrow(x)(u_0, v)) pdv(x^j,v) dd(v)
 $
-#align(center, italic[(Abbildung parametrisierter Fläche in 2D-Koordinaten)])
+#align(center)[#canvas({
+  import draw: *
+  bezier((0.7*1.5,1.5*1),(1.2*1.5,1.5*0.7),(0.7*1.5,1.5*0.7))
+  bezier((1.2*1.5,1.5*0.7),(1.7*1.5,1.5*1.5),(1.9*1.5,1.5*0.7))
+  bezier((1.7*1.5,1.5*1.5),(1*1.5,1.5*1.6),(1.6*1.5,1.5*2))
+  bezier((1*1.5,1.5*1.6),(0.7*1.5,1.5*1),(0.65*1.5,1.5*1.35))
+  content((1.8,1.8),$M$)
 
-$M$: Volumen, $B$ 2-Form, $B = B_(i j) dd(x^i, x^j, d:and)$
+  set-origin((-5,0.8))
+  
+  line((-0.5,0),(3,0),mark:(end:">",fill:black))
+  content((),$u$,anchor:"west",padding:0.15)
+  line((0,-0.5),(0,2.5),mark:(end:">",fill:black))
+  content((),$v$,anchor:"west",padding:0.15)
+  rect((0.5,0.5),(2,1.5),stroke:(dash:"dashed"))
+  content((0.5,-0.35),$u_0$)
+  line((0.5,-0.1),(0.5,0.1))
+  content((2,-0.3),$u_1$)
+  line((2,-0.1),(2,0.1))
+  content((-0.35,0.5),$v_0$)
+  line((-0.1,0.5),(0.1,0.5))
+  content((-0.35,1.5),$v_1$)
+  line((-0.1,1.5),(0.1,1.5))
+
+  line((4,1),(5,1),mark:(start:"|",end:">",fill:black))
+  content((rel:(-0.6,0.3)),$x$)
+})]
+#v(1cm)
+ ]
+)
+#pagebreak()
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+$M$: Volumen, $B$ 2-Form, $B = 1/2 B_(i j) dd(x^i, x^j, p:and)$
 $
-==> "3-Form" space dd(B) = diff_i B_(j k) dd(x^i, x^j, x^k, d:and) = 1/2 epsilon^(i j k) diff_i B_(j k) dd(x)^3 \
-==> dd(B) = diff_i V^i dd(x)^3, V^i := 1/2 epsilon^(i j k) B_(k j) \
-==> integral_V dd(B) = integral_V diff_i V^i dd(x)^3 = integral_M div(arrow(V)) dd(x)^3 =^"Gauss" integral.cont_(diff V) arrow(V) dot arrow(dd(Sigma)) = integral_(diff M) B
-$
-Konsistenz mit $"div" compose "rot" = 0, ..., dd^2 = 0$
+==> "3-Form" space dd(B) = 1/2 diff_i B_(j k) dd(x^i, x^j, x^k, p:and) = 1/2 epsilon^(i j k) diff_i B_(j k) dd(x)^3 \
+==> dd(B) = diff_i V^i dd(x)^3 quad "mit" quad V^i := 1/2 epsilon^(i j k) B_(j k) \
+==> integral_V dd(B) = integral_V diff_i V^i dd(x)^3 = integral_M div arrow(V) dd(x)^3 =^"Gauss" integral.cont_(diff V) arrow(V) dot dd(arrow(Sigma)) = integral_(diff M) B
+$])
+Konsistenz mit $"div" compose "rot" = 0, ..., "d"^2 = 0$
 
 $M = diff M' ==> diff M = 0 quad [diff diff = 0]$
 
-$A = dd(C) ==> 0 = integral_M dd(A) = integral_(diff M) dd(C) ==> dd(A) = upright("d")^2 (A)$
+$A = dd(C) ==> integral_M dd(A) = integral_(diff M) dd(C)=integral_(diff (diff M)) C=0 ==> dd(A) = upright("d")^2 C=0 quad [upright("d")upright("d")=0]$
 
 #bold[Koordinatenwechsel:]
 $
@@ -513,45 +577,104 @@ $
 
 = Spezielle Relativitätstheorie
 
-#bold[Raumzeit:] Raum und Zeit vereinigt in einem vierdimensionalen Raum
+#grid(
+  columns: (2fr, 1fr), gutter: 20pt, align: (left,center),
+  [
+    #bold[Raumzeit:] Raum und Zeit vereinigt in einem vierdimensionalen Raum
 
-Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
+    Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
+    
+    Literaturempfehlung: Robert Geroch, General Relativity from A to B
+  ],
+  canvas({
+    import draw: *
+    set-transform(none)
+    rotate(x:30deg,y:-40deg,z:-90deg)
+    set-style(fill:black)
+    line((-1,0),(1.5,0),mark:(end:">"))
+    content((),$t$,anchor:"south-west",padding:0.1)
+    line((0,-1),(0,4),mark:(end:">"))
+    content((),$x$,anchor:"north",padding:0.1)
+    line((0,0,-1),(0,0,3),mark:(end:">"))
+    content((),$y$,anchor:"north",padding:0.1)
+  
+    let (x1,x2) = (1.7,1.3)
+    line((0,x1,x2),(0,0,x2),stroke:(dash:"dashed"))
+    content((),$x_0$,anchor:"south-east",padding:0.1)
+    line((0,x1,x2),(0,x1,0),stroke:(dash:"dashed"))
+    content((),$y_0$,anchor:"south-west",padding:0.09)
+    set-style(stroke:blue,fill:blue)
+    line((-1.5,x1,x2),(3.75,x1,x2))
+    line((-1.5,x1,x2),(4,x1,x2),mark:(end:">",pos:25%))
+    set-style(fill:none)
+    bezier((-2,3),(0.3,2.9),(-1,2.5))
+    bezier((0.3,2.9),(3,3),(1,2.9,-1))
+    bezier((0.3,2.9),(3,3),(1,2.9,-1),mark:(end:">",pos:50%))
+  })
+)
 
-Literaturempfehlung: Robert Geroch, General Relativity from A to B
-
-#align(center)[#canvas({
-  import draw: *
-  set-transform(none)
-  rotate(x:40deg,y:-10deg,z:-90deg)
-  set-style(fill:black)
-  line((-1,0),(3,0),mark:(end:">"))
-  content((),$t$,anchor:"south-west",padding:0.1)
-  line((0,-1),(0,4),mark:(end:">"))
-  content((),$x_1$,anchor:"north",padding:0.1)
-  line((0,0,-1),(0,0,4),mark:(end:">"))
-  content((),$x_2$,anchor:"north")
-  content((2.5,4),[Raumzeit als $RR^4$])
-})]
+#v(1cm)
 
 Struktur der Raumzeit?
 
-#bold[Aristotelische Raumzeit:] 
+#v(0.75cm)
 
-Folgende Fragen sind bedeutungsvoll
-1. Finden zwei Ereignisse am selben Ort statt?
-2. Finden zwei Ereignisse zur selben Zeit statt?
+#grid(
+  columns: (2fr,1fr), align: (left,center),
+  [
+    #bold[Aristotelische Raumzeit:] 
+    
+    Folgende Fragen sind bedeutungsvoll
+    1. Finden zwei Ereignisse am selben Ort statt?
+    2. Finden zwei Ereignisse zur selben Zeit statt?
+    
+    Antworten:
+    1. Ereignisse liegen in der selben senkrechten Ebene
+    1. Ereignisse liegen in der selben 3D-Ebene
+    
+    Es gilt das Prinzip der "absoluten Ruhe".
+  ],
+  [
+    #v(-0.25cm)
+    #canvas({
+      import draw: *
+      set-transform(none)
+      rotate(x:80deg,y:-20deg,z:0deg)
+      rect((-2,-2,0),(2,2,0))
+      content((),$t=0$,anchor:"west",padding:1)
+      rect((-2,-2,2),(2,2,2))
+      content((),$t=3$,anchor:"west",padding:1)
+      set-style(mark:(end:">",start:"o"),fill:blue,stroke:blue)
+      line((-0.75,0,0),(-0.75,0,3.5))
+      line((0.75,0,0),(0.75,0,3.5))
+      content((),remark[Weltlinien (feste Orte)],anchor:"south-west",padding:0.2)
+      set-style(mark:(start:">",end:none,fill:gray),fill:none,stroke:gray)
+      bezier((2,2,3.4),(2.2,0,3.6),(2.2,0,3.4))
+      set-transform(none)
+      bezier((-1.8,0.5),(-2.5,1.3),(-1.8,1))
+      content((),remark[3-Ebene],anchor:"north-east")
+    })
+  ]
+)
 
-#align(center, italic[Abbildung der Aristotelischen Raumzeit])
+#v(1cm)
 
-Antworten:
-1. Ereignisse liegen in der selben senkrechten Ebene
-1. Ereignisse liegen in der selben 3D-Ebene
+#grid(
+  columns: (1.7fr,1fr), align: (left,center), gutter: 20pt,
+  [
+    #bold[Galileische Raumzeit:]
 
-Es gilt das Prinzip der "absoluten Ruhe".
+    "Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
 
-#bold[Galileische Raumzeit:]
+    Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
 
-#align(center)[#canvas({
+    Aber: Der räumliche Abstand #underline[zur selben Zeit] \ (in der $x_1$-$x_2$-$x_3$-Ebene) ist absolut.
+
+    $==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
+  ],
+  [
+    #v(0.8cm)
+    #canvas({
   import draw: *
   set-transform(none)
   rotate(x:50deg,y:-10deg,z:-90deg)
@@ -571,16 +694,12 @@ Es gilt das Prinzip der "absoluten Ruhe".
   for i in range(5) {
     quader((i*0.4,0,-i/3+0.5),(i*0.4,2,-i/3+0.5),(i*0.4,2,-i/3+0.5+2),(i*0.4,0,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5+2))
   }
-  content((2.5,9),[Galileitransformation \ ist Scheerung in $x_1$-$x_2$-$x_3$ Ebene])
-})]
-
-"Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
-
-Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
-
-Aber: Der räumliche Abstand #underline[zur selben Zeit] (in der $x_1$-$x_2$-$x_3$-Ebene) ist absolut.
-
-$==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
+  set-transform(none)
+  content((-0.5,-4),[Galileitransformation \ ist Scheerung in $x_1$-$x_2$-$x_3$ Ebene:])
+})
+  ]
+)
+#v(1cm)
 
 #bold[Minkowski Raum:]
 
@@ -597,7 +716,7 @@ Delta s^2 &:= eta_(mu nu) Delta x^mu Delta x^v \
 &= (Delta x^0)^2 - (Delta x^1)^2 - (Delta x^2)^2 - (Delta x^3)^2 \
 &= c^2 (Delta t)^2 - (Delta arrow(x))^2
 $
-Infinitesimal: $dd(s)^2 = eta_(mu nu) dd(x^mu, x^nu) = c^2 dd(t)^2 - (dd(va(x))^2$
+Infinitesimal: $dd(s)^2 = eta_(mu nu) dd(x^mu, x^nu) = c^2 dd(t)^2 - (dd(va(x)))^2$
 
 #bold[Vektoren im Minkowski-Raum $RR^(3, 1)$:]
 
@@ -614,9 +733,19 @@ $
 ip(V, W) = eta_(mu nu) V^mu W^nu = V_mu W^mu = V^mu W_mu
 $
 
-#align(center)[#canvas({
+#grid(
+  columns: (1fr,1fr),align: center,
+  [
+    #v(1cm)
+    $x^mu x_mu = 0$ heißt #bold[lichtartig]
+    
+    $x^mu x_mu > 0$ heißt #bold[zeitartig]
+    
+    $x^mu x_mu < 0$ heißt #bold[raumartig] 
+  ],
+  canvas({
   import draw: *
-  let a = 3
+  let a = 2
   let cone_length = a/1.8
   set-style(fill:black,mark:(symbol:">"))
   set-transform(none)
@@ -637,24 +766,19 @@ $
   zylinder
   rotate(y:180deg)
   zylinder
-})]
-
-$x^mu x_mu = 0$ heißt #bold[lichtartig]
-
-$x^mu x_mu > 0$ heißt #bold[zeitartig]
-
-$x^mu x_mu < 0$ heißt #bold[raumartig] 
+})
+)
 
 Dies ist eine Klassifizierung von Punkten im Minkowski-Raum.
 
 == Lichtstrahlen und Uhren
 
-#bold[Postulat 1:] Weltlinien von Lichtstrahlen sind Kurven (= Gerade) auf der Oberfläche des Lichtkegels.
+#bold[Postulat 1:] Weltlinien von Lichtstrahlen sind Kurven (= Geraden) auf der Oberfläche des Lichtkegels.
 
 
 #bold[Postulat 2:] Weltlinien von massiven Objekten/Beobachtern sind zeitartige Kurven
 
-#bold[Postulat 3:] Die Zeit, die ein Beobachter entlang seiner Weltlinie"misst", ist 
+#bold[Postulat 3:] Die Zeit, die ein Beobachter entlang seiner Weltlinie "misst", ist 
 $
 T = 1/c sqrt((Delta s)^2) = sqrt((Delta t)^2 - ((Delta va(x))^2)/c^2)
 $
@@ -798,14 +922,13 @@ $
   ]
 )
 
-#bold[Lorentz-Transformation/Symmetrie von Minkowski]
 == Lorentz-Transformation/Symmetrie von Minkowski
 
 $x^mu --> x'^mu = tensor(Lambda, +mu, -nu) dot x^nu$
 
 #bold[4-Vektoren:] $V^mu --> V'^mu = tensor(Lambda, +mu, -nu) dot V^nu$ ("kontravarianter Vektor")
 
-#bold[co-Vektor:] $W_mu --> W'_mu = tensor((Lambda^(-1)), +nu, -mu) W_nu$
+#bold[co-Vektor:] $W_mu --> W'_mu = tensor((Lambda^(-1)), +nu, -mu) W_nu$ ("kovarianter Vektor")
 $
 V^mu W_mu -->  V'^mu W'_mu &= tensor(Lambda, +mu, -nu) V^nu tensor((Lambda^(-1)),+rho,-mu) W_rho \
 &= tensor((Lambda^(-1)), +rho, -mu) tensor(Lambda, +mu, -nu) V^nu W_rho \
@@ -819,7 +942,9 @@ T^(mu nu) &--> T'^(mu nu) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma
 tensor(L, +mu, -nu) &--> tensor(L', +mu, -nu) = tensor(Lambda, +mu, -rho) tensor((Lambda^(-1)), +sigma, -nu) tensor(L, +rho, -sigma) "etc."
 $
 
-#bold[Lorentz-Gruppe:] Symmetrie von Minkowski
+#bold[Lorentz-Gruppe:] 
+
+Symmetrie von Minkowski = Invarianz von $eta_(mu nu)$
 $
 eta'_(mu nu) := tensor((Lambda^(-1)), +rho, -mu) tensor((Lambda^(-1)), +sigma, -nu) eta_(rho sigma) =^! eta_(mu nu) &<==> eta_(rho sigma) = tensor(Lambda, +mu, -rho) tensor(Lambda, +nu, -sigma) eta_(mu nu) \
 &<==> eta = Lambda^T eta Lambda
@@ -838,9 +963,31 @@ Bestimme alle Transformationen, so dass $(c t')^2 - (x')^2 = (c t)^2 - x^2$
 
 $-->$ Übungsaufgabe
 
-Welche Transformationen sind möglich?
-
-#align(center, italic[Abbildung])
+#align(center)[#canvas({
+  import draw: *
+  set-style(radius:0.05,fill:black,padding:0.15,stroke:(dash:"dashed"))
+  circle(())
+  content((),$p$,anchor:"east")
+  line((),(2,0))
+  line((2,0),(2,1.5))
+  content((),$q$,anchor:"west")
+  circle(())
+  content((1,0),$Delta x^1$,anchor:"north")
+  content((2,0.75),$Delta x^0$,anchor:"west")
+  set-origin((6,0))
+  circle((0,0))
+  content((),$p$,anchor:"east")
+  line((),(2,0))
+  circle(())
+  content((),$q$,anchor:"west")
+  content((1.75,1.5),[Welche Transformationen sind möglich?])
+  set-origin((7,0))
+  circle((0,-0.25))
+  content((),$p$,anchor:"east")
+  line((),(0,1.25))
+  circle(())
+  content((),$q$,anchor:"east")
+})]
 
 #bold[Physikalische Freiheitsgrade in SR]
 
@@ -888,43 +1035,60 @@ $==>$ #bold[Eigenzeit] $tau = s/c$
 ])
 Zeit, gemessen von einer Uhr mit Weltlinie $C$.
 
-#line(length: 1cm, stroke: 0.5pt)
+#line(length: 100%)
 
 #bold[Wirkung (Hamiltonisches Prinzip)] für ein freies Teilchen:
 $
 S = -m c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c^2 integral dd(tau)
 $
-#box(stroke:0.5pt, inset:0.3cm)[
-  $delta S =^! 0$
-] $ quad S$: Funktional
 
 #bold[Variation:]
-
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  delta S := eval(dv(,epsilon) S[x + epsilon delta x])_(epsilon = 0)
-  $
-])
+#grid(
+  columns: (2fr,1fr),align:center,
+  [
+    #v(0.8cm)
+  #box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    delta S := eval(dv(,epsilon) S[x(t) + epsilon dot delta x(t)])_(epsilon = 0)=^!0
+    $
+  ]],
+  canvas({
+    import draw: *
+    set-style(radius:0.05,padding:0.15)
+    circle((),fill:black)
+    content((),$x(a)$,anchor:"north")
+    bezier((0,0),(0.5,1),(0,0.5))
+    bezier((0.5,1),(0.8,1.9),(0.95,1.4))
+    bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+    circle((),fill:black)
+    content((),$x(b)$,anchor:"south-west",padding:0.1)
+    set-style(stroke:(dash:"dashed"))
+    bezier((0,0),(0.5,1),(-0.3,0.8))
+    bezier((0.5,1),(0.8,1.9),(1.15,1.15))
+    bezier((0.8,1.9),(1.05,2.7),(0.3,2.5))
+    content((3,1),$S[x(lambda)]in RR$)
+  })
+)
 
 Rechnung: Variation des Funktionals
 
 1) $delta$ und $dv(,lambda)$ kommutieren
 $
-delta (dv(x^mu, lambda)) = eval(dv(,epsilon) dv(x^mu+epsilon delta x^mu,lambda))_(epsilon = 0) = eval(dv(delta x^mu, lambda))_(epsilon=0) = dv(,lambda) (delta x^mu)
+delta (dv(x^mu, lambda)) = eval(dv(,epsilon) dv((x^mu+epsilon delta x^mu),lambda))_(epsilon = 0) = eval(dv((delta x^mu), lambda))_(epsilon=0) = dv(,lambda) (delta x^mu)
 $
 2) 
 $
-delta (eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) =^("1)") eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda) + eta_(mu nu) dv(x^mu, lambda) dv((delta x^nu), lambda) = 2 eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda)
+delta (eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^("1)") eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda) + eta_(mu nu) dv(x^mu, lambda) dv((delta x^nu), lambda) = 2 eta_(mu nu) dv((delta x^mu), lambda) dv(x^nu, lambda)
 $
 3)
 $
-delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) =^"Kettenregel" 1/(2 sqrt(dot(x)^2)) delta (dot(x)^2) = star quad "wobei" eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) equiv dot(x)^2 \
-star = 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
-==> delta S = - m c integral delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
+delta sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) &=^"Kettenregel" 1/(2 sqrt(dot(x)^2)) delta (dot(x)^2) #h(2cm) "wobei" dot(x)^2 equiv eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda) \
+&=^("2)") 1/sqrt(dot(x)^2) dv(,lambda) (delta x^mu) dv(x^mu, lambda) \
+==> delta S = - m c integral delta& sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) = - m c integral dv(,lambda) (delta x_mu) 1/sqrt(dot(x)^2) dv(x^mu, lambda) dd(lambda) =^! 0
 $
 Partielle Integration davon + Annahme: $eval(delta x_mu)_a = eval(delta x_mu)_b = 0$
 $
-delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^! "beliebige" delta x^mu
+delta S = m c integral delta x_mu dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) dd(lambda) =^!0 quad forall delta x^mu
 $
 
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
@@ -934,60 +1098,133 @@ $
 ])
 
 #bold[Euler-Lagrange-Gleichung:]
-$
-#box[
-  $
-  dv(,lambda) (1/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0 <==>
-  $
-  #v(0.5cm)
-] 
-#box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  dv(u^mu, lambda) = 0, space u^mu := c/sqrt(dot(x)^2) dv(x^mu, lambda)
-  $
-]
-$
+#grid(
+  columns: (6fr,1fr,6fr), align: center,
+  box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    dv(,lambda) (c/sqrt(dot(x)^2) dv(x^mu, lambda)) = 0
+    $
+  ],
+  [
+    #v(0.7cm)
+    $<==>$
+  ],
+  box(stroke: 0.5pt, inset: 0.5cm)[
+    $
+    dv(u^mu, lambda) = 0, space u^mu := c/sqrt(dot(x)^2) dv(x^mu, lambda)
+    $
+  ]
+)
+
 $u^mu$: 4er-Geschwindigkeit
 $
 u^2 = u^mu u_mu = c^2/dot(x)^2 underbrace(dot(x)^mu dot(x)_mu, dot(x)^2) = c^2
 $
 Wähle zwei Parametrisierungen:
 
-#bold[1) Eigenzeit:]
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+#bold[1) Eigenzeit:] Wähle als Parametrisierung der Kurve die Eigenzeit
+
+#grid(
+  columns: (2fr,1fr), align: center,
+  [
+    #v(0.7cm)
 $
-tau(lambda) := 1/c integral sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
-$
-#align(center, italic[Abbildung])
-$
-==> dv(tau, lambda) = 1/c sqrt(dot(x)^2) ==> u^mu = c/sqrt(dot(x)^2) dv(x^mu, lambda) = c/sqrt(dot(x)^2) dv(x^mu, tau) dv(tau, lambda)
-$
+tau(lambda) := 1/c integral_(lambda_0)^lambda sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda)
+$],
+canvas({
+  import draw: *
+  set-style(radius:0.04,padding:0.1)
+  bezier((-0.5,-1.2),(0,-0.6),(-0.15,-1),stroke:(dash:"dashed"))
+  circle((),fill:black)
+  content((),$x^mu (lambda_0)$,anchor:"north-west")
+  bezier((0,-0.6),(0.1,0.6),(0.25,0),stroke:(thickness:1.6pt))
+  circle((),fill:black)
+  content((),$x^mu (lambda)$,anchor:"south-west")
+  bezier((0.1,0.6),(0.1,1.5),(-0.15,1),stroke:(dash:"dashed"))
+})
+)
+Bewegungsgleichungen generell:
+$ dv(u^mu,tau)=0 $
+Betrachte $u^mu$:
+#grid(
+  columns: (2fr,1fr), align: center,
+  $ => u^mu=c/sqrt(dot(x)^2) dv(x^mu,lambda)limits(=)_limits(arrow.t)_"Kettenregel"c/sqrt(dot(x)^2) dv(x^mu,tau) underbrace(dv(tau,lambda),1/c sqrt(dot(x)^2))=dv(x^mu,tau) $,
+  box(stroke: 0.5pt, inset: 0.2cm)[
+    $
+    ==> u^mu = dv(x^mu, tau)
+    $
+  ]
+)
+$==>$ Bewegungsgleichung wird zu:
+#grid(
+  columns: (1fr,1fr), align: center,
+  [
+    #v(0.7cm)
+    $ 0 = dv(u^mu, tau) = dv(x^mu, tau, 2) $
+  ],
+  canvas({
+    import draw: *
+    line((-0.5,0),(2,0),mark:(end:">",fill:black))
+    line((0,-0.5),(0,2),mark:(end:">",fill:black))
+    circle((0.5,0.4),radius:0.05,fill:black)
+    content((),$x_0^mu$,anchor:"west",padding:0.2)
+    line((),(0.9,1.6),mark:(end:">"))
+    content((),$u_0^mu$,anchor:"north-west",padding:0.1)
+    line((),(1.09,2.15),stroke:(dash:"dashed"))
+  })
+)
+Die Bewegung eines freien Teilchens wird also durch eine Gerade beschrieben:
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
   $
-  ==> u^mu = dv(x^mu, tau)
-  $
-])
-$==>$ Bewegungsgleichung: $0 = dv(u^mu, tau) = dv(x^mu, tau, 2)$
-
-#align(center, italic[Abbildung])
-
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  ==> x^mu (tau) = u_0^mu dot tau + x_0^mu quad u_0^mu, x_0^mu = "const." \
-  ==> "Gerade"
+  ==> x^mu (tau) = u_0^mu dot tau + x_0^mu quad u_0^mu, x_0^mu = "const."
   $
 ])
 $
 u^mu u_mu = u_0^mu u_(0 mu) = c^2 > 0 ==> "zeitartig"
 $
+]
+)
 
-#bold[Koordinatenzeit:] $x^0 = c t$, $lambda = t ==> x^mu (t) = (c t, x^i (t))$
-$
-==> dot(x)^mu = dv(x^mu, t) = (c, dv(x^i, t)) equiv (c, v^i) ==> dot(x)^2 = c^2 - abs(va(v))^2 \
-==> 1/sqrt(dot(x)^2) = 1/sqrt(1 - v^2/c^2) dot 1/c = 1/c dot gamma \ 
-u^mu = c/sqrt(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
-$
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  width: 100%,
+  [
+#bold[2) Koordinatenzeit:] Wähle als Parametrisierung der Kurve $lambda=t$
 
-#line(length: 100%)
+$ x^0 = c t,& quad "Setze" lambda = t ==> x^mu (t) = (c t, x^i (t)) $
+
+#grid(
+  columns: (1fr,1fr), align: center,
+  [ 
+    $
+    #h(1cm)&==> dot(x)^mu =  (c, dv(x^i, t)) equiv (c, v^i) \ 
+    &==> dot(x)^2 = c^2 - abs(va(v))^2 \
+    &==> 1/sqrt(dot(x)^2) = underbrace(1/sqrt(1 - v^2/c^2),:=gamma) dot 1/c = 1/c dot gamma \ 
+    &"Damit:" u^mu = c/sqrt(dot(x)^2) dot(x)^mu = gamma dot(x)^mu = gamma(c, va(v))
+    $
+  ],
+  canvas({
+    import draw: *
+    line((-1,0,0),(3,0,0),mark:(end:">",fill:black))
+    content((),$x^1$,anchor:"west",padding:0.15)
+    line((0,-1,0),(0,3,0),mark:(end:">",fill:black))
+    content((),$x^0=c t$,anchor:"south",padding:0.15)
+    line((0,0),(2.5,2.5))
+    line((0,0),(-1,1))
+    set-style(stroke:(dash:"dashed"))
+    bezier((0,0),(0.5,1),(0.1,0.5))
+    bezier((0.5,1),(0.8,1.9),(0.95,1.4))
+    bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+  })
+)
 
 $
 S = - m c integral dd(s) = - m c integral dd(t) sqrt(dot(x)^2) = - m c^2 integral dd(t) sqrt(1- va(v)^2/c^2)
@@ -1002,10 +1239,10 @@ Lagrange-Funktion:
 Energie/#bold[Hamiltonische Funktion:] $p_i := pdv(L, dot(x)^i) = gamma dot m dot(x)_i$
 
 $
-==> H := p_i dot(x)^2 - L = ... = gamma dot m c^2 ==> E = gamma dot m c^2
+==> E=H := p_i dot(x)^2 - L = ... = gamma dot m c^2 approx underbrace(m c^2,"Ruheenergie")+p^2/(2 m)+cal(O)(p^4)
 $
 $==>$ Ruheenergie
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+#align(center, box(stroke: 0.5pt, inset: 0.25cm)[
   $
   E = m c^2
   $
@@ -1017,12 +1254,12 @@ Stationärer Fall: $x^mu (lambda) =^(lambda = t) x^mu (t) = (c t, va(x)_0)$
 
 Geladenes Teilchen mit Ladung $e$ am Ort $va(x)_0$.
 $
-rho(va(x)) 0= e dot delta^3 (va(x) - va(x)_0), quad va(j)(va(x)) = 0
+rho(va(x)_0)= e dot delta^3 (va(x) - va(x)_0), quad va(j)(va(x)) = 0
 $
-
+])
 #bold[Wiederholung: Dirac "$delta$-Funktion"]
 
-#align(center)[#canvas({
+/* #align(center)[#canvas({
   import draw: *
   let epsilon=calc.pow(10,-2)
   plot.plot(
@@ -1033,7 +1270,7 @@ $
     )
   )
   content((1.1,1),$delta(x)$)
-})]
+})] */
 
 $
 integral_(-oo)^oo dd(x) delta(x) = 1 wide integral_(-oo)^oo dd(x) delta(x - a) f(x) = f(a)
@@ -1125,7 +1362,7 @@ $
   $
 ])
 
-Kosistent mit dem stationären Fall
+Konsistent mit dem stationären Fall
 
 #bold[3er-Strom:] 
 $
@@ -1177,9 +1414,50 @@ Für beliebige Testfunktionen
 
 Limes vieler Punktladungen:
 
-glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
+Glatte Funktion $rho(x)$, glattes Vektorfeld $va(j)(x)$
 
-#align(center, italic[Abbildung])
+#v(0.2cm)
+#align(center)[#canvas({
+  import draw: *
+  bezier((0,0),(0.5,1),(0.5,0.5))
+  bezier((),(1,1.5),(0.45,1.5))
+  bezier((),(1.9,0),(2,1.5))
+  bezier((),(0.8,-0.5),(1.8,-0.6))
+  bezier((),(0.2,-0.46),(0.5,-0.43))
+  bezier((),(0,0),(-0.25,-0.4))
+
+  set-style(mark:(end:"stealth",fill:black))
+  line((0.35,-0.1),(rel:(0.5,0.4)))
+  line((0.7,0.8),(rel:(0.3,0.5)))
+  line((1.15,0.7),(rel:(0.4,0.4)))
+  line((1,-0.2),(rel:(0.6,0.1)))
+  line((1.3,0.2),(rel:(0.4,0.4)))
+
+  set-origin((6.5,1.5))
+  rotate(z:-70deg)
+  set-style(mark:(end:none))
+  bezier((0,0),(0.5,1),(0.5,0.5))
+  bezier((),(1,1.5),(0.45,1.5))
+  bezier((),(1.9,0),(2,1.5))
+  bezier((),(0.8,-0.5),(1.8,-0.6))
+  bezier((),(0.2,-0.46),(0.5,-0.43))
+  bezier((),(0,0),(-0.25,-0.4))
+  
+  set-style(mark:(end:"stealth"))
+  line((0.45,-0.1),(rel:(0.3,0.6)))
+  line((0.7,0.8),(rel:(0.3,0.5)))
+  line((1.15,0.7),(rel:(0.4,0.4)))
+  line((1.3,-0.2),(rel:(0.5,0.3)))
+
+  rotate(z:70deg)
+  set-style(mark:(end:none))
+  line((-5.2,-1.3),(0.4,-1))
+  circle((),radius:0.05,fill:black)
+  line((),(rel:(0.6,-0.1)),mark:(end:">"))
+  circle((-5.2,-1.3),radius:0.05,fill:black)
+  content((-2.5,-0.8),$r$)
+  content((-2.5,0.25),align(center)[Coulomb Potential \ $phi.alt(r)tilde 1/r$])
+})]
 
 $-->$ instantane Wechselwirkung (Kraft) nicht kompatibel mit SR!
 
@@ -1187,17 +1465,29 @@ $-->$ Feldtheorie, dynamische Felder $va(E)(t, va(x)), va(B)(t, va(x))$
 
 == Relativistische Feldtheorie
 
-Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3$ (aber der Raumzeit $RR^(3, 1)$) eine Zahl, Vektor, Matrix etc. zuweisen.
+Eine Feldtheorie besteht aus dynamischen Felder, die jeden Punkt des Raums $RR^3$ (oder der Raumzeit $RR^(3, 1)$) eine Zahl, Vektor, Matrix etc. zuweisen.
 
 #bold[Beispiel:] Skalarfeld: $phi(t, va(x))$, Vektorfeld: $va(A)(t, va(x))$
 
-#bold[Unterschied zu Punktteilchen:] $va(x)(t) in RR^3$
+#bold[Unterschied zu Punktteilchen:]
 
-$-->$ Bewegungsgleichungen, gewöhnliche Differentialgleichungen:
+$-->$ Bewegungsgleichungen sind #underline[gewöhnliche] Differentialgleichungen:
+#grid(
+  columns: (1fr,1fr), align: center,
+  [
+    #v(0.7cm)
 $
 m dv(va(x), t, 2) = va(F)(va(x)(t))
 $
-In Feldtheorie: partielle Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
+ ],
+ canvas({
+   import draw: *
+   content((1,3.1),$x(t)in RR^3$)
+   bezier((0.5,1),(0.8,1.9),(0.95,1.4),mark:(end:">"))
+   bezier((0.8,1.9),(1.05,2.7),(0.7,2.4))
+ })
+)
+In Feldtheorie: $-->$ #underline[partielle] Differentialgleichungen für $phi(t, va(x))$, $va(A)(t, va(x))$
 
 #bold[Beispiel:] Kontinuitätsgleichung für $rho(t, va(x))$, $va(j)(t, va(x))$
 $
@@ -1217,7 +1507,7 @@ phi --> phi' wide "so dass" wide phi'(x') = phi(x) \
 $
 $y := Lambda dot x, x = Lambda^(-1) y$
 $
-==> phi'(y) = phi(lambda^(-1) y) quad "für alle" y in RR^(3,1)
+==> phi'(y) = phi(Lambda^(-1) y) quad "für alle" y in RR^(3,1)
 $
 Umbennen: $y -> x$:
 #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
@@ -1297,9 +1587,9 @@ $
   div va(E) = 1/epsilon_0 rho
   $
 ][
-  Es existieren #bold[keine] magentischen Ladungen
+  Es existieren #bold[keine] magnetischen Ladungen
   $
-  0 = integral_(diff V) va(B) dot va(dd(Sigma)) = integral_V dd(x, [3,]) div va(B) = 0 quad forall V \
+  0 = integral_(diff V) va(B) dot dd(va(Sigma)) = integral_V dd(x, [3,]) div va(B) = 0 quad forall V \
   $
   #align(center, box(stroke: 0.5pt, inset: 0.5cm)[
     $
@@ -1317,6 +1607,8 @@ $
 
 $j^mu = (c rho, va(j)), va(E) op(tilde) c rho = j^0$
 
+Da die erste Komponente vom Viererstrom $j^0=c rho$, schreiben wir $vb(E)$ in die $F_(0j)$ Komponenten. $vb(B)$ schreiben wir in die $F_(i j)$ Komponenten, da es mit $j^i=arrow(j)$ assoziiert wird.
+
 #bold[Feldstärke-Tensor:]
 $
 F_(mu nu) = mat(0,E^1,E^2,E^3;-E^1,0,-B_3,B_2;-E^2,B_3,0,-B_1;-E^3,-B_2,B_1,0)
@@ -1327,7 +1619,7 @@ $
 F_(0 i) = E_i, quad i = 1,2,3 \
 F_(i j) = - epsilon_(i j k) B^k
 $
-#line(length: 1cm)
+#line(length: 100%)
 $
 &F^(mu nu) := eta^(mu rho) eta^(nu sigma) F_(rho sigma) \
 ==> &F^(0 i) = eta^(0 0) eta^(i j) F_(0 j) = - delta^(i j) E_j = - E^i \
@@ -1418,7 +1710,7 @@ $
 $
 #align(center, box(stroke: 1pt, inset: 0.5cm)[
   $
-  diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F(mu nu) = 0
+  diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F_(mu nu) = 0
   $
 ])
 Es bleibt die Konsequenzen dieser Theorie auszurechnen und auf Konsistenz zu prüfen.
@@ -1505,14 +1797,20 @@ $
 SI Einheiten: $epsilon_0 dot mu_0 = 1/c^2$, $epsilon_0$: Permittitivität (des leeren Raumes), $mu_0$: Permeabilität (des leeren Raumes)
 
 nach obigem $quad va(E) -> 1/c va(E)$, $quad epsilon -> 1/(4 pi c)$
-$
-div va(E) = rho/epsilon_0, wide div va(B) = 0 \
-curl va(B) = 1/c^2 pdv(va(E), t) + (4 pi c)/c^2 va(j) quad --> quad epsilon_0 mu_0 pdv(va(E),t) + 1/(epsilon_0 c^2) va(j) \
-$
+
 Maxwell-Gleichungen in SI Einheiten:
-#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
-  $
-  curl va(B) &= mu_0 (va(j) + epsilon_0 pdv(va(E),t)) \
-  curl va(E) &= - pdv(va(B),t)
-  $
-])
+#align(center, stack(dir: ltr, 
+  box(width: 5.5cm, height: 3.9cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[inhomogen:]
+    $
+    div va(E) &= rho/epsilon_0 \
+    curl va(B) &= mu_0 va(j) + 1/c^2 pdv(va(E),t)
+    $
+  ], 
+  box(width: 5cm, height: 3.9cm, stroke: 0.5pt, inset: 0.5cm)[
+    #bold[homogen:]
+    $
+      div va(B) &= 0 \ \
+      curl va(E) &= - pdv(va(B),t)
+    $
+]))
