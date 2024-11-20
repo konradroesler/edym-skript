@@ -564,59 +564,65 @@ $
 
 = Spezielle Relativitätstheorie
 
-#bold[Raumzeit:] Raum und Zeit vereinigt in einem vierdimensionalen Raum
+#grid(
+  columns: (2fr, 1fr), gutter: 20pt, align: (left,center),
+  [
+    #bold[Raumzeit:] Raum und Zeit vereinigt in einem vierdimensionalen Raum
 
-Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
+    Punkt der Raumzeit: #bold[Ereignis] (etwas, das zu einem festen Zeitpunkt an einem Ort stattfindet)
+    
+    Literaturempfehlung: Robert Geroch, General Relativity from A to B
+  ],
+  canvas({
+    import draw: *
+    set-transform(none)
+    rotate(x:30deg,y:-40deg,z:-90deg)
+    set-style(fill:black)
+    line((-1,0),(1.5,0),mark:(end:">"))
+    content((),$t$,anchor:"south-west",padding:0.1)
+    line((0,-1),(0,4),mark:(end:">"))
+    content((),$x$,anchor:"north",padding:0.1)
+    line((0,0,-1),(0,0,3),mark:(end:">"))
+    content((),$y$,anchor:"north",padding:0.1)
+  
+    let (x1,x2) = (1.7,1.3)
+    line((0,x1,x2),(0,0,x2),stroke:(dash:"dashed"))
+    content((),$x_0$,anchor:"south-east",padding:0.1)
+    line((0,x1,x2),(0,x1,0),stroke:(dash:"dashed"))
+    content((),$y_0$,anchor:"south-west",padding:0.09)
+    set-style(stroke:blue,fill:blue)
+    line((-1.5,x1,x2),(3.75,x1,x2))
+    line((-1.5,x1,x2),(4,x1,x2),mark:(end:">",pos:25%))
+    set-style(fill:none)
+    bezier((-2,3),(0.3,2.9),(-1,2.5))
+    bezier((0.3,2.9),(3,3),(1,2.9,-1))
+    bezier((0.3,2.9),(3,3),(1,2.9,-1),mark:(end:">",pos:50%))
+  })
+)
 
-Literaturempfehlung: Robert Geroch, General Relativity from A to B
-
-#align(center)[#canvas({
-  import draw: *
-  set-transform(none)
-  rotate(x:30deg,y:-40deg,z:-90deg)
-  set-style(fill:black)
-  line((-1,0),(3,0),mark:(end:">"))
-  content((),$t$,anchor:"south-west",padding:0.1)
-  line((0,-1),(0,4),mark:(end:">"))
-  content((),$x$,anchor:"north",padding:0.1)
-  line((0,0,-1),(0,0,3),mark:(end:">"))
-  content((),$y$,anchor:"north",padding:0.1)
-
-  let (x1,x2) = (1.5,1.3)
-  line((0,x1,x2),(0,0,x2),stroke:(dash:"dashed"))
-  content((),$x_0$,anchor:"south-east",padding:0.1)
-  line((0,x1,x2),(0,x1,0),stroke:(dash:"dashed"))
-  content((),$y_0$,anchor:"south-west",padding:0.09)
-  set-style(stroke:blue,fill:blue)
-  line((-2,x1,x2),(4.5,x1,x2))
-  line((-2,x1,x2),(4.5,x1,x2),mark:(end:">",pos:25%))
-  set-style(fill:none)
-  bezier((-1.3,3.7,1.3),(1,3.05,0.5),(-1,2.5,0.5))
-  bezier((1,3.05,0.5),(4,3.05),(1.87,2.9,-1))
-  bezier((1,3.05,0.5),(4,3.05),(1.87,2.9,-1),mark:(end:">",pos:50%))
-
-  content((4,7),[Raumzeit als $RR^4$])
-})]
+#v(1cm)
 
 Struktur der Raumzeit?
 
-#v(1cm)
+#v(0.75cm)
+
 #grid(
   columns: (2fr,1fr), align: (left,center),
   [
-#bold[Aristotelische Raumzeit:] 
-
-Folgende Fragen sind bedeutungsvoll
-1. Finden zwei Ereignisse am selben Ort statt?
-2. Finden zwei Ereignisse zur selben Zeit statt?
-
-Antworten:
-1. Ereignisse liegen in der selben senkrechten Ebene
-1. Ereignisse liegen in der selben 3D-Ebene
-
-Es gilt das Prinzip der "absoluten Ruhe".
+    #bold[Aristotelische Raumzeit:] 
+    
+    Folgende Fragen sind bedeutungsvoll
+    1. Finden zwei Ereignisse am selben Ort statt?
+    2. Finden zwei Ereignisse zur selben Zeit statt?
+    
+    Antworten:
+    1. Ereignisse liegen in der selben senkrechten Ebene
+    1. Ereignisse liegen in der selben 3D-Ebene
+    
+    Es gilt das Prinzip der "absoluten Ruhe".
   ],
   [
+    #v(-0.25cm)
     #canvas({
       import draw: *
       set-transform(none)
@@ -637,7 +643,8 @@ Es gilt das Prinzip der "absoluten Ruhe".
     })
   ]
 )
-#pagebreak()
+
+#v(1cm)
 
 #grid(
   columns: (1.7fr,1fr), align: (left,center), gutter: 20pt,
