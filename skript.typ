@@ -573,36 +573,88 @@ Literaturempfehlung: Robert Geroch, General Relativity from A to B
 #align(center)[#canvas({
   import draw: *
   set-transform(none)
-  rotate(x:40deg,y:-10deg,z:-90deg)
+  rotate(x:30deg,y:-40deg,z:-90deg)
   set-style(fill:black)
   line((-1,0),(3,0),mark:(end:">"))
   content((),$t$,anchor:"south-west",padding:0.1)
   line((0,-1),(0,4),mark:(end:">"))
-  content((),$x_1$,anchor:"north",padding:0.1)
-  line((0,0,-1),(0,0,4),mark:(end:">"))
-  content((),$x_2$,anchor:"north")
-  content((2.5,4),[Raumzeit als $RR^4$])
+  content((),$x$,anchor:"north",padding:0.1)
+  line((0,0,-1),(0,0,3),mark:(end:">"))
+  content((),$y$,anchor:"north",padding:0.1)
+
+  let (x1,x2) = (1.5,1.3)
+  line((0,x1,x2),(0,0,x2),stroke:(dash:"dashed"))
+  content((),$x_0$,anchor:"south-east",padding:0.1)
+  line((0,x1,x2),(0,x1,0),stroke:(dash:"dashed"))
+  content((),$y_0$,anchor:"south-west",padding:0.09)
+  set-style(stroke:blue,fill:blue)
+  line((-2,x1,x2),(4.5,x1,x2))
+  line((-2,x1,x2),(4.5,x1,x2),mark:(end:">",pos:25%))
+  set-style(fill:none)
+  bezier((-1.3,3.7,1.3),(1,3.05,0.5),(-1,2.5,0.5))
+  bezier((1,3.05,0.5),(4,3.05),(1.87,2.9,-1))
+  bezier((1,3.05,0.5),(4,3.05),(1.87,2.9,-1),mark:(end:">",pos:50%))
+
+  content((4,7),[Raumzeit als $RR^4$])
 })]
 
 Struktur der Raumzeit?
 
+#v(1cm)
+#grid(
+  columns: (2fr,1fr), align: (left,center),
+  [
 #bold[Aristotelische Raumzeit:] 
 
 Folgende Fragen sind bedeutungsvoll
 1. Finden zwei Ereignisse am selben Ort statt?
 2. Finden zwei Ereignisse zur selben Zeit statt?
 
-#align(center, italic[Abbildung der Aristotelischen Raumzeit])
-
 Antworten:
 1. Ereignisse liegen in der selben senkrechten Ebene
 1. Ereignisse liegen in der selben 3D-Ebene
 
 Es gilt das Prinzip der "absoluten Ruhe".
+  ],
+  [
+    #canvas({
+      import draw: *
+      set-transform(none)
+      rotate(x:80deg,y:-20deg,z:0deg)
+      rect((-2,-2,0),(2,2,0))
+      content((),$t=0$,anchor:"west",padding:1)
+      rect((-2,-2,2),(2,2,2))
+      content((),$t=3$,anchor:"west",padding:1)
+      set-style(mark:(end:">",start:"o"),fill:blue,stroke:blue)
+      line((-0.75,0,0),(-0.75,0,3.5))
+      line((0.75,0,0),(0.75,0,3.5))
+      content((),remark[Weltlinien (feste Orte)],anchor:"south-west",padding:0.2)
+      set-style(mark:(start:">",end:none,fill:gray),fill:none,stroke:gray)
+      bezier((2,2,3.4),(2.2,0,3.6),(2.2,0,3.4))
+      set-transform(none)
+      bezier((-1.8,0.5),(-2.5,1.3),(-1.8,1))
+      content((),remark[3-Ebene],anchor:"north-east")
+    })
+  ]
+)
+#pagebreak()
 
-#bold[Galileische Raumzeit:]
+#grid(
+  columns: (1.7fr,1fr), align: (left,center), gutter: 20pt,
+  [
+    #bold[Galileische Raumzeit:]
 
-#align(center)[#canvas({
+    "Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
+
+    Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
+
+    Aber: Der räumliche Abstand #underline[zur selben Zeit] \ (in der $x_1$-$x_2$-$x_3$-Ebene) ist absolut.
+
+    $==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
+  ],
+  [
+    #v(0.8cm)
+    #canvas({
   import draw: *
   set-transform(none)
   rotate(x:50deg,y:-10deg,z:-90deg)
@@ -622,16 +674,12 @@ Es gilt das Prinzip der "absoluten Ruhe".
   for i in range(5) {
     quader((i*0.4,0,-i/3+0.5),(i*0.4,2,-i/3+0.5),(i*0.4,2,-i/3+0.5+2),(i*0.4,0,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5),((i+1)*0.4,2,-i/3+0.5+2),((i+1)*0.4,0,-i/3+0.5+2))
   }
-  content((2.5,9),[Galileitransformation \ ist Scheerung in $x_1$-$x_2$-$x_3$ Ebene])
-})]
-
-"Zwei Ereigniss finden zur selben Zeit statt." hat eine absolute Bedeutung, das Prinzip der absoluten Ruhe gilt jedoch nicht.
-
-Im Allgemeinen macht es keinen Sinn zu fragen was der räumliche Abstand #underline[zwischen zwei Ereignissen] $p$ und $q$ ist.
-
-Aber: Der räumliche Abstand #underline[zur selben Zeit] (in der $x_1$-$x_2$-$x_3$-Ebene) ist absolut.
-
-$==>$ Newtonsches Gravitationsgesetz ist kompatibel mit Galilei [$V(r) op(tilde)$ $r$: Distanz zu festem Punkt]
+  set-transform(none)
+  content((-0.5,-4),[Galileitransformation \ ist Scheerung in $x_1$-$x_2$-$x_3$ Ebene:])
+})
+  ]
+)
+#v(1cm)
 
 #bold[Minkowski Raum:]
 
