@@ -4,6 +4,7 @@
   title: [Title],
   author: [Author],
   module-name: [Course Name],
+  cover: [],
   body
 ) = {
 
@@ -103,7 +104,7 @@
     #text(size: 16pt)[
       #pad(top: 0em, bottom: 0em, module-name)
     ]
-    #v(2cm)
+    #cover
   ]
 
   pagebreak()

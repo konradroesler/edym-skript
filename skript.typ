@@ -10,6 +10,19 @@
   title: [Vorlesungsskript],
   author: [Konrad Rösler],
   module-name: [Elektrodynamik],
+  cover: canvas({
+    import draw: *
+    let length = 4*calc.pi
+    let dx = 0.6
+    set-style(mark:(end:">",width:2pt))
+    line((),(x:length))
+    let x = 0
+    while x < length {
+      line((x:x),(x,calc.sin(x)+0.001),stroke:blue)
+      line((x:x),(x,0,calc.sin(x)+0.001),stroke:red)
+      x+=dx
+    }
+  }),
   doc
 )
 
