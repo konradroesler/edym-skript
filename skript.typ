@@ -1,6 +1,6 @@
 #import "@preview/physica:0.9.3": *
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
-#import "@preview/cetz:0.3.1": *
+#import "@preview/cetz:0.3.0": *
 #import "@preview/cetz-plot:0.1.0": plot, chart
 
 #import "utils.typ": *
@@ -1239,7 +1239,7 @@ $
 ])
 #bold[Wiederholung: Dirac "$delta$-Funktion"]
 
-#align(center)[#canvas({
+/* #align(center)[#canvas({
   import draw: *
   let epsilon=calc.pow(10,-2)
   plot.plot(
@@ -1250,7 +1250,7 @@ $
     )
   )
   content((1.1,1),$delta(x)$)
-})]
+})] */
 
 $
 integral_(-oo)^oo dd(x) delta(x) = 1 wide integral_(-oo)^oo dd(x) delta(x - a) f(x) = f(a)
