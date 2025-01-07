@@ -2377,7 +2377,7 @@ $
 ==> laplace phi.alt = sum_(n=1)^N e_n laplace (1/abs(va(x) -va(x)_n)) = - 4pi sum_(n = 1)^N e_n delta^3 (va(x) - va(x)_n) = 4 pi rho
 $
 
-== Dipol- und Multipolentwicklun
+== Dipol- und Multipolentwicklung
 
 Betrachte eine System geladener Teilchen:
 
@@ -2439,7 +2439,7 @@ $
   $
 ])
 
-== Multiolmomente
+== Multipolmomente
 $
 phi.alt = underbrace(phi.alt^((0)), "durch" Q "bestimmt") + underbrace(phi.alt^((1)), "Dipolmoment" va(d)) + underbrace(phi.alt^((2)), "Quadropolmoment") + ...
 $
