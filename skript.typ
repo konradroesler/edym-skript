@@ -1814,3 +1814,953 @@ Maxwell-Gleichungen in SI Einheiten:
       curl va(E) &= - pdv(va(B),t)
     $
 ]))
+
+Übersicht der Maxwell-Gleichungen in verschiedenen Formen:
+
+#table(
+  columns: (3cm, 1fr, 1fr),
+  align: center + horizon,
+  table.header([],[#strong[homogen]], [#strong[inhomogen]]),
+  stroke: 0.5pt,
+  [ursprüngliche Form], [
+    $
+    pdv(B_x, x) + pdv(B_y, y) + pdv(B_z, z) = 0 \
+    pdv(E_z, y) - pdv(E_y, z) =  -1/c pdv(B_x, t) \
+    pdv(E_x, z) - pdv(E_z, x) =  -1/c pdv(B_y, t) \
+    pdv(E_y, x) - pdv(E_x, y) =  -1/c pdv(B_z, t) \
+    $
+  ], [
+    $
+    pdv(E_x, x) + pdv(E_y, y) + pdv(E_z, z) = 4 pi rho \
+    pdv(B_z, y) - pdv(B_y, z) = 1/c pdv(E_x, t) + (4 pi)/c j_x \
+    pdv(B_x, z) - pdv(B_z, x) = 1/c pdv(E_y, t) + (4 pi)/c j_y \
+    pdv(B_y, x) - pdv(B_x, y) = 1/c pdv(E_z, t) + (4 pi)/c j_z \
+    $
+  ],
+  [3D kovriante Form], 
+  [
+    $
+    div va(B) &= 0 \
+    curl va(E) &= -1/c pdv(va(B), t)
+    $
+  ],
+  [
+    $
+    div va(E) &= 4 pi rho \
+    curl va(B) &= 1/c pdv(va(E), t) + (4 pi)/c va(j)
+    $
+  ],
+  [Relativistische Form],
+  [
+    $
+    epsilon^(mu nu rho sigma) diff_v F_(rho sigma) = 0
+    $
+  ],
+  [
+    $
+    diff_mu F^(mu nu) = (4 pi)/c j^nu
+    $
+  ],
+  [Differential-Formen],
+  [
+    $
+    dd(F) = 0
+    $
+  ],
+  [
+    $
+    dd(F, [dagger,]) = (4 pi)/c j
+    $
+  ]
+)
+
+== Maxwell in Differentialformen
+
+$RR^4$ bzw. $RR^(1, 3)$
+
+#underline[0-Form:] (Lorentz-) Skalar
+
+#underline[1-Form:] $A = A_mu (x) dd(x^mu)$, $mu = 0, 1, 2, 3$
+
+#underline[2-Form:] $F = 1/2 F_(mu nu) dd(x^mu) and dd(x^nu)$ wobei $F_(mu nu ) = - F_(nu mu)$
+
+#align(center, $dots.v$)
+
+#strong[deRham Differential:] "$d := diff_mu dd(x^mu) and$"
+
+$
+dd(A) &= diff_mu (dd(x^mu) and A) = diff_mu (dd(x^mu and (A_v (x) dd(x^nu)))) \
+&= diff_mu A_nu dd(x^mu) and dd(x^nu) = 1/2 (diff_mu A_nu - diff_nu A_mu) dd(x^mu) and dd(x^nu)
+$
+$
+dd(F) &= diff_mu (dd(x^mu) and F) = diff_mu (dd(x^mu) and 1/2 F_(nu rho) dd(x^nu) and dd(x^rho)) \ 
+&= 1/2 diff_mu F_(nu rho) dd(x^mu) and dd(x^nu) and dd(x^rho) quad [dd(x^mu) and dd(x^nu) = - dd(x^nu) and dd(x^mu)] \
+&= 1/3! (diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F_(mu nu)) dd(x^mu) and dd(x^nu) and dd(x^rho)
+$
+$==>$ 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  dd(F) = 0
+  $
+])
+homogene Maxwell-Gl.
+
+#strong[Hodge-Dualität:] ($p$-Form) $<-->$ ($4-p$)-Formen
+
+#underline[2-Form:] $F = 1/2 F_(mu nu) dd(x^mu) and dd(x^nu)$
+$
+--> star F = 1/2 (star F)_(mu nu) dd(x^mu) and dd(x^nu)
+$
+wobei $(star F)_mu nu := 1/2 epsilon_(mu nu rho sigma) F^(rho sigma)$
+
+#strong[Maxwell in Differentialformen]
+
+#underline[3-Form:] $H = 1/3! H_(mu nu rho) dd(x^mu) and dd(x^nu) and dd(x^rho)$
+$
+--> star H = (star H)_mu dd(x^mu)
+$
+wobei $(star H)_mu := 1/3! epsilon_(mu nu rho sigma) H^(nu rho sigma)$
+
+Feldstärke 2-Form $F$ $-->^star$ 2-Form $star F$ $-->^dd(space)$ 3-Form $d(star F)$ $-->^star$ 1-Form $star dd((star F))$
+
+Übungsaufgabe:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  star dd((star F)) = (diff^mu F_(mu nu)) dd(x^nu)
+  $
+])
+
+4er Strom als 1-Form $j = j_mu dd(x^mu)$ wobei $j_mu := eta_(mu nu) j^nu$ $==>$ $star dd((star F)) = (4 pi)/c j$
+
+#strong[Notation:]
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  dd(space, [dagger,]) := star dd(star)
+  $
+])
+Diese Operator bildet eine $p$-Form auf eine $(p-1)$-Form ab.
+
+$==>$ Maxwell-Gl.:
+$
+"inhomogen:"& quad dd(F, [dagger,]) = (4pi)/c j \
+"homogen:"& quad dd(F) = 0
+$
+
+#strong[Eich-Potentiale:] Die Feldstärke $F_(mu nu)$ bzw. Die Komponenten $va(E)$ und $va(B)$ sind unpraktisch für diese Anwendung.
+
+$==>$ #strong[Eichpotentiale]
+
+Homogene Gl. $dd(F) = 0$ bzw. $diff_mu F_(nu rho) + diff_nu F_(rho mu) + diff_rho F_(mu nu) = 0$ allgemein gelöst durch 
+$
+F = dd(A) <==> F_(mu nu) = diff_mu A_nu - diff_nu A_mu
+$
+$==> dd(F) = dd(A, [2,]) = 0$ 
+nach  $dd(, [2, ]) = 0$ oder
+$
+epsilon^(mu nu rho sigma) F_nu F_(rho sigma) = epsilon^(mu nu rho sigma) diff_nu (diff_rho A_sigma - diff_sigma A_rho) = 0
+$
+nach $diff_nu diff_rho = diff_rho diff_nu$
+Die andere Richtung der Äquivalenz $(dd(F) = 0 <==> exists A: dd(A) = F)$ gilt allgemein nur "lokal" ("Poincare-Lemma")
+
+#strong[Ab jetzt:] Die fundamentalen elektromagnetischen Felder sind die Eichpotentiale $A_mu (x)$ und $F_(mu nu) := diff_mu A_nu - diff_nu A_mu$.
+
+Maxell-Gl.: partielle Dgl. zweiter Ordnung
+$
+diff_mu F^(mu nu) = diff_mu (diff^mu A^nu - diff^nu A^mu) = op(square) A^nu - diff^nu (diff_mu A^mu) = (4pi)/c j^nu
+$
+$square$: Wellenoperator (d'Alembert)
+
+#strong[Eichinvarianz/Eich-Redundanz:] Die $F_(mu nu)$ (bzw. $va(E)$ und $va(B)$) sind physikalisch/messbar, die $A_mu$ im Allg. jedoch nicht.
+$
+A_mu (x) --> A'_mu (x) := A_mu (x) - diff_mu Lambda(x)
+$
+$Lambda$: beliebige Funktion/Eichparameter
+$
+F_(mu nu) --> F'_(mu nu) = diff_mu A'_nu - diff_nu A'_mu = diff_mu (A_nu - diff_nu Lambda) - diff_nu (A_mu - diff_mu Lambda) = diff_mu A-nu - diff_nu A_mu = F_(mu nu)
+$
+In Komponenten: $A_mu = (phi.alt, - va(A))$
+$
+A'_mu = (phi.alt', - va(A)') = A_mu - diff_mu Lambda = (phi.alt - diff_0 Lambda, - va(A) - grad Lambda)
+$
+$==>$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi.alt' = phi - 1/c pdv(Lambda, t), quad va(A)' = va(A) + grad Lambda
+  $
+])
+
+#strong[Wirkungsprinzip von Feldern + Materie]
+
+Geladene Punktteilchen mit Masse $m_i, i =1,.., N$, parametrisierte Weltlinie $x_i^mu (lambda)$, $lambda$: Parameter. Dann ist ist die Wirkung 
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  S = - sum_(i = 1)^N m_i c integral dd(s_i), quad dd(s_i) = sqrt(eta_(mu nu) dv(x_i^mu, lambda) dv(x_i^nu, lambda)) dd(lambda)
+  $
+])
+
+Kopplung an $A_mu$?
+$
+S[A_mu, x_i^mu (lambda)] = - sum_(i = 1)^N m_i c integral dd(s_i) - 1/(16 pi c) integral dd(lambda, [4,]) (F^(mu nu) F_(mu nu) - (16 pi)/c A_mu j^mu)
+$
+
+#strong[Eich-Felder/Eichpotentiale]
+
+$F_(mu nu) = diff_mu A_nu - diff_nu A_mu$, $A_mu (x)$ kovariantes Vektorfeld ("Eich-Potential")
+
+$A_mu = (phi.alt, - va(A)), A^mu = (phi.alt, va(A))$
+
+#strong[Eich-Symmetrie:] 
+$
+A_mu --> A'_mu = A_mu - diff_mu Lambda, F_(mu nu) --> F_(mu nu) quad "invariant"
+$
+
+#strong[Wirkungsprinzip von Felder + Materie:]
+
+Dynamische Variablen:
+
+- $A_mu (x)$ Eich-Feld
+- $x^mu (lambda)$ Weltlinie eines Punktteilchens (parametrisierte Kurve $C$ im $RR^(3, 1)$)
+
+$
+S = underbrace(-m c integral_C dd(s), S_"Teilchen") + underbrace(integral dd(x, [4,]) (-1/(16 pi c) F^(mu nu) F_(mu nu) ), S_"Feld") + underbrace(integral dd(x, [4,]) (-1/c^2 A_mu j^mu), S_"Wechselwirkung")
+$
+
+Lorentz-System: $x^mu = (c t, x^i)$ 
+$
+integral dd(x, [4,]) = c integral dd(t) integral dd(x, [3,]) wide S = integral dd(t) L = integral dd(t) integral dd(x, [3,]) cal(L) wide cal(L)": Lagrange-Dichte"
+$
+$==>$ 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  cal(L)[A_mu] = -1/(16 pi) F^(mu nu) F_(mu nu) - 1/c A_mu j^mu
+  $
+])
+
+#strong[Variation nach $A_mu$:]
+$
+delta S &= integral dd(x, [4,]) (-1/(16 pi c) (delta F^(mu nu) F_(mu nu) + F^(mu nu) delta F_(mu nu))-1/c^2 delta A_mu j^mu) \
+&= integral dd(x, [4,]) (-1/(8 pi c) F^(mu nu) delta F_(mu nu) - 1/c^2 delta A_mu j^mu)
+$
+$
+[ quad delta F_(mu nu) + delta (diff_mu A_nu - diff_nu A_mu) = diff_mu (delta A_nu) - diff_nu (delta A_mu) quad ]
+$
+$
+= integral dd(x, [4,]) (-1/(8pi c) F^(mu nu) (diff_mu (delta A_nu) - diff_nu (delta A_mu)) - 1/c^2 delta A_mu j^mu)
+$
+
+#line(stroke: 0.5pt, length: 1cm)
+
+$
+delta S &= integral dd(x, [4,]) (-1/(4 pi c) F^(mu nu) diff_mu (delta A_nu) - 1/c^2 delta A_mu j^mu) \
+&= integral dd(x, [4,]) (1/(4pi c) diff_mu F^(mu nu) delta A_nu - 1/c^2 delta A_nu j^nu) \ 
+&= 1/(4 pi c) integral dd(x, [4,]) (diff_mu F^(mu nu) - (4pi)/c j^nu) delta A_nu \
+$
+nach dem Hamiltonschen Prinzip
+$
+=^! 0 quad "für beliebige Varianten von" A_mu
+$
+
+$==> diff_mu F^(mu nu) - (4pi)/c j^nu = 0$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  diff_mu F^(mu nu) = (4pi)/c j^nu
+  $
+])
+Maxwell-Gl. ist Euler-Lagrange-Gl.
+
+#strong[Variation nach $x^mu (lambda)$:]
+$
+delta S_"Teilchen" = - m c delta integral dd(s) = m integral delta x_mu dv(u^mu, lambda) dd(lambda)
+$
+
+4er-Strom für Punktteilchen:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  j^mu (x) = c e integral dd(lambda) dv(x^mu, lambda) delta^4 (x- x(lambda))
+  $
+])
+$
+S_"Wechselwirkung" &= -1/c^2 integral dd(x, [4,]) A_mu (x) j^mu (x) = -e/c integral dd(lambda) dv(x^mu, lambda) integral dd(x, [4,]) A_mu (x) delta^4 (x- x(lambda)) \
+&= -e/c integral dd(lambda) A_mu (x(lambda)) dv(x^mu, lambda) = -e/c integral_C A_mu dd(x^mu) quad "Integral der 1-Form entlang" C
+$
+
+$
+A_mu (x(lambda) + delta x(lambda)) =^"Taylorentw." A_mu (x(lambda)) + evaluated(pdv(A_mu, x^nu))_(x=x(lambda)) dot delta x^nu + ...
+$
+$==>$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  delta (A_mu (x(lambda)))= (diff_nu A_mu)(x(lambda)) dot delta x^nu (lambda)
+  $
+])
+$
+delta(-e/c integral_C A_mu dd(x^mu)) &= delta(-e/c integral dd(lambda) A_mu (x(lambda)) dv(x^mu, lambda)) \
+&= -e/c integral dd(lambda) (delta(A_mu (x(lambda)) dv(x^mu, lambda) + A_mu (x(lambda)) delta(dv(x^mu, lambda))) \
+&= e/c integral dd(lambda) [(diff_mu A_nu - diff_nu A_mu) dv(x^mu, lambda)] delta x^nu
+$
+Zusammengefasst:
+$
+delta(-m c integral dd(s) - e/c integral A_mu dd(x^mu)) = integral dd(lambda) (m dv(u^mu, lambda) + e/c F_nu^mu dv(x^nu,lambda)) delta x_mu \
+==> m dv(u^mu, lambda) = e/c F^(mu nu) (x(lambda)) dv(x_nu, lambda)
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> m a^mu = e/c F^(mu nu) u_v
+  $
+])
+Die "4er-Lorentz-Kraft"
+
+#strong[Eigenzeit $tau$:] $x^mu (tau), c/sqrt(dot(x)) = 1$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  m dv(x^mu, tau, 2) = e/c F^(mu nu) (x(tau)) dv(x_nu, tau)
+  $
+])
+
+== Maxwellgleichungen und Bewegungsgleichungen
+
+elektromagnetischen Feld $A_mu (x)$ (Eichpotential) und Weltlinie $C$ für #strong[geladenes Teilchen] ($x^mu (lambda)$)
+
+#strong[Wirkungsfunktional:]
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  S[A_mu (x), x^mu (lambda)] := - m c integral_C dd(s) -3/c integral_C A_mu dd(x^mu) - 1/(16 pi c) integral dd(x, [4,]) F^(mu nu) F_(mu nu)
+  $
+])
+
+wobei $F_(mu nu) = diff_mu A_nu - diff_nu A_mu)$
+$
+integral_C dd(s) := integral_I sqrt(eta_(mu nu) dv(x^mu, lambda) dv(x^nu, lambda)) dd(lambda) wide integral_C A_mu dd(x^mu) := integral_I A_mu (x(lambda)) dv(x^mu, lambda) dd(lambda) \
+delta S = integral dd(lambda) delta x_mu (m dv(u^mu, lambda) -e/c F^mu_nu (x(lambda)) dv(x^nu, lambda)) + 1/(4pi c) integral dd(x, [4,]) delta A_nu dot (diff_mu F^(mu nu) - (4pi)/c j^nu) =^! 0
+$
+diese eine Gleichung kodiert die gesamte Theorie
+$
+diff_mu F^(mu nu) = (4 pi)/c j^nu wide "inhomogene Maxwell-Gl." \ 
+m dv(u^mu, lambda) = e/c F^(mu nu) (x(lambda)) dv(x^nu, lambda) \
+"4er-Geschw.:" u^mu = c/sqrt(dot(x)^2) dv(x^mu, lambda) wide "4er-Beschl.:" a^mu = c/sqrt(dot(x)^2) dv(u^mu, lambda)
+$
+$==>$
+$
+m a^mu = e/c F^(mu nu) u_v
+$
+
+#strong[1) Eigenzeit] $lambda := c, dot(x)^2 = c^2$ definierende Eigenschaft der Eigenzeit
+$
+==> u^mu = dv(x^mu, tau), u^mu u_mu = c^2, a^mu = dv(u^mu, tau) = dv(x^mu, tau, 2)
+$
+
+#strong[Koordinatenzeit:] $lambda = t$
+$
+&x^mu (t) = (c t, x^i (t)) = (c t, va(x) (t)) \
+&==> dot(x)^mu (t) = (c, v^i) = (c, va(v)) \
+&dot(x)^2 = c^2 - abs(va(v))^2 equiv c^2 -v^2 = c^2 (1-v^2/c^2) \
+&==> c/sqrt(dot(x)^2) = 1/sqrt(1-abs(va(v))^2/c^2) equiv gamma \
+&==> u^m = gamma dot(x)^mu = gamma (c, va(v)), u_mu = gamma (c, - va(v)) \
+&<==> u_0 = gamma dot c, u_i = - gamma v_i
+$
+
+#strong[$mu = i$] (räumliche Komponente):
+$
+m gamma dv(, t) (gamma v^i) &= e/c F^(i nu) u_nu = e/c (F^(i 0) u_0 + F^(i j) u_j) \
+&= e/c (E^i gamma c - epsilon^(i j k) B_k (- gamma v_i)) = gamma dot (e E^i + e/c E^(i j k) v_j B_k) 
+$
+$
+==> m dv(,t) (gamma va(v)) = e va(E) + e/c va(v) times va(B) ==>
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  dv(, t) (m/sqrt(1-abs(va(v))^2/c^2) va(v)) = e va(E) + e/c va(v) times va(B)
+  $
+])
+
+relativistische Impuls:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(p) := m/sqrt(1-abs(va(v))^2/c^2) va(v) equiv m(v) va(v)
+  $
+])
+$m(v) := m/sqrt(1-v^2/c^2)$ ist die "relativistische Masse"
+
+Damit erhalten wir 
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  dv(va(p), t) = e va(E) + e/c va(v) times va(B)
+  $
+])
+
+#strong[Nachtrag zur relativistischen Mechanik]
+
+#strong[Energie:] $E = gamma m c^2 = sqrt(m^2 c^4 + c^2 va(p)^2) ==> m = 0: E = c abs(va(p))$
+
+4er Impuls: $p^mu := m dot u^mu$ $==>$ $p^mu p_mu = m^2 u^mu u_mu = m^2 c^2$
+$
+p^mu = (E/c, va(p)) quad p^mu p_mu = (E/c)^2 - va(p)^2 = m^2 c^2
+$
+
+
+#strong[konstantes elektrisches Feld:]
+
+$va(E) =$ const. $phi.alt(va(x)) = - va(E) dot va(x)$, wähle Koordinatensystem so dass $va(E) = (E, 0, 0)$, $va(B) = 0$
+$
+dv(va(p), t) = e va(E) quad dv(, t) p_x = e E, dv(, t) p_y = dv(, t) p_z = 0
+$
+
+#strong[Bewegung in $(x, y)$-Ebene] ($p_z (0) = 0 ==> p_z = 0$)
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  p_x = e E dot t, quad p_y = p_(y, 0) = "const."
+  $
+])
+$
+&==> E = sqrt(m^2 c^4 + c^2 va(p)^2) = sqrt(m^2 c^4 + c^2 (p_(y, 0))^2 + (c e E t)^2) \
+&==> E = sqrt(E_0^2 + (c e E t)^2)
+$
+$
+va(v) = c^2/E va(p), quad v_x = dv(x, t) = c^2/E p_x = (c^2 e E t)/sqrt(E_0^2 + (c e E t)^2)
+$
+Integration $integral dd(t)$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  x(t) = 1/(e E) sqrt(E_0^2 + (c e E t)^2)
+  $
+])
+$
+v_y = dv(y, t) = c^2/E p_y = (p_(y, 0) dot c^2)/sqrt(E_0^2 + (c e E t)^2)
+$
+
+$==>$ Integration
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  y(t) = (p_(y, 0) dot c)/(e E) dot sinh^(-1)((c e E t)/E_0)
+  $
+])
+
+#strong[Bahnkurve in $(x, y)$-Ebene]
+$
+sinh((e E)/(p_(y,0) c) y) = (c e E t)/E_0 quad ==> quad x = E_0/(e E) sqrt(1+ sinh^2 ((e E)/(p_(y, 0) c) y))
+$
+$==>$ 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  x = E_0/(e E) cosh((e E)/(p_(y, 0) c) y)
+  $
+])
+"Kettenlinie"
+
+= Elektrostatik
+
+Spezialfall: #strong[stationäre Ladungsverteilung]
+
+$rho=rho(va(x)) = rho(x^1, x^2, x^3), va(j) = 0, F_(0 i) = diff_0 A-i - diff_i A_0 = E_i$ (Elektrisches Feld)
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(E) = - grad phi.alt - 1/c pdv(A, t)
+  $
+])
+$F_(i j) = - epsilon_(i j k) B^k = diff_i A_j - diff_j A_i$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(B) = curl va(A)
+  $
+])
+
+#strong[Maxwell-Gl.:] 
+$
+"Annahmen:" quad div va(E) = 4 pi rho wide curl va(B) = 1/c pdv(va(E), t)
+$
+$va(E) = va(E)(va(x)) = va(E)(x^1, x^2, x^3) --> curl va(B) = 0$
+
+Ausgedrückt mit den Potentialen:
+
+#strong[1. Maxwell-Gl.:]
+$
+div va(E) = - div (grad phi.alt) - 1/c pdv(, t) (div va(A)) = 4 pi rho
+$
+$==> laplace phi.alt + 1/c pdv(, t) (div va(A)) = -4 pi rho$ 
+
+Mit Eichbedingung $div va(A) = 0$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  laplace phi.alt = - 4 pi rho quad "Poission-Gleichung"
+  $
+])
+
+#strong[Programm:] Finde $phi.alt$ für ein gegebenes $rho$
+
+#strong[Eichwahl:] $div va(A) = 0$
+$
+va(A) --> va(A)' = va(A) + grad Lambda, quad delta va(A) = grad Lambda <==> delta A_i = diff_i Lambda
+$
+$==> delta_1 (div (A)) = delta_1 (diff_i A^i) = diff_i diff_i Lambda = laplace Lambda$
+$
+div va(A) + laplace Lambda =^! 0 quad ==> laplace Lambda = - div va(A)
+$
+Lösung für $Lambda$ existiert
+$
+==> div va(A) = 0 quad "ist eine zulässige Eichbedingung"
+$
+#strong[2. Maxwell-Gl.:] 
+$
+curl va(B) = 0
+$
+$
+curl (curl va(A))^i = 0 \
+= epsilon^(i j k) diff_j (curl va(A))_k = epsilon^(i j k) epsilon_(m n k) diff_j diff^m A^k = diff_j (diff^i A^j - diff^j A^j) \
+==> curl (curl va(A))^i = diff^i (diff_j A^j) - diff_j diff^j A^i = (grad (div va(A)) - laplace va(A))^i \
+==> curl(curl va(A)) = 0 <==> 
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  grad(div va(A)) - laplace va(A) = 0
+  $
+])
+Mit der Eichwahl $div va(A) = 0$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  laplace va(A) = 0
+  $
+])
+Zusammenfassend:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  #text(size: 14pt)[Elektrostatik]
+  $
+  laplace phi.alt &= - 4 pi rho space "für" rho = rho(va(x)) \
+  va(E) &= - grad phi.alt \
+  va(B) &= 0
+  $
+])
+
+#strong[Integralform von] $div va(E) = 4 pi rho$
+$
+integral dd(x, [3,]) div va(E) = 4 pi integral dd(x, [3,]) rho(x) = underbrace(4 pi e, 1)
+$
+Wähle $V =$ Kugel mit Radius $R$ um $e$, $diff V = $ Sphäre (Rand der Kugel)
+$
+==> integral_(diff V) va(E) dot dd(va(Sigma)) = underbrace(4 pi R^2 E(R), 2) \
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==>^(1 "und" 2) E(R) = e/R^2
+  $
+])
+$
+va(E)(va(R)) = e/R^2 va(R)/abs(va(R))^2 = (e va(R))/R^3
+$
+
+#strong[Skalarpotential:] $phi.alt(va(x)) = e/R = e/abs(va(x)) = e(x^i x_i)^(-1/2)$
+
+Probe: liefert $phi.alt$ das richtige $E$-Feld?
+
+$
+diff_i phi.alt = e diff_i [(x^i x_j)^(-1/2)] = -e/2 (x^j x_j)^(-3/2) diff_i (x^j x_j) = -e x_i/(x^j x_j)^(3/2) = -e x_i/abs(va(x))^3 \
+==> va(E) = - grad phi.alt = e va(x)/abs(va(x))^3 = (e va(R))/R^3
+$
+Poisson-Gl.: $laplace(e/R) = - 4 pi rho = - 4 pi e delta^3 (va(R)) quad <==>$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  laplace(1/R) = -4 pi delta^3 (va(R))
+  $
+])
+$N$ Ladungen bei $va(x) = va(x)_n, n = 1,..., N$: $rho(va(x)) = sum_(n = 1)^N e_n delta^3 (va(x) - va(x)_n)$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi.alt (va(x)) = sum_(n =1)^N e_n/abs(va(x) - va(x)_n)
+  $
+])
+$
+==> laplace phi.alt = sum_(n=1)^N e_n laplace (1/abs(va(x) -va(x)_n)) = - 4pi sum_(n = 1)^N e_n delta^3 (va(x) - va(x)_n) = 4 pi rho
+$
+
+== Dipol- und Multipolentwicklun
+
+Betrachte eine System geladener Teilchen:
+
+exaktes Resultat:
+$
+phi.alt (va(x) == sum_(a = 1)^N e_a/abs(va(x) -va(x)_a)
+$
+$==>$ Taylorentwicklung für $abs(va(x))>>abs(va(x)_a)$
+
+$abs(va(a)) << 1:$
+$
+&f(x + a) = f(va(x)) + a^i evaluated(pdv(f, x_i))_(a=0) + 1/2 a^i a^j evaluated(pdv(f, x^i, x^j))_(a=0) + ... \
+&f(va(x) + va(a)) = f(va(x)) + va(a) dot grad f + ...
+$
+$va(a) = -va(x)_a$
+$
+==> phi.alt (va(x)) = sum_a e_a/abs(va(x)) - sum_a e_a va(x)_a dot grad(1/abs(va(x))) + ... \
+(sum_a e_a)/abs(va(x)) - (sum_a e_a dot va(x)_a) dot grad(1/abs(x)_i) + ...
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  ==> phi.alt (va(x)) = Q/abs(va(x)) - va(d) dot grad(1/abs(va(x))) + ... quad "wobei" Q": Gesamtladung mit" \
+  d := sum_a e_a dot va(x)_a": Dipolmoment"
+  $
+])
+#strong[Spezialfall:] $Q = 0$
+
+$==> va(d)$: translationsinvariant unter $va(x) --> va(x) + va(a)$
+$
+va(d)' = sum_a e_a (va(x) + va(a)) = va(d) + Q dot va(a) = va(d) quad checkmark
+$
+#line(stroke: 0.5pt, length: 1cm)
+$
+va(d) = sum_a e_a^+ va(x)^+_a - sum_a e_a^- va(x)_a^- equiv (sum_a e_a^+) va(R)^+ - (sum_a e_a^-) va(R)^- \
+"mit" va(R)^+ = (sum e_a^+ va(x)_a^+)/(sum_a e_a^+), quad va(R)^- = ...
+$
+
+$Q = 0$: $sum_e_a^+ = sum_a e_a^- equiv e$ $==>$ 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(d) = e(va(R)^+ - va(R)^-)
+  $
+])
+$
+==> phi.alt(va(x)) = - va(d) dot grad(1/abs(va(x))) = (va(d) dot va(x))/abs(va(x))^3
+==> va(E) = - grad phi.alt = (3(va(d) dot va(n)) va(n) - va(d))/abs(va(x))^3 , quad va(n) = va(x)/abs(va(x))
+$
+#line(stroke: 0.5pt, length: 1cm)
+
+$va(E) = - grad phi.alt <==> E^i = 0 diff^i phi.alt$
+
+Fall: $Q = 0$: 
+$
+diff^i phi.alt = diff^i (d_j x^j)/(x^k x_k)^(3/2) = (d_j delta^(i j))/(x^k x_k)^(3/2) - 3/2 (d_j x^j)/(x^k x_k)^(5/2) 2 x^i = d^i/abs(va(x))^3 - 3 (va(d) dot va(x))/abs(va(x))^5 dot x^i = (va(d) - 3 (va(d) dot va(n)) dot va(n))/abs(va(x))^3
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(E) = (3(va(d) dot va(n)) dot va(n) - va(d))/abs(va(x))^3
+  $
+])
+
+== Multiolmomente
+$
+phi.alt = underbrace(phi.alt^((0)), "durch" Q "bestimmt") + underbrace(phi.alt^((1)), "Dipolmoment" va(d)) + underbrace(phi.alt^((2)), "Quadropolmoment") + ...
+$
+Taylor-Formel: 
+$
+phi.alt^((2)) = 1/2 sum_a e_a x_a^i x_a^j pdv(, x^i, x^j) evaluated((1/abs(va(x) - va(x)_a)))_(va(x)_a = 0)
+$
+spurfrei:
+$
+delta^(i j) pdv(, x^j, x^j) (1/abs(va(x) - va(x)_a)) = 0
+$
+$
+==> phi.alt^((2)) = 1/2 sum_a e_a (x_a^i x_a^j - 1/3 abs(va(x))_a^2 delta^(i j)) pdv(,x^i,x^j) (1/abs(va(x) - va(x)_a))
+$
+#strong[Quadropolmoment:]
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  D^(i j) := sum_a e_a (3 x_a^i x_a^j - abs(va(x)_a) delta^(i j))
+  $
+])
+$==>$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi.alt^((2)) = 1/3! D^(i j) pdv(,x^i, x^j) (1/abs(va(x)))
+  $
+])
+$
+delta_(i j) D^(i j) = sum_a e_a (3 delta_(i j) x_a^i x_a^j - abs(va(x)_a)^2 delta_(i j) delta^(i j)) = 0
+$
+$==>$ 5 Freiheitsgrade
+$
+pdv(, x^i) (1/abs(va(x))) = - x_i/abs(va(x))^3 ==> pdv(x^i, x^j) (1/abs(va(x))) = pdv(, x^j) (- x_i/(x^k x_k)^(3/2)) = - delta^(i j)/abs(va(x))^3 + 3/2 x_i/abs(va(x))^5 2 x_j = (3 x_i x_j - abs(va(x))^2 delta_(i j))/abs(va(x))^5 \
+==> phi.alt^((2)) = 1/3! D_(i j) (3 x_i x_j - abs(va(x))^2 delta_(i j))/abs(va(x))^5 = 1/2 (D_(i j) x^i x^j)/abs(va(x))^5 = 1/2 (D_(i j) n^i n^j)/abs(va(x))^3, quad n^i = x^i/abs(va(x))
+$
+Gesamtresultat:
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi.alt(va(x)) = Q/abs(va(x)) + (va(d) dot va(x))/abs(va(x))^3 + 1/2 (D_(i j) x^i x^j)/abs(va(x))^5 + ...
+  $
+])
+Für kontinuierliche Ladungsverteilung: $rho(va(x))$ selbe Formel mit 
+
+#strong[Gesamtladung:]
+$
+Q := integral_V dd(x, [3,]) rho(va(x))
+$
+#strong[Dipolmoment:]
+$
+Q := integral_V dd(x, [3,]) rho(va(x)) dot va(x)
+$
+#strong[Quadropolmoment:]
+$
+Q := integral_V dd(x, [3,]) (3 x_i x_j - abs(va(x))^2 delta_(i j))
+$
+
+#strong[Methode zur Lösung der Poisson-Gleichung:] $laplace phi.alt = - 4pi  rho$
+
+#strong[Greens Funktion:] $G(va(x), va(y))$ so dass 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  laplace_x G(va(x), va(y)) = - 4 pi delta^3 (va(x) - va(y))
+  $
+])
+$==>$ Lösung der Poisson-Gl.:
+$
+phi.alt(va(x)) = integral G(va(x), va(y)) delta(va(y)) dd(va(y), [3,])
+$
+#startproof
+$
+laplace_x phi.alt(va(x)) = integral laplace_x G(va(x), va(y)) delta(va(y)) dd(va(y), [3,]) = - 4pi rho(va(x))
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  G(va(x), va(y)) = 1/abs(va(x) - va(y)) + F(va(x), va(y))
+  $
+])
+wobei $F$ eine Lösung der Laplace-Gl. ist.
+
+#strong[Programm:] Finde $G$ und somit $phi.alt$ für #strong[Randbedingungen]
+
+== Randwertprobleme
+
+#strong[gegeben:]
+
+1) $rho$ auf $V$ (kompakt)
+
+2) $phi.alt$ auf $diff V$ (Rand von $V$)
+
+#strong[gesucht:] $phi.alt(va(x))$ in $V$ sd.: $laplace phi.alt = - 4 pi rho$
+
+#strong[Greensche Identität:] $phi, psi$ Skalarfeld
+$
+integral_V dd(x, [3,]) (phi dot laplace psi - psi laplace phi) = integral_(diff V) ( phi pdv(psi, n) - psi pdv(phi, n)) dd(f)
+$
+#startproof
+$
+"L.S." &= integral dd(x, [3,]) ( phi diff_i diff^i psi - psi diff_i diff^i phi) \
+&= integral dd(x, [3,]) ( diff_i (phi diff^i psi) - diff_i phi diff^i psi - diff_i (psi diff^i phi) + diff_i psi diff^i phi) \
+&= integral_V dd(x, [3,]) (div ( phi grad psi) - div (psi grad phi)) \
+&=^"Gauß" integral_(diff V) (phi dot grad psi dot dd(va(Sigma)) - psi grad phi dot dd(va(Sigma)))
+$
+
+Zur Erinnerung: Param: $va(x)(u, v): dd(va(Sigma)) := (pdv(va(x), u) times pdv(va(x), v)) dd(u) dd(v)$, $dd(va(Sigma)) =: va(n) dd(f), va(n)$: Normalenvektorfeld auf $diff V$
+$
+grad psi dot dd(va(Sigma)) = (grad psi dot va(n)) dd(f) = pdv(psi, n) dot dd(f) ==>
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  pdv(psi, n) := grad psi dot va(n)
+  $
+])
+$==>$
+$
+phi.alt(va(x)) = underbrace(integral_V dd(va(x)) dot rho(va(x)')/abs(va(x)-va(x)'), "Coulomb-Potential") + underbrace(1/(4 pi) integral_(diff V) dd(f') {1/abs(va(x) - va(x)') pdv(phi.alt, n') - phi.alt(x') pdv(, n') (1/abs(va(x) - va(x)'))}, "Randbeträge")
+$
+
+Man kann nur $pdv(phi.alt, n')$ oder $phi.alt(x')$ am Rand frei wählen. Hieraus folgen:
+
+#strong[Dirichlet-Randbedingung:] $evaluated(phi.alt)_(diff V) = phi, quad phi: diff V -> RR$
+
+#strong[Neumann-Randbedingung:] $evaluated(pdv(phi.alt, n'))_(diff V) = chi, quad chi: diff V -> RR$
+
+Kommentar: Für $V = RR^3$ verschwinden die Randbedingungen
+
+Kommentar zur Neumann-Randbedingung: $va(E)_bot := va(n) dot va(E) = - va(n) dot grad phi.alt = - pdv(phi.alt, n)$ $==>$ man fixiert $E_bot$ auf dem Rand
+
+#strong[Behauptung:] Die Lösung der Poisson-Gleichung für Dirichlet- oder Neumann-Randbedingung ist eindeutig 
+
+#startproof Seien $phi.alt_1$ und $phi.alt_2$ Lösungen mit $laplace phi.alt_1 = laplace phi.alt_2 = - 4 pi rho$ und $evaluated((phi.alt_1 - phi.alt_2))_(diff V) = 0$ oder $pdv(, n)(phi.alt_1 - phi.alt_2)_(diff V) = 0$
+
+Betrachte: $psi := phi.alt_1 - phi.alt_2 ==> laplace psi = 0$ mit $(evaluated(psi)_(diff V)  = 0 "[Dirichlet] oder" evaluated(pdv(psi, n))_(diff V) = 0 "[Neumann]")$
+
+Betrachte:
+$
+integral_V dd(x, [3,]) abs(grad psi)^2 =  integral_V dd(x, [3,]) diff_i psi diff^i psi  = integral_V dd(x, [3,])  diff_i (psi diff^i psi - psi diff_i diff^i psi) \
+= integral_V dd(x, [3,]) div(psi grad psi) =^"Gauß" integral_(diff V) psi dot grad psi dot dd(va(Sigma)) = integral_(diff V) psi dot pdv(psi, n) dd(f) = 0 "mit Randbedingungen"
+$
+$
+==> integral dd(x, [3,]) abs(grad psi)^2 = 0 ==> grad psi = 0 space "auf" V ==> psi(va(x)) = "const."
+$
+$==>$ Für Dirichlet-Randbedingung: $psi(va(x)) = 0$, für Neumann-Randbedingung: $phi.alt_1 (va(x)) = phi.alt_2 (va(x)) + "const."$
+#endproof
+
+#strong[Greens Funktionen mit geeigneten Randbedingungen]
+
+#strong[Def.:] $laplace_x G(va(x), va(y)) = -4 pi delta(va(x) - va(y))$
+$
+G(va(x) - va(y)) = 1/abs(va(x) - va(y)) + F(va(x), va(y)), quad "wobei" laplace F = 0
+$
+
+Mit Greensche Identität für $phi = phi.alt$ und $psi = G$:
+$
+integral_V dd(x, [3,]) (phi.alt(x') laplace_x' G(va(x), va(x'))  - G(va(x), va(x')) laplace_x phi.alt(va(x)')) = -4 pi phi.alt(va(x)) + 4 pi integral_V dd(x, [3,]) G(va(x), va(x)') rho(va(x)) \
+= integral_(diff V) dd(f') [ phi.alt pdv(G, n') - G pdv(phi.alt, n')]
+$
+
+#strong[Beispiel:] Dirichlet-Randbedingung: $evaluated(phi.alt)_(diff V) = phi$ für gegebenes $phi: diff V -> RR$. Wähle $G_0$ so, dass $G_0 (va(x), va(x)') = 0$ für $va(x)' in diff V$
+$
+==> phi.alt(va(x)) = integral_V dd(va(x), [3,]) G_0 (va(x), va(x)') rho(va(x)) - 1/(4pi) integral_(diff V) dd(f') phi(va(x)) pdv(G_0 (va(x), va(x)'), n')
+$
+#strong[Halbraum:] $V = H = {va(x) in RR^3 | x^3 > 0} ==> diff V = { va(x) in RR^3 | x^3 = 0}$ 
+
+#strong[Gesucht:] $G_0 (va(x) , va(x)')$ mit Dirichlet-Randbedingung $laplace_x G_0 (va(x), va(x)') = -4pi delta^3 (va(x) - va(x)')$, $G_0 (va(x), va(x)') = 0$ für $va(x)' in diff H$
+
+#strong[Ansatz:] $G_0 (va(x), va(x)') = 1/abs(va(x)- va(x)') + f_0 (va(x), va(x)'), laplace f_0 = 0$ für $va(x)' in diff H$ 
+$
+0 = 1/abs(va(x) -va(x)') + f_0 (va(x), va(x)') ==> evaluated(f_0 (va(x), va(x)'))_(va(x)' in diff H) = - 1/abs(va(x) - va(x)') = -1/sqrt((x_1 - x'_1)^2 + (x_2 - x'_2)^2 +(x_3)^2)
+$
+Greens Funktion kann typischerweise symmetrische gewählt werden:
+$
+f_0 (va(x), va(x')) =  -1/sqrt((x_1 - x'_1)^2 + (x_2 - x'_2)^2 +(x_3 + x'_3)^2)
+$
+#strong[Defintion:] $va(y_S) = (y_1, y_2, -y_3)$
+$
+==> f_0 (va(x), va(y)) = 1/abs(va(x) -va(y_S))
+$
+zz.: löst Laplace-Gleichung:
+$
+laplace_x f_0 (va(x), va(y)) = - laplace_x (1/abs(va(x)-va(y)_S )) = 0
+$
+#strong[Resultat:]
+$
+G_0 (va(x),va(y)) = 1/abs(va(x) -va(y)) - 1/abs(va(x) - va(y)_S)
+$
+#strong[Anwendung:] Problem: "gerade Leiterplatte" in ($x,y$)-Ebene $[evaluated(phi.alt)_(diff V) = 0]$ mit Punktladung $q$ im Abstand $x_0^3 = z, va(z) = (0, 0, z_0)$ 
+$
+rho(va(x)) = q dot delta^3 (va(x) - va(z)) \ 
+==> phi.alt(va(x)) = integral dd(y, [3,]) G_0 (va(x), va(y)) rho(va(y)) - 1/(4pi) integral dd(f') phi(va(x)') pdv(G_0, n) = q G_0 (va(x), va(z)) \
+=q/abs(va(x) - va(z)) - q/abs(va(x) - va(z)_S)=q dot [1/abs(va(x) - z_0 va(e_3)) - 1/abs(va(x) + z_0 va(e_3))]
+$
+
+#strong[Dirichlet-Randbedingung:] $evaluated(phi.alt)_(diff V) = phi$ für gegebenes $phi: diff V -> RR$
+
+Wähle Greens Funktion $G_D$ so, dass $G_D (va(x), va(y)) = 0$ für $va(y) in diff V, va(x)$ beliebig 
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  phi.alt(va(x)) = integral_V dd(x', [3,]) G_D (va(x), va(x')) rho(va(x)') - 1/(4pi) integral_(diff V) dd(f') phi(va(x')) pdv(G_D (va(x), va(x')), n')
+  $
+])
+eindeutige Lösung der Poisson-Gleichung (Neumann- oder Dirichlet-eindeutig)
+
+Halbraum $V = H = {va(x) in RR^3 | x_3 > 0}$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  G_D (va(x), va(y)) = 1/abs(va(x) - va(y)) - 1/abs(va(x) - va(y)_S)
+  $
+])
+wobei $va(y)_0 = (y^1, y^2, y^3)$
+
+Problem: Wir legen auf der "Platte" unser Potential fest und wollen dann die Poisson-Gleichung lösen.
+$
+rho(va(x) = q delta(va(x) - va(z))), quad va(z) = (0, 0, z_0)
+$
+mit dem Resultat oben folgt
+$
+phi.alt(va(x)) = q/abs(va(x) - va(z)) - q/abs(va(x) - va(z)_S) \
+va(E)(va(x)) = q [(va(x) - z_0 va(e)_3)/abs(va(x) - z_0 va(e)_3)^3 - (va(x) + z_0 va(e)_3)/abs(va(x) + z_0 va(e)_3)^3]
+$
+
+#strong[Greens Funktion mit Neumann RB:]
+
+gegeben: $chi: diff V -> RR, pdv(phi.alt, n)_(diff V) = chi, E_bot = va(n) dot va(E) = - n dot grad phi.alt = -pdv(phi.alt, n)$
+$
+phi.alt(va(x)) = integral_V dd(x', [3,]) G(va(x),va(x')) rho(va(x)) - 1/(4pi) integral_(diff V) dd(f') [ phi.alt pdv(G, n') - G pdv(phi.alt, n')]
+$
+Naiver Ansatz für Neumann RB: $pdv(G_N, n') = 0$
+
+$
+==> integral_(diff V) dd(f) pdv(G_N, n) = integral_(diff V) dd(f) dot va(n) dot grad G_N = integral_(diff V) dd(va(Sigma)) dot grad G_N =^"Gauß" integral_V dd(x, [3,]) underbrace(div(grad G_N), laplace G_N = -4pi delta(va(x) - va(x'))) \
+= - 4pi != 0
+$
+Wir können aber fordern:
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  evaluated(pdv(G_N (va(x), va(x')),n'))_(diff V) = - 4 pi F(va(x))  quad "mit" space integral_(diff V) dd(f) F(va(x)) = 1
+  $
+])
+$
+==> phi.alt(va(x)) = integral_V dd(x', [3,]) G_N (va(x), va(x')) rho(va(x)) + integral_dd(f') phi.alt dot F + 1/(4pi) integral dd(f') G_N (va(x), va(x')) dot chi(va(x'))
+$
+
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  Für Neumann RB: $evaluated(pdv(phi.alt,n))_(diff V) = chi$
+  $
+  phi.alt(va(x)) = integral_V dd(x', [3,]) G_N (va(x), va(x')) rho(va(x')) + 1/(4 pi) integral dd(f') G_N (va(x), va(x')) chi(va(x'))
+  $
+])
+
+#strong[Beispiel:] Halbraum
+
+#strong[Lösung:]
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  G_N (va(x), va(y)) = 1/abs(va(x) - va(y)) + 1/abs(va(x) - va(y)_S)
+  $
+])
+wobei $va(y)_S = (y^1, y^2, -y^3)$
+
+Nachrechnen
+$
+pdv(G_N, n) = va(n) dot grad_va(y) G_N = pdv(,y^3) G_N (va(x), va(y)) = (x^3 - y^3)/abs(va(x) - va(y)) - (x^3 + y^3)/abs(va(x) - va(y)_S)
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  evaluated(pdv(G_N, n))_(y^3 = 0) = 0
+  $
+])
+
+#let avg(arg) = $#math.angle.l arg #math.angle.r$
+
+= Magnetostatik
+
+zeitlicher Mittelwert von $va(B)$: $avg(va(B))$
+
+$
+curl va(B) = 1/c pdv(va(E), t) + (4pi)/c va(j) wide div va(B) = 0
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  curl avg(va(B)) &= (4pi)/c avg(va(j)) \
+  avg(va(B)) &= curl avg(va(A))
+  $
+])
+Im Folgenden sind $va(A)$, $va(B)$ und $va(j)$ zeitunabhängig
+$
+curl (curl va(A)) = (4pi)/c va(j) quad "mit" "rot" compose "rot" = "grad" compose "div" - laplace
+$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  grad(div va(A)) - laplace va(A) = (4pi)/c va(j)
+  $
+])
+
+#strong[Eichwahl:] $div(A) = 0$
+
+$==>$
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  laplace A = - (4pi)/c va(j)
+  $
+])
+$==>$ 
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(A)(va(x)) = 1/c integral dd(x', [3,]) (va(j)(va(x)'))/abs(va(x) - va(x'))
+  $
+])
+für einen gegebenen Strom $va(j)$ ist die Lösung einfach.
+$
+==> va(B)(va(x)) = curl va(A)(va(x)) = 1/c integral dd(x', [3,]) "rot"_x (va(j)(va(x')))/abs(va(x)- va(x'))
+$
+mit $curl(f dot va(v)) = grad f times va(V) + f dot curl va(V)$ 
+$
+==> va(B)(va(x)) = 1/c integral dd(x', [3,]) "rot"_x (1/(abs(va(x) - va(x')))) times va(j)(va(x'))
+$
+$==>$ #strong[Biot-Savart-Gesetz]
+#align(center, box(stroke: 0.5pt, inset: 0.5cm)[
+  $
+  va(B)(va(x)) = 1/c integral dd(x', [3,]) (va(j)(va(x)) times (va(x) - va(x')))/abs(va(x) - va(x'))^3
+  $
+])
